@@ -1,5 +1,11 @@
 package com.wd.tech.net;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import com.wd.tech.App;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -14,15 +20,18 @@ public class RetrofitUtil {
     private final Retrofit retrofit;
 
     private RetrofitUtil() {
+        //日志拦截器
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //OKhttpclient
         okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5,TimeUnit.SECONDS)
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
+        //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(ApiUrl.URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -33,5 +42,20 @@ public class RetrofitUtil {
             instance = new RetrofitUtil();
         }
         return instance;
+    }
+    //创建service
+    public ApiService createService(){
+        ApiService apiService = retrofit.create(ApiService.class);
+        return apiService;
+    }
+    //网络判断
+    public boolean  net(){
+        ConnectivityManager connectivityManager= (ConnectivityManager) App.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        if(activeNetworkInfo!=null){
+            boolean available = activeNetworkInfo.isAvailable();
+            return available;
+        }
+        return false;
     }
 }
