@@ -9,4 +9,5 @@ package com.wd.tech.net;
  */
 public interface ApiUrl {
     String URL="http://mobile.bwstudent.com/techApi/";
+    String LOGURL="user/v1/login";
 }
