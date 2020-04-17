@@ -13,6 +13,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    compileOptions {
+//兼容java8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 
     buildTypes {
         release {
@@ -31,4 +37,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'  //RecyclerView
+    implementation "com.google.android.material:material:1.0.0"   //TabLayout
+    implementation("com.squareup.okhttp3:okhttp:4.4.0") //okhttp
+    implementation("com.squareup.okhttp3:logging-interceptor:4.4.0") //日志拦截依赖
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'   //retrofit
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'  //rxjava
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'   //gson 转换
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'  //rxandroid
+    implementation 'org.greenrobot:eventbus:3.2.0' //EventBus
+    implementation 'com.github.bumptech.glide:glide:4.9.0' //glide
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.facebook.fresco:fresco:0.12.0' //fresco
 }
