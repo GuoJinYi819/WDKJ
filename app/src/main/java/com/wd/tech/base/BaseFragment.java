@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 public abstract class BaseFragment<p extends BasePresenter> extends Fragment implements IBaseView {
     public p presenter;
     public View view;
+    private boolean isInitData = false;
+    private boolean isInitView = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +39,13 @@ public abstract class BaseFragment<p extends BasePresenter> extends Fragment imp
         //
         initView();
         initListener();
-        initData();
+        isInitView = true;
+
+        if (getUserVisibleHint()) {
+            initData();
+            isInitData = true;
+        }
+
     }
     //提前
     public abstract int initLayout();
@@ -45,6 +53,17 @@ public abstract class BaseFragment<p extends BasePresenter> extends Fragment imp
     public abstract void initListener();
     public abstract void initData();
     public abstract p initPresenter();
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser&&!isInitData&&isInitView){
+            initData();
+            isInitData = true;
+        }
+
+    }
+
     //销毁
     @Override
     public void onDestroy() {
