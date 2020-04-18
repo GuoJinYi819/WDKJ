@@ -12,17 +12,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_weight="9"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabTextColor="#D4D4D4"
+            app:tabSelectedTextColor="#000"
+            app:tabIndicatorColor="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            />
+
+
     </LinearLayout>
     <!--左面抽屉-->
     <LinearLayout

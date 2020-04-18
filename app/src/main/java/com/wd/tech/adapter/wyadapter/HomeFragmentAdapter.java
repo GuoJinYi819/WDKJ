@@ -19,22 +19,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
  */
 public class HomeFragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments=new ArrayList<>();
-    private List<String> strings=new ArrayList<>();
 
     public HomeFragmentAdapter(FragmentManager fm) {
         super(fm);
-        strings.add("资讯");
-        strings.add("消息");
-        strings.add("社区");
         fragments.add(new Frag_information());
         fragments.add(new Frag_information());
         fragments.add(new Frag_information());
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return strings.get(position);
     }
 
     @Override
