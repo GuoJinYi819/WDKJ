@@ -3,12 +3,19 @@ package com.wd.tech.net;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 import com.wd.tech.App;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -28,6 +35,25 @@ public class RetrofitUtil {
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5,TimeUnit.SECONDS)
                 .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(new Interceptor() {
+                    @NotNull
+                    @Override
+                    public Response intercept(@NotNull Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request.Builder builder = request.newBuilder();
+                        SpUtil instance = SpUtil.getInstance();
+                        int userId = instance.getSpInt("userId");
+                        String sessionId = instance.getSpString("sessionId");
+                        if (userId!=-1){
+                            builder.addHeader("userId",userId+"");
+                        }
+                        if (!TextUtils.isEmpty(sessionId)){
+                            builder.addHeader("sessionId",sessionId);
+                        }
+                        Request build = builder.build();
+                        return chain.proceed(build);
+                    }
+                })
                 .build();
         //retrofit
         retrofit = new Retrofit.Builder()

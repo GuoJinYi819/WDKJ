@@ -10,6 +10,7 @@ package com.wd.tech.base;
 public abstract class BasePresenter<view extends IBaseView> {
     public view iBaseView;
     public BasePresenter() {
+        initModel();
     }
 
     public void attachView(view iBaseView) {

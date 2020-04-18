@@ -1,5 +1,8 @@
 package com.wd.tech.activity;
 
+import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,11 +11,14 @@ import android.widget.Toast;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
-import com.wd.tech.base.BasePresenter;
-import com.wd.tech.base.IBaseView;
-import com.wd.tech.bean.qzjbean.LogBean;
-import com.wd.tech.mvp.logmvp.LogConter;
-import com.wd.tech.mvp.logmvp.LogPresenterImpl;
+import com.wd.tech.bean.qzjbean.log.LogBean;
+import com.wd.tech.bean.qzjbean.log.LogResultBean;
+import com.wd.tech.mvp.qzjmvp.logmvp.LogConter;
+import com.wd.tech.mvp.qzjmvp.logmvp.LogPresenterImpl;
+import com.wd.tech.net.JudgeUtil;
+import com.wd.tech.net.SpUtil;
+import com.wd.tech.util.RsaCoder;
+
 
 /**
  * ClassName: WdDetroy
@@ -46,7 +52,38 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         dl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "登录", Toast.LENGTH_SHORT).show();
+                String phone = ephone.getText().toString().trim();
+                String pwd = epwd.getText().toString().trim();
+                if (!TextUtils.isEmpty(phone)){
+                    if (!TextUtils.isEmpty(pwd)){
+                        boolean phone1 = JudgeUtil.isPhone(phone);
+                        if (phone1){
+                            boolean pwd1 = JudgeUtil.isPwd(pwd);
+                            if (pwd1){
+                                try {
+                                    String s = RsaCoder.encryptByPublicKey(pwd);
+                                    Log.d("XX", "onCreate: "+s);
+                                    presenter.getData(phone,s);
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }else {
+                        Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(LoginActivity.this, "账号不能为空", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        kszc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -63,11 +100,27 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
 
     @Override
     public void onSuccess(LogBean logBean) {
+        String message = logBean.getMessage();
+        if (message.equals("登录成功")){
+            LogResultBean result = logBean.getResult();
+            int userId = result.getUserId();
+            String sessionId = result.getSessionId();
+            SpUtil instance = SpUtil.getInstance();
+            instance.saveInt("userId",userId);
+            instance.saveString("sessionId",sessionId);
+            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }else {
+            Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void onError(String error) {
-
+        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
     }
 }

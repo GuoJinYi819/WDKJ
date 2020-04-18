@@ -1,7 +1,7 @@
 package com.wd.tech.mvp.qzjmvp.logmvp;
 
 import com.wd.tech.base.IBaseView;
-import com.wd.tech.bean.qzjbean.LogBean;
+import com.wd.tech.bean.qzjbean.log.LogBean;
 
 /**
  * ClassName: WdDetroy

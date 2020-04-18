@@ -30,7 +30,7 @@ public class JudgeUtil {
     }
     //判断密码
     public static boolean isPwd(String pwd){
-        Pattern compile = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]{5,10}$");
+        Pattern compile = Pattern.compile("^[a-zA-Z][a-zA-Z0-9.]{5,10}$");
         Matcher matcher = compile.matcher(pwd);
         boolean matches = matcher.matches();
         if(matches){
