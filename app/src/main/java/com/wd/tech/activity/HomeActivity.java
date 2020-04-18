@@ -88,7 +88,14 @@ public class HomeActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                tab.setScrollPosition(position,0,false);
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //设置TabLayout选中标签
+                tab.getTabAt(position).select();
+
                 int tabCount = tab.getTabCount();
                 for (int i = 0; i < tabCount; i++) {
                     TabLayout.Tab tabAt = tab.getTabAt(i);
@@ -99,11 +106,6 @@ public class HomeActivity extends BaseActivity {
                         tabAt.setIcon(unchecked[i]);
                     }
                 }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
             }
 
             @Override

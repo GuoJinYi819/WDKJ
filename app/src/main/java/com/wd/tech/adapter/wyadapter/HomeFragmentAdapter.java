@@ -1,5 +1,8 @@
 package com.wd.tech.adapter.wyadapter;
 
+import com.wd.tech.fragment.gjyfragment.NewsFragment;
+import com.wd.tech.fragment.qzjfragment.ConsultationFragment;
+import com.wd.tech.fragment.wyfragment.CommunityFragment;
 import com.wd.tech.fragment.wyfragment.Frag_information;
 
 import java.util.ArrayList;
@@ -22,9 +25,9 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
 
     public HomeFragmentAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(new Frag_information());
-        fragments.add(new Frag_information());
-        fragments.add(new Frag_information());
+        fragments.add(new ConsultationFragment());
+        fragments.add(new NewsFragment());
+        fragments.add(new CommunityFragment());
     }
 
     @Override

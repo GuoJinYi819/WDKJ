@@ -19,6 +19,8 @@
             android:layout_height="0dp" />
 
         <com.google.android.material.tabs.TabLayout
+            android:paddingTop="@dimen/dp_8"
+            android:background="#ffffff"
             android:id="@+id/tab"
             app:tabGravity="fill"
             app:tabMode="fixed"
