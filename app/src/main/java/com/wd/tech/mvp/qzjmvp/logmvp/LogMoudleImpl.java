@@ -1,4 +1,4 @@
-package com.wd.tech.mvp.logmvp;
+package com.wd.tech.mvp.qzjmvp.logmvp;
 
 import com.wd.tech.bean.qzjbean.LogBean;
 import com.wd.tech.net.ApiService;
@@ -6,7 +6,6 @@ import com.wd.tech.net.RetrofitUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;

@@ -1,4 +1,4 @@
-package com.wd.tech.mvp.logmvp;
+package com.wd.tech.mvp.qzjmvp.logmvp;
 
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.LogBean;
