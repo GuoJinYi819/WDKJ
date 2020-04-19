@@ -1,9 +1,11 @@
 package com.wd.tech.fragment.wyfragment;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.activity.CommentActivity;
 import com.wd.tech.adapter.wyadapter.RecyclerCommunityAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
@@ -26,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CommunityFragment extends BaseFragment<HomePresenterImpl> implements IHomeContract.IHomeView {
     private RecyclerView recyclerWy;
     private SimpleDraweeView imgWriteWt;
+    private RecyclerCommunityAdapter recyclerCommunityAdapter;
 
     @Override
     public int initLayout() {
@@ -48,6 +51,10 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
             @Override
             public void onClick(View v) {
                 //跳转   写评论页面
+                Intent intent = new Intent(getContext(), CommentActivity.class);
+                startActivity(intent);
+                //刷新
+                recyclerCommunityAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -66,7 +73,7 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     public void onSuccess(HomeBean homeBean) {
         List<ResultBean> result = homeBean.getResult();
         //适配器
-        RecyclerCommunityAdapter recyclerCommunityAdapter = new RecyclerCommunityAdapter(result, getContext());
+        recyclerCommunityAdapter = new RecyclerCommunityAdapter(result, getContext());
         recyclerWy.setAdapter(recyclerCommunityAdapter);
     }
 

@@ -32,6 +32,7 @@ public class HomeActivity extends BaseActivity {
         //适配器
         HomeFragmentAdapter homeFragmentAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(homeFragmentAdapter);
+        viewPager.setOffscreenPageLimit(3);
 
         //初始化TabLayout
         TabLayout.Tab t = tab.newTab();
