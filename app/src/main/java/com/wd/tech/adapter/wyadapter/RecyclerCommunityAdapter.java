@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beanhome.ResultBean;
 import com.wd.tech.net.TimeToUtil;
 
@@ -61,6 +62,7 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
             public void onClick(View v) {
                 //点赞
                 //EventBus传值
+                Event event=new Event();
                 int whetherGreat = result.get(position).getWhetherGreat();
                 if(whetherGreat==1){
                     //已点赞
@@ -68,12 +70,29 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                     Resources resources = context.getResources();
                     Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.common_icon_prise_n_xhdpi);
                     holder.imgCountPraise.setImageBitmap(bitmap);
+                    //设置
+                    int praise = result.get(position).getPraise();
+                    praise--;
+                    if(praise<0){
+                        praise=0;
+                    }
+                    holder.tvCountPraise.setText(praise+"");
+                    //
+                    result.get(position).setPraise(praise);
+                    result.get(position).setWhetherGreat(2);
                 }else if(whetherGreat==2){
                     //未点赞
                     //获取资源文件
                     Resources resources = context.getResources();
                     Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.common_icon_praise_s_xhdpi);
                     holder.imgCountPraise.setImageBitmap(bitmap);
+                    //设置
+                    int praise = result.get(position).getPraise();
+                    praise++;
+                    holder.tvCountPraise.setText(praise+"");
+                    //
+                    result.get(position).setPraise(praise);
+                    result.get(position).setWhetherGreat(1);
                 }
             }
         });

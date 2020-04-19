@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,4 +13,15 @@
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
-</LinearLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imgWriteWt"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        fresco:roundAsCircle="true"
+        fresco:placeholderImage="@mipmap/community_btn_publish_n_xhdpi"
+        android:layout_marginTop="500dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        >
+    </com.facebook.drawee.view.SimpleDraweeView>
+</RelativeLayout>
