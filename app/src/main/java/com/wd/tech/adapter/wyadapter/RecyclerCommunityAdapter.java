@@ -1,6 +1,7 @@
 package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
-import com.wd.tech.bean.wybean.Event;
+import com.wd.tech.activity.CommentListActivity;
 import com.wd.tech.bean.wybean.beanhome.ResultBean;
 import com.wd.tech.net.TimeToUtil;
 
@@ -55,16 +56,25 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         holder.tvSignatureWy.setText(result.get(position).getSignature());
         holder.tvContentWy.setText(result.get(position).getContent());
         holder.imgContentWy.setImageURI(result.get(position).getFile());
-        holder.tvCountComment.setText(result.get(position).getComment()+"");
-        holder.tvCountPraise.setText(result.get(position).getPraise()+"");
+        holder.tvCountComment.setText(result.get(position).getComment() + "");
+        holder.tvCountPraise.setText(result.get(position).getPraise() + "");
+        //评论  跳转
+        holder.tvContentWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentListActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        //点赞
         holder.imgCountPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //点赞
                 //EventBus传值
-                Event event=new Event();
+                //Event event=new Event();
                 int whetherGreat = result.get(position).getWhetherGreat();
-                if(whetherGreat==1){
+                if (whetherGreat == 1) {
                     //已点赞
                     //获取资源文件
                     Resources resources = context.getResources();
@@ -73,14 +83,14 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                     //设置
                     int praise = result.get(position).getPraise();
                     praise--;
-                    if(praise<0){
-                        praise=0;
+                    if (praise < 0) {
+                        praise = 0;
                     }
-                    holder.tvCountPraise.setText(praise+"");
+                    holder.tvCountPraise.setText(praise + "");
                     //
                     result.get(position).setPraise(praise);
                     result.get(position).setWhetherGreat(2);
-                }else if(whetherGreat==2){
+                } else if (whetherGreat == 2) {
                     //未点赞
                     //获取资源文件
                     Resources resources = context.getResources();
@@ -89,7 +99,7 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                     //设置
                     int praise = result.get(position).getPraise();
                     praise++;
-                    holder.tvCountPraise.setText(praise+"");
+                    holder.tvCountPraise.setText(praise + "");
                     //
                     result.get(position).setPraise(praise);
                     result.get(position).setWhetherGreat(1);
@@ -109,10 +119,12 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         private TextView tvTimeWy;
         private TextView tvSignatureWy;
         private TextView tvContentWy;
+        private ImageView imgCommentWy;
         private SimpleDraweeView imgContentWy;
         private TextView tvCountComment;
         private ImageView imgCountPraise;
         private TextView tvCountPraise;
+
         public CommunityViewHolder(@NonNull View itemView) {
             super(itemView);
             imgHeadWy = (SimpleDraweeView) itemView.findViewById(R.id.imgHeadWy);
@@ -120,6 +132,7 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
             tvTimeWy = (TextView) itemView.findViewById(R.id.tvTimeWy);
             tvSignatureWy = (TextView) itemView.findViewById(R.id.tvSignatureWy);
             tvContentWy = (TextView) itemView.findViewById(R.id.tvContentWy);
+            imgCommentWy = (ImageView) itemView.findViewById(R.id.imgCommentWy);
             imgContentWy = (SimpleDraweeView) itemView.findViewById(R.id.imgContentWy);
             tvCountComment = (TextView) itemView.findViewById(R.id.tvCountComment);
             imgCountPraise = (ImageView) itemView.findViewById(R.id.imgCountPraise);

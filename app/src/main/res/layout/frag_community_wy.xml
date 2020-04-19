@@ -69,6 +69,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         fresco:roundedCornerRadius="@dimen/dp_30"
+        fresco:placeholderImage="@mipmap/ic_launcher"
         >
     </com.facebook.drawee.view.SimpleDraweeView>
     <LinearLayout
@@ -76,6 +77,7 @@
         android:layout_height="wrap_content"
         >
         <ImageView
+            android:id="@+id/imgCommentWy"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:src="@mipmap/common_icon_comment_n_xhdpi"
