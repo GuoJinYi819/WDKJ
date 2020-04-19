@@ -40,6 +40,7 @@ public interface ApiService {
     @Multipart
     Observable<CommentBean> getCommentData(@Query("content")String content, @Part MultipartBody.Part file);
     //咨讯Xbanner
+    //
     @GET(ApiUrl.CONSULTATION_XBANNER_URL)
     Observable<XbBean> getXbData();
 }
