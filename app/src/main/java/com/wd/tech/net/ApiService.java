@@ -2,6 +2,7 @@ package com.wd.tech.net;
 
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
+import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 
@@ -37,5 +38,8 @@ public interface ApiService {
     //发布帖子
     @POST(ApiUrl.COMMENT_URL)
     @Multipart
-    Observable<CommentBean> getCommentData(@Query("content")String content,@Part MultipartBody.Part file);
+    Observable<CommentBean> getCommentData(@Query("content")String content, @Part MultipartBody.Part file);
+    //咨讯Xbanner
+    @GET(ApiUrl.CONSULTATION_XBANNER_URL)
+    Observable<XbBean> getXbData();
 }

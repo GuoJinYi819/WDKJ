@@ -34,6 +34,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private android.widget.Button dl;
     private String phone;
     private String pwd;
+    private String s;
 
     @Override
     public int initLayout() {
@@ -95,18 +96,20 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         SpUtil instance = SpUtil.getInstance();
         String phon = instance.getSpString("phone");
         String pw = instance.getSpString("pwd");
+
+        Log.d("XXX","1111");
         if (!TextUtils.isEmpty(phon)&&!TextUtils.isEmpty(pw)){
             Log.d("XXX",phon);
             Log.d("XXX",pw);
+            Log.d("XXX","222");
+            ephone.setText(phon);
+            epwd.setText(pw);
             try {
-                String s = RsaCoder.encryptByPublicKey(pw);
-                Log.d("XX", "onCreate: "+s);
-                presenter.getData(phon,s);
-
+                s = RsaCoder.encryptByPublicKey(pw);
+                Log.d("XX", "onCreate: "+ s);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
