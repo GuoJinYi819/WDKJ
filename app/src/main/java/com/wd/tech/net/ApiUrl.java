@@ -19,4 +19,6 @@ public interface ApiUrl {
     String NEWS_URL="";
     //社区首页
     String COMMUNITY_URL="community/v1/findCommunityList";
+    //发布帖子
+    String COMMENT_URL="community/verify/v1/releasePost";
 }
