@@ -19,17 +19,12 @@ public class ConsultationFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
     }
-
     @Override
     public void initListener() {
-
     }
-
     @Override
     public void initData() {
-
     }
 
     @Override

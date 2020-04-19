@@ -1,7 +1,6 @@
-package com.wd.tech.mvp.regmvp;
+package com.wd.tech.mvp.qzjmvp.regmvp;
 
 import com.wd.tech.base.IBaseView;
-import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 
 /**

@@ -1,8 +1,6 @@
-package com.wd.tech.mvp.regmvp;
+package com.wd.tech.mvp.qzjmvp.regmvp;
 
-import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
-import com.wd.tech.mvp.qzjmvp.logmvp.LogConter;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 

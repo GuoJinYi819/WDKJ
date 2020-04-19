@@ -7,10 +7,9 @@ import android.widget.Toast;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
-import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
-import com.wd.tech.mvp.regmvp.RegConter;
-import com.wd.tech.mvp.regmvp.RegPresenterImpl;
+import com.wd.tech.mvp.qzjmvp.regmvp.RegConter;
+import com.wd.tech.mvp.qzjmvp.regmvp.RegPresenterImpl;
 import com.wd.tech.net.JudgeUtil;
 import com.wd.tech.util.RsaCoder;
 

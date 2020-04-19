@@ -2,11 +2,14 @@ package com.wd.tech.net;
 
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
+import com.wd.tech.bean.wybean.beanhome.HomeBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author 王阳
@@ -16,10 +19,15 @@ import retrofit2.http.POST;
  * @classname :ApiService
  */
 public interface ApiService {
+    //登录
     @POST(ApiUrl.LOGURL)
     @FormUrlEncoded
     Observable<LogBean> getLog(@Field("phone")String phone,@Field("pwd")String pwd);
+    //注册
     @POST(ApiUrl.REGISTER_URL)
     @FormUrlEncoded
     Observable<RegBean> getReg(@Field("phone")String phone, @Field("nickName")String name, @Field("pwd")String pwd);
+    //社区首页列表
+    @GET(ApiUrl.COMMUNITY_URL)
+    Observable<HomeBean> getHomeData(@Query("page")int page,@Query("count")int count);
 }

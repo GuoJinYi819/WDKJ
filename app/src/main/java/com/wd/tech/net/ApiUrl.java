@@ -18,5 +18,5 @@ public interface ApiUrl {
     //消息首页
     String NEWS_URL="";
     //社区首页
-    String COMMUNITY_URL="";
+    String COMMUNITY_URL="community/v1/findCommunityList";
 }

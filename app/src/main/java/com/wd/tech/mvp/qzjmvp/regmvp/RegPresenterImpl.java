@@ -1,6 +1,5 @@
-package com.wd.tech.mvp.regmvp;
+package com.wd.tech.mvp.qzjmvp.regmvp;
 
-import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 

@@ -1,8 +1,18 @@
 package com.wd.tech.fragment.wyfragment;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.wyadapter.RecyclerCommunityAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanhome.ResultBean;
+import com.wd.tech.mvp.wymvp.mvphome.HomePresenterImpl;
+import com.wd.tech.mvp.wymvp.mvphome.IHomeContract;
+
+import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * ClassName: WdDetroy
@@ -11,7 +21,9 @@ import com.wd.tech.base.BasePresenter;
  * @version 创建时间：2020/4/18 0018 22:53
  * @Description: 用途：社区
  */
-public class CommunityFragment extends BaseFragment {
+public class CommunityFragment extends BaseFragment<HomePresenterImpl> implements IHomeContract.IHomeView {
+    private RecyclerView recyclerWy;
+
     @Override
     public int initLayout() {
         return R.layout.fragment_community;
@@ -19,21 +31,31 @@ public class CommunityFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
+        recyclerWy = (RecyclerView) view.findViewById(R.id.recycler_wy);
+        //布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerWy.setLayoutManager(linearLayoutManager);
     }
-
     @Override
     public void initListener() {
-
     }
-
     @Override
     public void initData() {
-
+        presenter.getHome(1,10);
     }
-
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public HomePresenterImpl initPresenter() {
+        return new HomePresenterImpl();
+    }
+    @Override
+    public void onSuccess(HomeBean homeBean) {
+        List<ResultBean> result = homeBean.getResult();
+        //适配器
+        RecyclerCommunityAdapter recyclerCommunityAdapter = new RecyclerCommunityAdapter(result, getContext());
+        recyclerWy.setAdapter(recyclerCommunityAdapter);
+    }
+    @Override
+    public void onError(String error) {
     }
 }
