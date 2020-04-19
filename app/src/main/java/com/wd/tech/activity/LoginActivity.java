@@ -32,6 +32,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private android.widget.EditText epwd;
     private android.widget.TextView kszc;
     private android.widget.Button dl;
+    private String phone;
+    private String pwd;
 
     @Override
     public int initLayout() {
@@ -52,8 +54,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         dl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = ephone.getText().toString().trim();
-                String pwd = epwd.getText().toString().trim();
+                phone = ephone.getText().toString().trim();
+                pwd = epwd.getText().toString().trim();
                 if (!TextUtils.isEmpty(phone)){
                     if (!TextUtils.isEmpty(pwd)){
                         boolean phone1 = JudgeUtil.isPhone(phone);
@@ -90,7 +92,22 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
 
     @Override
     public void initData() {
+        SpUtil instance = SpUtil.getInstance();
+        String phon = instance.getSpString("phone");
+        String pw = instance.getSpString("pwd");
+        if (!TextUtils.isEmpty(phon)&&!TextUtils.isEmpty(pw)){
+            Log.d("XXX",phon);
+            Log.d("XXX",pw);
+            try {
+                String s = RsaCoder.encryptByPublicKey(pw);
+                Log.d("XX", "onCreate: "+s);
+                presenter.getData(phon,s);
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     @Override
@@ -108,6 +125,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             SpUtil instance = SpUtil.getInstance();
             instance.saveInt("userId",userId);
             instance.saveString("sessionId",sessionId);
+            instance.saveString("phone",phone);
+            instance.saveString("pwd",pwd);
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
