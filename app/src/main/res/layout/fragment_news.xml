@@ -2,11 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="消息"
-        android:gravity="center"
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30">
+
+        <LinearLayout
+            android:background="@drawable/bg_fillet"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/dp_188"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dp_30">
+            <TextView
+                android:id="@+id/tvNews"
+                android:background="@drawable/text_fillet_select"
+                android:text="消息"
+                android:textSize="@dimen/sp_20"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_30">
+
+            </TextView>
+            <TextView
+                android:id="@+id/tvContacts"
+                android:background="@drawable/text_fillet_noselect"
+                android:text="联系人"
+                android:textSize="@dimen/sp_20"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_30">
+
+            </TextView>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/common_nav_btn_add_n_xhdpi"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24">
+
+        </ImageView>
+    </RelativeLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/news_viewPager"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </TextView>
+    </androidx.viewpager.widget.ViewPager>
+
 </LinearLayout>
