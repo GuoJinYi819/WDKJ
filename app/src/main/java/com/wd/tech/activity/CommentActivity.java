@@ -17,6 +17,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -164,7 +165,7 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
         Button btn_start = view.findViewById(R.id.btn_start);
         Button btn_cancle = view.findViewById(R.id.btn_cancle);
         //1.构造一个PopupWindow，参数依次是加载的View，宽高
-        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setAnimationStyle(R.anim.anim_pop);//设置加载动画
         //点击非PopupWindow区域，PopupWindow会消失的
         popupWindow.setTouchable(true);
@@ -179,7 +180,8 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
         //要为popWindow设置一个背景才有效
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
-        popupWindow.showAsDropDown(v, 0, v.getHeight()-view.getHeight());
+        View inflate = LayoutInflater.from(CommentActivity.this).inflate(R.layout.activity_comment, null);
+        popupWindow.showAtLocation(inflate, Gravity.BOTTOM, 0,0);
         //点击事件
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override

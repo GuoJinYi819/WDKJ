@@ -6,6 +6,7 @@ import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
+import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 
 import io.reactivex.Observable;
@@ -45,6 +46,9 @@ public interface ApiService {
     //
     @GET(ApiUrl.CONSULTATION_XBANNER_URL)
     Observable<XbBean> getXbData();
+    //社区用户评论（bean方式反参）
+    @GET(ApiUrl.COMMENTLIST_URL)
+    Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
     //咨讯列表
     @GET(ApiUrl.CONSULTATION_LIST_URL)
     Observable<XbBean> getListData(@Query("plateId")int plateId,@Query("page")int page,@Query("count")int count);

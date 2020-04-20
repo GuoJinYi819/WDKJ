@@ -21,6 +21,8 @@ public interface ApiUrl {
     String COMMUNITY_URL="community/v1/findCommunityList";
     //发布帖子
     String COMMENT_URL="community/verify/v1/releasePost";
+    //社区用户评论列表（bean方式返参）
+    String COMMENTLIST_URL="community/v1/findCommunityUserCommentList";
     //咨讯列表
     String CONSULTATION_LIST_URL="information/v1/infoRecommendList";
     //获取二级列表数据

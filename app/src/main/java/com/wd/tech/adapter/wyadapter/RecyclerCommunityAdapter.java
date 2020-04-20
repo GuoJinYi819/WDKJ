@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
 import com.wd.tech.activity.CommentListActivity;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beanhome.ResultBean;
 import com.wd.tech.net.TimeToUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,35 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         holder.tvContentWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //获取communityId   传参
+                Event event=new Event();
+                //id
+                event.setId(position);
+                //头像
+                event.setHead(result.get(position).getHeadPic());
+                //名称
+                event.setPersonName(result.get(position).getNickName());
+                //数量
+                event.setCount(result.size());
+                EventBus.getDefault().postSticky(event);
+                Intent intent = new Intent(context, CommentListActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        holder.imgContentWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取communityId   传参
+                Event event=new Event();
+                //id
+                event.setId(position);
+                //头像
+                event.setHead(result.get(position).getHeadPic());
+                //名称
+                event.setPersonName(result.get(position).getNickName());
+                //数量
+                event.setCount(result.size());
+                EventBus.getDefault().postSticky(event);
                 Intent intent = new Intent(context, CommentListActivity.class);
                 context.startActivity(intent);
             }
