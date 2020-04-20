@@ -46,6 +46,7 @@ public class NewsFragment extends BaseFragment {
         list.add(new NewFragment());
         list.add(new ContactsFragment());
         //设置消息-联系人 fragment
+        mNewsViewPager.setOffscreenPageLimit(2);
         mNewsViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

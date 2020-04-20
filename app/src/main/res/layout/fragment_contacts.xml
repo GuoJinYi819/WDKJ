@@ -2,11 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:gravity="center"
-        android:text="联系人列表"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </TextView>
+    <LinearLayout
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relative_Seach"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/bg_fillet_seach"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/common_nav_btn_search_n_xhdpi"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line_group"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/iv_circular"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/common_icon_group_n_xhdpi"
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="@dimen/dp_35">
+
+        </ImageView>
+        <TextView
+            android:text="群组"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#333333"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <ExpandableListView
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="#ffffff"
+        android:id="@+id/expandable_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ExpandableListView>
+
 </LinearLayout>

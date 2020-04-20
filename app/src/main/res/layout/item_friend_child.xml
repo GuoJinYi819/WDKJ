@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_40">
+    <ImageView
+        android:id="@+id/ivHeadPic"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_gravity="center_vertical"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24">
+
+    </ImageView>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_12"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvRemarkName"
+            android:text="嘿嘿"
+            android:textSize="@dimen/sp_10"
+            android:textColor="#666666"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/tvSignature"
+            android:text="嘿嘿"
+            android:textSize="@dimen/sp_10"
+            android:textColor="#999999"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+        </TextView>
+    </LinearLayout>
+</LinearLayout>
