@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            String s = RsaCoder.encryptByPublicKey("");
+            String s = RsaCoder.encryptByPublicKey("qzj1234567");
             Log.d("==", "onCreate: "+s);
         } catch (Exception e) {
             e.printStackTrace();

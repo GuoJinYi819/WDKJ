@@ -10,4 +10,12 @@ package com.wd.tech.bean.qzjbean.xbanner;
 public class XbResultBean {
     private String imageUrl;
     private String title;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

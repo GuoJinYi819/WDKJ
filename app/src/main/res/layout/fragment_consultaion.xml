@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.stx.xhb.xbanner.XBanner
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"/>
+        android:layout_height="@dimen/dp_150"
+        app:isShowTips="true"
+        android:id="@+id/xb"
+        app:tipTextSize="@dimen/dp_16"
+        app:clipChildrenLeftRightMargin="@dimen/dp_30"
+        app:pointsPosition="RIGHT"/>
 </LinearLayout>

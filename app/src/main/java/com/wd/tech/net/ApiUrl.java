@@ -21,6 +21,8 @@ public interface ApiUrl {
     String COMMUNITY_URL="community/v1/findCommunityList";
     //发布帖子
     String COMMENT_URL="community/verify/v1/releasePost";
+    //咨讯列表
+    String CONSULTATION_LIST_URL="information/v1/infoRecommendList";
     //获取二级列表数据
     String GETFRIENDGROUPLISTDATA = "chat/verify/v1/findFriendGroupList";
     //获取二级子列表数据

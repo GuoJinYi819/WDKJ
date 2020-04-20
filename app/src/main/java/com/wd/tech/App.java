@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.bumptech.glide.request.target.ViewTarget;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -23,6 +24,7 @@ public class App extends Application {
         context=this;
         //fresco初始化 自定义View
         initFresco();
+        ViewTarget.setTagId(R.id.glide_tag);
     }
 
     private void initFresco() {

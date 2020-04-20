@@ -45,6 +45,9 @@ public interface ApiService {
     //
     @GET(ApiUrl.CONSULTATION_XBANNER_URL)
     Observable<XbBean> getXbData();
+    //咨讯列表
+    @GET(ApiUrl.CONSULTATION_LIST_URL)
+    Observable<XbBean> getListData(@Query("plateId")int plateId,@Query("page")int page,@Query("count")int count);
 
     //获取二级列表数据
     @GET(ApiUrl.GETFRIENDGROUPLISTDATA)
