@@ -15,11 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MyFriendSeachActivity"
+        <activity android:name=".activity.GroupActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity.MyFriendSeachActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".activity.CommentListActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.BootpageActivity">

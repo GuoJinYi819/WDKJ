@@ -31,4 +31,6 @@ public interface ApiUrl {
     String GETFRIENDCHILDLISTDATA = "chat/verify/v1/findFriendListByGroupId";
     //模糊搜索联系人
     String FIENDSEACHUSER = "chat/verify/v1/searchFriend";
+    //查询所有的群组
+    String JOINEDGROUP = "group/verify/v1/findUserJoinedGroup";
 }
