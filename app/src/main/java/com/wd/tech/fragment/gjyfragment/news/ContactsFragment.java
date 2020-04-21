@@ -1,6 +1,6 @@
 package com.wd.tech.fragment.gjyfragment.news;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -8,7 +8,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.wd.tech.R;
-import com.wd.tech.adapter.FriendGroupAdapter;
+import com.wd.tech.activity.GroupActivity;
+import com.wd.tech.activity.MyFriendSeachActivity;
+import com.wd.tech.adapter.gjyadapter.FriendGroupAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
@@ -50,6 +52,22 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
 
     @Override
     public void initListener() {
+        //跳转至搜索界面
+        mRelativeSeach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyFriendSeachActivity.class);
+                startActivity(intent);
+            }
+        });
+        //跳转至群组界面
+        mLineGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), GroupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

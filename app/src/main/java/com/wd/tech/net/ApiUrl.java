@@ -31,4 +31,8 @@ public interface ApiUrl {
     String GETFRIENDCHILDLISTDATA = "chat/verify/v1/findFriendListByGroupId";
     //查询用户发布的帖子
     String COMMENTPERSON_URL="community/verify/v1/findUserPostById";
+    //模糊搜索联系人
+    String FIENDSEACHUSER = "chat/verify/v1/searchFriend";
+    //查询所有的群组
+    String JOINEDGROUP = "group/verify/v1/findUserJoinedGroup";
 }

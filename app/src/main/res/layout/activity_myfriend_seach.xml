@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MyFriendSeachActivity">
+
+    <LinearLayout
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/bg_fillet_seach"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_32">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/common_nav_btn_search_n_xhdpi"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24">
+
+            </ImageView>
+            <EditText
+                android:id="@+id/editSeach"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/dp_40"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32">
+
+            </EditText>
+            <ImageView
+                android:id="@+id/ivClose"
+                android:padding="@dimen/dp_3"
+                android:background="@drawable/close_circular"
+                android:src="@mipmap/common_btn_close_n_xhdpi"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20">
+
+            </ImageView>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvCancel"
+            android:textColor="#666666"
+            android:gravity="center_vertical"
+            android:text="取消"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="#999999"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="#ffffff"
+        android:paddingLeft="@dimen/dp_12"
+        android:gravity="center_vertical"
+        android:text="历史记录"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_32">
+
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2">
+
+    </View>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerRecord"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

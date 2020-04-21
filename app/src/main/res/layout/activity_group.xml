@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.GroupActivity">
+
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+        <ImageView
+            android:id="@+id/ivBlack"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/my_icon_next_n_xhdpi"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24">
+
+        </ImageView>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="群组"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_18"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40">
+
+        </TextView>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/bg_fillet_seach"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/common_nav_btn_search_n_xhdpi"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24">
+
+            </ImageView>
+            <EditText
+                android:id="@+id/editSeach"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/dp_40"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32">
+
+            </EditText>
+        </RelativeLayout>
+    </LinearLayout>
+    <ListView
+        android:background="#fff"
+        android:layout_marginTop="@dimen/dp_5"
+        android:id="@+id/groupListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+</LinearLayout>

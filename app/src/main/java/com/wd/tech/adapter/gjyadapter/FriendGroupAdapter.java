@@ -1,4 +1,4 @@
-package com.wd.tech.adapter;
+package com.wd.tech.adapter.gjyadapter;
 
 import android.content.Context;
 import android.text.TextUtils;

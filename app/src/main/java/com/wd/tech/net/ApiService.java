@@ -2,6 +2,8 @@ package com.wd.tech.net;
 
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
+import com.wd.tech.bean.gjybean.FriendSeachBean;
+import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
@@ -63,4 +65,10 @@ public interface ApiService {
     //查询用户发布的帖子
     @GET(ApiUrl.COMMENTPERSON_URL)
     Observable<PersonBean> getPersonData(@Query("fromUid")int fromUid,@Query("page")int page,@Query("count")int count);
+    //搜索联系人
+    @GET(ApiUrl.FIENDSEACHUSER)
+    Observable<FriendSeachBean> getFriendSeachData(@Query("searchName")String searchName);
+    //查询所有的群组
+    @GET(ApiUrl.JOINEDGROUP)
+    Observable<JoinedGroupBean> joinedGroup();
 }
