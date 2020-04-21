@@ -1,5 +1,8 @@
 package com.wd.tech.fragment.gjyfragment.news;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.wd.tech.R;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
@@ -12,6 +15,10 @@ import com.wd.tech.base.BasePresenter;
  * @Description: 用途：消息----消息
  */
 public class NewFragment extends BaseFragment {
+    private RecyclerView mRecyclerFriend;
+    private RecyclerView mRecyclerFriendNotice;
+    private RecyclerView mRecyclerGroup;
+
     @Override
     public int initLayout() {
         return R.layout.fragment_new;
@@ -20,6 +27,21 @@ public class NewFragment extends BaseFragment {
     @Override
     public void initView() {
 
+        mRecyclerFriend = view.findViewById(R.id.recyclerFriend);
+        mRecyclerFriendNotice = view.findViewById(R.id.recyclerFriendNotice);
+        mRecyclerGroup =  view.findViewById(R.id.recyclerGroup);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerFriend.setLayoutManager(linearLayoutManager);
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerFriendNotice.setLayoutManager(linearLayoutManager);
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerGroup.setLayoutManager(linearLayoutManager);
     }
 
     @Override

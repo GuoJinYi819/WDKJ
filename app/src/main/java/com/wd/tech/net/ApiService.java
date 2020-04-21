@@ -1,8 +1,11 @@
 package com.wd.tech.net;
 
 import com.wd.tech.bean.gjybean.FriendChildListBean;
+import com.wd.tech.bean.gjybean.FriendDataBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
+import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
+import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
@@ -11,6 +14,8 @@ import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -21,6 +26,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * @author 王阳
@@ -71,4 +77,14 @@ public interface ApiService {
     //查询所有的群组
     @GET(ApiUrl.JOINEDGROUP)
     Observable<JoinedGroupBean> joinedGroup();
+    //获取所有的好友
+    @GET(ApiUrl.FRIENDDATA)
+    Observable<FriendDataBean> getFriendData();
+    //获取好友通知记录
+    @GET(ApiUrl.FRIENDNOTICE)
+    Observable<FriendNoticeBean> getFriendNotice(@QueryMap Map<String,String> params);
+    //查询群通知
+    @GET(ApiUrl.GROUPNOTICE)
+    Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
+
 }
