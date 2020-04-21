@@ -62,4 +62,9 @@ public class SpUtil {
         boolean aBoolean = user.getBoolean(key, false);
         return aBoolean;
     }
+    //删除某个字段
+    public void removeKey(String key){
+        edit.remove(key);
+        edit.commit();
+    }
 }

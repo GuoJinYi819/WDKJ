@@ -29,4 +29,6 @@ public interface ApiUrl {
     String GETFRIENDGROUPLISTDATA = "chat/verify/v1/findFriendGroupList";
     //获取二级子列表数据
     String GETFRIENDCHILDLISTDATA = "chat/verify/v1/findFriendListByGroupId";
+    //模糊搜索联系人
+    String FIENDSEACHUSER = "chat/verify/v1/searchFriend";
 }
