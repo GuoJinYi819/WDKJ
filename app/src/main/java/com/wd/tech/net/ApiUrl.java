@@ -29,4 +29,6 @@ public interface ApiUrl {
     String GETFRIENDGROUPLISTDATA = "chat/verify/v1/findFriendGroupList";
     //获取二级子列表数据
     String GETFRIENDCHILDLISTDATA = "chat/verify/v1/findFriendListByGroupId";
+    //查询用户发布的帖子
+    String COMMENTPERSON_URL="community/verify/v1/findUserPostById";
 }

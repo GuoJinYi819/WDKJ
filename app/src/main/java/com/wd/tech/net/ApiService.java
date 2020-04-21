@@ -8,6 +8,7 @@ import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanperson.PersonBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -59,4 +60,7 @@ public interface ApiService {
     //获取二级子列表数据
     @GET(ApiUrl.GETFRIENDCHILDLISTDATA)
     Observable<FriendChildListBean> getFriendChildList(@Query("groupId") int groupId);
+    //查询用户发布的帖子
+    @GET(ApiUrl.COMMENTPERSON_URL)
+    Observable<PersonBean> getPersonData(@Query("fromUid")int fromUid,@Query("page")int page,@Query("count")int count);
 }

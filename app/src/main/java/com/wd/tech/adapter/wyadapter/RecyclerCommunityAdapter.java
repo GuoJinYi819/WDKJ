@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
 import com.wd.tech.activity.CommentListActivity;
+import com.wd.tech.activity.PersonActivity;
 import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beanhome.ResultBean;
 import com.wd.tech.net.TimeToUtil;
@@ -142,7 +143,35 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                 }
             }
         });
-        //跳转  个人页面
+        //跳转  个人页面   头像  名字
+        holder.imgHeadWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取用户  ID
+                int id = result.get(position).getId();
+                Event event=new Event();
+                //id
+                event.setId(id);
+                EventBus.getDefault().postSticky(event);
+                //跳转   个人
+                Intent intent = new Intent(context, PersonActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        holder.tvPersonNameWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取用户  ID
+                int id = result.get(position).getId();
+                Event event=new Event();
+                //id
+                event.setId(id);
+                EventBus.getDefault().postSticky(event);
+                //跳转   个人
+                Intent intent = new Intent(context, PersonActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
