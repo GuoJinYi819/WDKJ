@@ -65,7 +65,7 @@
         >
     </TextView>
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/imgContentWy"
+        android:id="@+id/imgContentPersonWy"
         android:layout_width="120dp"
         android:layout_height="120dp"
         fresco:roundedCornerRadius="@dimen/dp_30"
@@ -106,6 +106,21 @@
             android:layout_margin="10dp">
         </TextView>
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclrCommentListWy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/tvWu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="暂时无评论数据"
+        android:background="#808181"
+        android:textColor="#000"
+        >
+    </TextView>
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -36,7 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommunityAdapter.CommunityViewHolder> {
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
-
+    private boolean check=false;
     public RecyclerCommunityAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
@@ -58,11 +59,11 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         holder.tvTimeWy.setText(time);
         holder.tvSignatureWy.setText(result.get(position).getSignature());
         holder.tvContentWy.setText(result.get(position).getContent());
-        holder.imgContentWy.setImageURI(result.get(position).getFile());
+        holder.imgContentPersonWy.setImageURI(result.get(position).getFile());
         holder.tvCountComment.setText(result.get(position).getComment() + "");
         holder.tvCountPraise.setText(result.get(position).getPraise() + "");
         //评论  跳转
-        holder.tvContentWy.setOnClickListener(new View.OnClickListener() {
+        holder.imgCommentWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //获取communityId   传参
@@ -80,22 +81,25 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                 context.startActivity(intent);
             }
         });
-        holder.imgContentWy.setOnClickListener(new View.OnClickListener() {
+        //评论
+        holder.tvCountComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //获取communityId   传参
-                Event event=new Event();
-                //id
-                event.setId(position);
-                //头像
-                event.setHead(result.get(position).getHeadPic());
-                //名称
-                event.setPersonName(result.get(position).getNickName());
-                //数量
-                event.setCount(result.size());
-                EventBus.getDefault().postSticky(event);
-                Intent intent = new Intent(context, CommentListActivity.class);
-                context.startActivity(intent);
+                if(check){
+                    check=false;
+                    holder.recyclrCommentListWy.setVisibility(View.INVISIBLE);
+                    holder.tvWu.setVisibility(View.INVISIBLE);
+                    RecyclerView recyclrCommentListWy = holder.recyclrCommentListWy;
+                    //布局管理器
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                    linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                    recyclrCommentListWy.setLayoutManager(linearLayoutManager);
+                    //适配器
+                }else{
+                    check=true;
+                    holder.recyclrCommentListWy.setVisibility(View.GONE);
+                    holder.tvWu.setVisibility(View.GONE);
+                }
             }
         });
         //点赞
@@ -138,6 +142,7 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                 }
             }
         });
+        //跳转  个人页面
     }
 
     @Override
@@ -152,10 +157,12 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         private TextView tvSignatureWy;
         private TextView tvContentWy;
         private ImageView imgCommentWy;
-        private SimpleDraweeView imgContentWy;
+        private SimpleDraweeView imgContentPersonWy;
         private TextView tvCountComment;
         private ImageView imgCountPraise;
         private TextView tvCountPraise;
+        private RecyclerView recyclrCommentListWy;
+        private TextView tvWu;
 
         public CommunityViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,10 +172,12 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
             tvSignatureWy = (TextView) itemView.findViewById(R.id.tvSignatureWy);
             tvContentWy = (TextView) itemView.findViewById(R.id.tvContentWy);
             imgCommentWy = (ImageView) itemView.findViewById(R.id.imgCommentWy);
-            imgContentWy = (SimpleDraweeView) itemView.findViewById(R.id.imgContentWy);
+            imgContentPersonWy = (SimpleDraweeView) itemView.findViewById(R.id.imgContentPersonWy);
             tvCountComment = (TextView) itemView.findViewById(R.id.tvCountComment);
             imgCountPraise = (ImageView) itemView.findViewById(R.id.imgCountPraise);
             tvCountPraise = (TextView) itemView.findViewById(R.id.tvCountPraise);
+            recyclrCommentListWy=itemView.findViewById(R.id.recyclrCommentListWy);
+            tvWu=itemView.findViewById(R.id.tvWu);
         }
     }
 }
