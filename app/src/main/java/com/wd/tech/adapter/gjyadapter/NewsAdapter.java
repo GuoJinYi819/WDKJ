@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wd.tech.R;
 import com.wd.tech.activity.FriendNoticeActivity;
+import com.wd.tech.activity.GroupNoticeActivity;
 
 /**
  * ClassName: WdDetroy
@@ -56,7 +57,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
                     context.startActivity(intent);
                 }else if (text.contains("群通知")){
                     //跳转至 群通知界面
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(context, GroupNoticeActivity.class);
+                    context.startActivity(intent);
 
                 }
             }
