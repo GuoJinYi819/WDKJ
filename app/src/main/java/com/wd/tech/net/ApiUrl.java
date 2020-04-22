@@ -47,4 +47,6 @@ public interface ApiUrl {
     String SIGN_URL="user/verify/v1/userSign";
     //审核群通知
     String REVIEWGROUPAPPLY = "group/verify/v1/reviewGroupApply";
+    //我的  收藏页
+    String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
 }

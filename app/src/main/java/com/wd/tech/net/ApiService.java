@@ -12,6 +12,7 @@ import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
@@ -91,12 +92,15 @@ public interface ApiService {
     @GET(ApiUrl.GROUPNOTICE)
     Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
     //审核好友
-    @PUT(ApiUrl.REVIEWFRIENDAPPLY)
+    @GET(ApiUrl.REVIEWFRIENDAPPLY)
     Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
     //我的  签到
     @POST(ApiUrl.SIGN_URL)
     //@FormUrlEncoded   因为没有参数  所以去掉该注解
     Observable<SignBean> getSignData();
+    //我的  收藏页
+    @GET(ApiUrl.COLLECTIONLIST_URL)
+    Observable<CollectionListBean> getCollectionListData(@Query("page")int page,@Query("count")int count);
     //审核群通知
     @PUT(ApiUrl.REVIEWGROUPAPPLY)
     Observable<ReviewFriendApplyBean> getReviewGroupApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
