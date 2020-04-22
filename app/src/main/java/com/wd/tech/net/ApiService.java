@@ -4,6 +4,7 @@ import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
@@ -54,7 +55,7 @@ public interface ApiService {
     Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
     //咨讯列表
     @GET(ApiUrl.CONSULTATION_LIST_URL)
-    Observable<XbBean> getListData(@Query("plateId")int plateId,@Query("page")int page,@Query("count")int count);
+    Observable<ConListBean> getListData(@Query("plateId")int plateId, @Query("page")int page, @Query("count")int count);
 
     //获取二级列表数据
     @GET(ApiUrl.GETFRIENDGROUPLISTDATA)

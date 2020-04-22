@@ -1,22 +1,16 @@
 package com.wd.tech.fragment.qzjfragment;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-import com.bumptech.glide.Glide;
-import com.stx.xhb.xbanner.XBanner;
+import androidx.viewpager.widget.ViewPager;
+
 import com.wd.tech.R;
+import com.wd.tech.adapter.qzjadapter.ConVpAdapter;
 import com.wd.tech.base.BaseFragment;
-import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
-import com.wd.tech.bean.qzjbean.xbanner.XbResultBean;
-import com.wd.tech.mvp.qzjmvp.xbannermvp.BannerMoudleImpl;
 import com.wd.tech.mvp.qzjmvp.xbannermvp.BannerPresenterImpl;
 import com.wd.tech.mvp.qzjmvp.xbannermvp.XbConnter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -26,54 +20,58 @@ import java.util.List;
  * @Description: 用途：咨询
  */
 public class ConsultationFragment extends BaseFragment<BannerPresenterImpl> implements XbConnter.IbannerView {
-    private XBanner xb;
-    private List<String> img;
-    private List<String> title;
 
+    private ViewPager vp;
+    private RadioGroup rg;
+    private ConVpAdapter adapter;
     @Override
     public int initLayout() {
-        return R.layout.fragment_consultaion;
+        return R.layout.fragment_con;
     }
 
     @Override
     public void initView() {
-        xb = view.findViewById(R.id.xb);
+        vp = view.findViewById(R.id.vp);
+        rg = view.findViewById(R.id.rg);
     }
 
     @Override
     public void initListener() {
-    }
-
-    @Override
-    public void initData() {
-        presenter.getData();
-    }
-
-    @Override
-    public BannerPresenterImpl initPresenter() {
-        return new BannerPresenterImpl();
-    }
-
-    @Override
-    public void onSuccess(XbBean xbBean) {
-        img = new ArrayList<>();
-        title = new ArrayList<>();
-        List<XbResultBean> result = xbBean.getResult();
-        for (int i = 0; i < result.size(); i++) {
-            img.add(result.get(i).getImageUrl());
-            title.add(result.get(i).getTitle());
-        }
-        xb.setData(img,title);
-
-        xb.setmAdapter(new XBanner.XBannerAdapter() {
+        adapter = new ConVpAdapter(getChildFragmentManager());
+        vp.setAdapter(adapter);
+        vp.setCurrentItem(1);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void loadBanner(XBanner banner, Object model, View view, int position) {
-
-                Glide.with(getActivity()).load(img.get(position)).into((ImageView) view);
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.bu1:
+                        vp.setCurrentItem(0);
+                        break;
+                    case R.id.bu2:
+                        vp.setCurrentItem(1);
+                        break;
+                    case R.id.bu3:
+                        vp.setCurrentItem(2);
+                        break;
+                }
             }
         });
     }
 
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public BannerPresenterImpl initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void onSuccess(XbBean xbBean) {
+
+    }
 
 
     @Override
