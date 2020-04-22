@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.PersonActivity"></activity>
-        <activity android:name=".activity.CommentListActivity" />
         <activity android:name=".activity.GroupActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity

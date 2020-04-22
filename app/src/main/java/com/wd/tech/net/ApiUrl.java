@@ -35,4 +35,10 @@ public interface ApiUrl {
     String FIENDSEACHUSER = "chat/verify/v1/searchFriend";
     //查询所有的群组
     String JOINEDGROUP = "group/verify/v1/findUserJoinedGroup";
+    //查询所有的好友
+    String FRIENDDATA = "chat/verify/v1/searchFriend?searchName";
+    //查询好友通知
+    String FRIENDNOTICE = "chat/verify/v1/findFriendNoticePageList";
+    //查询群通知
+    String GROUPNOTICE = "group/verify/v1/findGroupNoticePageList";
 }

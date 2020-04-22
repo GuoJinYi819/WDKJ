@@ -125,11 +125,25 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             LogResultBean result = logBean.getResult();
             int userId = result.getUserId();
             String sessionId = result.getSessionId();
+            //缓存数据  头像 名称 签名
+            String headPic = result.getHeadPic();
+            String nickName = result.getNickName();
+            String signature = result.getSignature();
+            //是否为vip   是否为绑定faceId
+            int whetherVip = result.getWhetherVip();
+            int whetherFaceId = result.getWhetherFaceId();
+            //设置
             SpUtil instance = SpUtil.getInstance();
             instance.saveInt("userId",userId);
             instance.saveString("sessionId",sessionId);
             instance.saveString("phone",phone);
             instance.saveString("pwd",pwd);
+            //个人 数据
+            instance.saveString("headPic",headPic);
+            instance.saveString("nickName",nickName);
+            instance.saveString("signature",signature);
+            instance.saveInt("whetherVip",whetherVip);
+            instance.saveInt("whetherFaceId",whetherFaceId);
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
