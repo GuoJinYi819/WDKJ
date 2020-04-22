@@ -93,6 +93,7 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
     @Override
     public void initData() {
+        //调用P层
         presenter.getData();
     }
 

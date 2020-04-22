@@ -65,6 +65,7 @@ public interface ApiService {
     //社区用户评论（bean方式反参）
     @GET(ApiUrl.COMMENTLIST_URL)
     Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
+    //
     //咨讯列表
     @GET(ApiUrl.CONSULTATION_LIST_URL)
     Observable<XbBean> getListData(@Query("plateId")int plateId,@Query("page")int page,@Query("count")int count);
