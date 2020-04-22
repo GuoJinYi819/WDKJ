@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.wd.tech.R;
 import com.wd.tech.bean.gjybean.FriendNoticeBean;
+import com.wd.tech.net.TimeToUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,11 @@ public class FriendNoticeAdapter extends RecyclerView.Adapter<FriendNoticeAdapte
 
     private List<FriendNoticeBean.ResultBean> list = new ArrayList<>();
     private Context context;
+    public OnStatusListener onStatusListener;
+
+    public void setOnStatusListener(OnStatusListener onStatusListener) {
+        this.onStatusListener = onStatusListener;
+    }
 
     public FriendNoticeAdapter(List<FriendNoticeBean.ResultBean> list, Context context) {
         this.list.addAll(list);
@@ -49,7 +56,7 @@ public class FriendNoticeAdapter extends RecyclerView.Adapter<FriendNoticeAdapte
         FriendNoticeBean.ResultBean resultBean = list.get(position);
         int status = resultBean.getStatus();
         switch (status){
-            case 1:
+            case 1:{
                 //待处理
                 String fromNickName = resultBean.getFromNickName();
                 holder.mTvFromNickName.setText(fromNickName);
@@ -58,14 +65,60 @@ public class FriendNoticeAdapter extends RecyclerView.Adapter<FriendNoticeAdapte
                         .into(holder.mIvFromHeadPic);
                 String remark = resultBean.getRemark();
                 holder.mTvRemark.setText(remark);
+                long noticeTime = resultBean.getNoticeTime();
+                String time = TimeToUtil.stampToDate(String.valueOf(noticeTime));
+                holder.mTvNoticeTime.setText(time);
+                //两个点击事件
+                //确定
+                holder.mTvAgree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int noticeId = resultBean.getNoticeId();
+                        //接口回调
+                        onStatusListener.onAgree(noticeId,2);
 
-
-                break;
-            case 2:
+                    }
+                });
+                holder.mTvRefuse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int noticeId = resultBean.getNoticeId();
+                        //接口回调
+                        onStatusListener.onAgree(noticeId,3);
+                    }
+                });
+                break;}
+            case 2:{
                 //通过
-                break;
+                //将同意--拒绝-设置为隐藏
+                holder.mLinearStatus.setVisibility(View.GONE);
+                String fromNickName = resultBean.getFromNickName();
+                holder.mTvFromNickName.setText(fromNickName);
+                String fromHeadPic = resultBean.getFromHeadPic();
+                Glide.with(context).load(fromHeadPic).apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                        .into(holder.mIvFromHeadPic);
+                String remark = resultBean.getRemark();
+                holder.mTvRemark.setText(remark);
+                long noticeTime = resultBean.getNoticeTime();
+                String time = TimeToUtil.stampToDate(String.valueOf(noticeTime));
+                holder.mTvNoticeTime.setText(time);
+                holder.mTvStatus.setText("已同意");
+                break;}
             case 3:
                 //拒绝
+                //将同意--拒绝-设置为隐藏
+                holder.mLinearStatus.setVisibility(View.GONE);
+                String fromNickName = resultBean.getFromNickName();
+                holder.mTvFromNickName.setText(fromNickName);
+                String fromHeadPic = resultBean.getFromHeadPic();
+                Glide.with(context).load(fromHeadPic).apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                        .into(holder.mIvFromHeadPic);
+                String remark = resultBean.getRemark();
+                holder.mTvRemark.setText(remark);
+                long noticeTime = resultBean.getNoticeTime();
+                String time = TimeToUtil.stampToDate(String.valueOf(noticeTime));
+                holder.mTvNoticeTime.setText(time);
+                holder.mTvStatus.setText("已拒绝");
                 break;
         }
     }
@@ -95,5 +148,8 @@ public class FriendNoticeAdapter extends RecyclerView.Adapter<FriendNoticeAdapte
             mTvAgree = itemView.findViewById(R.id.tvAgree);
             mTvRefuse = itemView.findViewById(R.id.tvRefuse);
         }
+    }
+    public interface OnStatusListener{
+        void onAgree(int noticeId,int flag);
     }
 }

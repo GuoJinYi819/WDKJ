@@ -18,7 +18,7 @@ public class TimeToUtil {
         return format;
     }
     //时间戳工具类2
-    public String stampToDate(String s){
+    public static String stampToDate(String s){
         String res;
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long lt =new Long(s);
