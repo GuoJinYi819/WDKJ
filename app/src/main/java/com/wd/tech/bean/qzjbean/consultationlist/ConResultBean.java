@@ -8,14 +8,14 @@ package com.wd.tech.bean.qzjbean.consultationlist;
  * @Description: 用途：完成特定功能
  */
 public class ConResultBean {
-    private String releaseTime;
+    private int releaseTime;
     private String source;
     private String summary;
     private String thumbnail;
     private String title;
     private String whetherAdvertising;
 
-    public String getReleaseTime() {
+    public int getReleaseTime() {
         return releaseTime;
     }
 

@@ -41,4 +41,6 @@ public interface ApiUrl {
     String FRIENDNOTICE = "chat/verify/v1/findFriendNoticePageList";
     //查询群通知
     String GROUPNOTICE = "group/verify/v1/findGroupNoticePageList";
+    //咨讯模糊查询
+    String SEACH_URL = "information/v1/findInformationByTitle";
 }

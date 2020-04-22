@@ -3,6 +3,7 @@ package com.wd.tech.fragment.qzjfragment;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -52,6 +53,9 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     public void initView() {
         xb = view.findViewById(R.id.xb);
         re = view.findViewById(R.id.re);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        re.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -60,7 +64,7 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
     @Override
     public void initData() {
-        presenter.getData();
+
         RetrofitUtil instance = RetrofitUtil.getInstance();
         ApiService service = instance.createService();
         Observable<ConListBean> commentListData = service.getListData(1, 1, 7);
@@ -76,8 +80,6 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
                     public void onNext(ConListBean conListBean) {
                         List<ConResultBean> result = conListBean.getResult();
                         adapter = new ConListAdapter(result, getActivity());
-                        StaggeredGridLayoutManager s = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
-                        re.setLayoutManager(s);
                         re.setAdapter(adapter);
                     }
 
@@ -91,6 +93,7 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
                     }
                 });
+        presenter.getData();
     }
 
     @Override

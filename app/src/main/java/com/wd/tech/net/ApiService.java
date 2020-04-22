@@ -10,6 +10,7 @@ import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
+import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
@@ -87,5 +88,7 @@ public interface ApiService {
     //查询群通知
     @GET(ApiUrl.GROUPNOTICE)
     Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
-
+    //咨讯模糊查询
+    @GET(ApiUrl.SEACH_URL)
+    Observable<SeachBean> getSeachData(@Query("title")String title, @Query("page")int page, @Query("count")int count);
 }

@@ -31,7 +31,7 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
     private Context context;
 
     public ConListAdapter(List<ConResultBean> list, Context context) {
-        this.list = list;
+        this.list.addAll(list);
         this.context = context;
     }
 
@@ -45,28 +45,31 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
 
     @Override
     public void onBindViewHolder(@NonNull ViewHoder holder, int position) {
-        holder.img.setImageURI(list.get(position).getThumbnail());
-        holder.name.setText(list.get(position).getTitle());
-        holder.nr.setText(list.get(position).getSummary());
-        holder.gzs.setText(list.get(position).getSource());
+//        holder.img.setImageURI(list.get(position).getThumbnail());
+//        holder.name.setText(list.get(position).getTitle());
+//        holder.nr.setText(list.get(position).getSummary());
+//        holder.gzs.setText(list.get(position).getSource());
+//        int releaseTime = list.get(position).getReleaseTime();
+
+
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 5;
     }
 
     public class ViewHoder extends RecyclerView.ViewHolder {
 
-        private final SimpleDraweeView img;
-        private final TextView name;
-        private final TextView nr;
-        private final TextView gzs;
-        private final TextView sjc;
-        private final TextView xhs;
-        private final TextView fxs;
-        private final CheckBox xh;
-        private final CheckBox fx;
+        private SimpleDraweeView img;
+        private TextView name;
+        private TextView nr;
+        private TextView gzs;
+        private TextView sjc;
+        private TextView xhs;
+        private TextView fxs;
+        private CheckBox xh;
+        private CheckBox fx;
 
         public ViewHoder(@NonNull View itemView) {
             super(itemView);
@@ -81,46 +84,46 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
             fx = itemView.findViewById(R.id.fx);
         }
     }
-//    public String getStandardDate(String timeStr) {
-//
-//        StringBuffer sb = new StringBuffer();
-//
-//        long t = Long.parseLong(timeStr);
-//        long time = System.currentTimeMillis() - (t*1000);
-//        long mill = (long) Math.ceil(time /1000);//秒前
-//
-//        long minute = (long) Math.ceil(time/60/1000.0f);// 分钟前
-//
-//        long hour = (long) Math.ceil(time/60/60/1000.0f);// 小时
-//
-//        long day = (long) Math.ceil(time/24/60/60/1000.0f);// 天前
-//
-//        if (day - 1 > 0) {
-//            sb.append(day + "天");
-//        } else if (hour - 1 > 0) {
-//            if (hour >= 24) {
-//                sb.append("1天");
-//            } else {
-//                sb.append(hour + "小时");
-//            }
-//        } else if (minute - 1 > 0) {
-//            if (minute == 60) {
-//                sb.append("1小时");
-//            } else {
-//                sb.append(minute + "分钟");
-//            }
-//        } else if (mill - 1 > 0) {
-//            if (mill == 60) {
-//                sb.append("1分钟");
-//            } else {
-//                sb.append(mill + "秒");
-//            }
-//        } else {
-//            sb.append("刚刚");
-//        }
-//        if (!sb.toString().equals("刚刚")) {
-//            sb.append("前");
-//        }
-//        return sb.toString();
-//    }
+    public String getStandardDate(String timeStr) {
+
+        StringBuffer sb = new StringBuffer();
+
+        long t = Long.parseLong(timeStr);
+        long time = System.currentTimeMillis() - (t*1000);
+        long mill = (long) Math.ceil(time /1000);//秒前
+
+        long minute = (long) Math.ceil(time/60/1000.0f);// 分钟前
+
+        long hour = (long) Math.ceil(time/60/60/1000.0f);// 小时
+
+        long day = (long) Math.ceil(time/24/60/60/1000.0f);// 天前
+
+        if (day - 1 > 0) {
+            sb.append(day + "天");
+        } else if (hour - 1 > 0) {
+            if (hour >= 24) {
+                sb.append("1天");
+            } else {
+                sb.append(hour + "小时");
+            }
+        } else if (minute - 1 > 0) {
+            if (minute == 60) {
+                sb.append("1小时");
+            } else {
+                sb.append(minute + "分钟");
+            }
+        } else if (mill - 1 > 0) {
+            if (mill == 60) {
+                sb.append("1分钟");
+            } else {
+                sb.append(mill + "秒");
+            }
+        } else {
+            sb.append("刚刚");
+        }
+        if (!sb.toString().equals("刚刚")) {
+            sb.append("前");
+        }
+        return sb.toString();
+    }
 }
