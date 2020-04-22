@@ -13,8 +13,10 @@ import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
@@ -100,4 +102,10 @@ public interface ApiService {
     @POST(ApiUrl.SIGN_URL)
     //@FormUrlEncoded   因为没有参数  所以去掉该注解
     Observable<SignBean> getSignData();
+    //我的  收藏页
+    @GET(ApiUrl.COLLECTIONLIST_URL)
+    Observable<CollectionListBean> getCollectionListData(@Query("page")int page,@Query("count")int count);
+    //我的  收藏页
+    @GET(ApiUrl.FOLLOW_URL)
+    Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
 }

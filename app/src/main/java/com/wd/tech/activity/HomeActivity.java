@@ -3,6 +3,7 @@ package com.wd.tech.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,8 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private android.widget.TextView tvMyNameWy;
     private android.widget.TextView tvMySignatureWy;
     private android.widget.LinearLayout linearSignWy;
+    private LinearLayout linearCollectionWy;
+    private LinearLayout linearFollowWy;
 
     @Override
     public int initLayout() {
@@ -50,6 +53,10 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         tvMySignatureWy = (TextView) findViewById(R.id.tvMySignatureWy);
         //签到的布局
         linearSignWy = (LinearLayout) findViewById(R.id.linearSignWy);
+        //收藏的
+        linearCollectionWy = (LinearLayout) findViewById(R.id.linearCollectionWy);
+        //关注的
+        linearFollowWy = (LinearLayout) findViewById(R.id.linearFollowWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -151,6 +158,24 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             @Override
             public void onClick(View v) {
                 presenter.getSign();
+            }
+        });
+        //点击   跳转 收藏页
+        linearCollectionWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this, CollectionActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  关注页面
+        linearFollowWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,FollowActivity.class);
+                startActivity(intent);
             }
         });
     }
