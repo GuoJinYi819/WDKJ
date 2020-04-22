@@ -45,4 +45,6 @@ public interface ApiUrl {
     String REVIEWFRIENDAPPLY = "chat/verify/v1/reviewFriendApply";
     //我的  签到
     String SIGN_URL="user/verify/v1/userSign";
+    //审核群通知
+    String REVIEWGROUPAPPLY = "group/verify/v1/reviewGroupApply";
 }
