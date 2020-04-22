@@ -1,8 +1,11 @@
 package com.wd.tech.fragment.qzjfragment;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -51,39 +54,34 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     @Override
     public void initView() {
         xb = view.findViewById(R.id.xb);
-        re = view.findViewById(R.id.re);
+        re = view.findViewById(R.id.rere);
+
     }
 
     @Override
     public void initListener() {
-    }
-
-    @Override
-    public void initData() {
-        presenter.getData();
         RetrofitUtil instance = RetrofitUtil.getInstance();
         ApiService service = instance.createService();
-        Observable<XbBean> commentListData = service.getListData(1, 1, 7);
-        commentListData.subscribeOn(Schedulers.io())
+        Observable<ConListBean> listData = service.getListData(1, 1, 7);
+        listData.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<XbBean>() {
+                .subscribe(new Observer<ConListBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
-
                     @Override
-                    public void onNext(XbBean conListBean) {
-                        List<XbResultBean> result = conListBean.getResult();
-                        adapter = new ConListAdapter(result, getActivity());
-                        StaggeredGridLayoutManager s = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
-                        re.setLayoutManager(s);
+                    public void onNext(ConListBean value) {
+                        List<ConResultBean> result = value.getResult();
+                        adapter = new ConListAdapter(result,getActivity());
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                        re.setLayoutManager(linearLayoutManager);
                         re.setAdapter(adapter);
                     }
-
                     @Override
                     public void onError(Throwable e) {
-
+                        String message = e.getMessage();
+                        Log.d("XXX",message);
                     }
 
                     @Override
@@ -91,6 +89,11 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
                     }
                 });
+    }
+
+    @Override
+    public void initData() {
+        presenter.getData();
     }
 
     @Override

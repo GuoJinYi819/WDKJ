@@ -41,6 +41,8 @@ public interface ApiUrl {
     String FRIENDNOTICE = "chat/verify/v1/findFriendNoticePageList";
     //查询群通知
     String GROUPNOTICE = "group/verify/v1/findGroupNoticePageList";
+    //咨讯模糊查询
+    String SEACH_URL = "information/v1/findInformationByTitle";
     //审核好友
     String REVIEWFRIENDAPPLY = "chat/verify/v1/reviewFriendApply";
     //我的  签到
@@ -49,4 +51,6 @@ public interface ApiUrl {
     String REVIEWGROUPAPPLY = "group/verify/v1/reviewGroupApply";
     //我的  收藏页
     String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
+    //我的  关注页
+    String FOLLOW_URL="user/verify/v1/findFollowUserList";
 }

@@ -35,6 +35,7 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private android.widget.TextView tvMySignatureWy;
     private android.widget.LinearLayout linearSignWy;
     private LinearLayout linearCollectionWy;
+    private LinearLayout linearFollowWy;
 
     @Override
     public int initLayout() {
@@ -54,6 +55,8 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearSignWy = (LinearLayout) findViewById(R.id.linearSignWy);
         //收藏的
         linearCollectionWy = (LinearLayout) findViewById(R.id.linearCollectionWy);
+        //关注的
+        linearFollowWy = (LinearLayout) findViewById(R.id.linearFollowWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -163,6 +166,15 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this, CollectionActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  关注页面
+        linearFollowWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,FollowActivity.class);
                 startActivity(intent);
             }
         });

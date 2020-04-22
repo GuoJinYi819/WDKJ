@@ -8,14 +8,16 @@ package com.wd.tech.bean.qzjbean.consultationlist;
  * @Description: 用途：完成特定功能
  */
 public class ConResultBean {
-    private String releaseTime;
+    private long releaseTime;
     private String source;
     private String summary;
     private String thumbnail;
     private String title;
-    private String whetherAdvertising;
+    private int whetherAdvertising;
+    private int share;
+    private int collection;
 
-    public String getReleaseTime() {
+    public long getReleaseTime() {
         return releaseTime;
     }
 
@@ -35,7 +37,15 @@ public class ConResultBean {
         return title;
     }
 
-    public String getWhetherAdvertising() {
+    public int getWhetherAdvertising() {
         return whetherAdvertising;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public int getCollection() {
+        return collection;
     }
 }
