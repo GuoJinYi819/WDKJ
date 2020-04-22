@@ -55,7 +55,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
                     Intent intent = new Intent(context, FriendNoticeActivity.class);
                     context.startActivity(intent);
                 }else if (text.contains("群通知")){
-                    Toast.makeText(context, ""+text, Toast.LENGTH_SHORT).show();
+                    //跳转至 群通知界面
+                    Intent intent = new Intent();
+
                 }
             }
         });
