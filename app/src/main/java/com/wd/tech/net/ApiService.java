@@ -91,10 +91,8 @@ public interface ApiService {
     @GET(ApiUrl.GROUPNOTICE)
     Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
     //审核好友
-    @PUT(ApiUrl.REVIEWFRIENDAPPLY)
+    @GET(ApiUrl.REVIEWFRIENDAPPLY)
     Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
-
-
     //我的  签到
     @POST(ApiUrl.SIGN_URL)
     //@FormUrlEncoded   因为没有参数  所以去掉该注解

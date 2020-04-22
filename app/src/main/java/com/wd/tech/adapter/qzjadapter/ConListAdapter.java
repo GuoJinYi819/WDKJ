@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
 import com.wd.tech.bean.qzjbean.consultationlist.ConResultBean;
+import com.wd.tech.bean.qzjbean.xbanner.XbResultBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,10 @@ import java.util.List;
  * @Description: 用途：完成特定功能
  */
 public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHoder> {
-    private List<ConResultBean> list = new ArrayList<>();
+    private List<XbResultBean> list = new ArrayList<>();
     private Context context;
 
-    public ConListAdapter(List<ConResultBean> list, Context context) {
+    public ConListAdapter(List<XbResultBean> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -45,10 +46,10 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
 
     @Override
     public void onBindViewHolder(@NonNull ViewHoder holder, int position) {
-        holder.img.setImageURI(list.get(position).getThumbnail());
+        holder.img.setImageURI(list.get(position).getImageUrl());
         holder.name.setText(list.get(position).getTitle());
-        holder.nr.setText(list.get(position).getSummary());
-        holder.gzs.setText(list.get(position).getSource());
+//        holder.nr.setText(list.get(position).getSummary());
+//        holder.gzs.setText(list.get(position).getSource());
     }
 
     @Override
