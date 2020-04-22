@@ -7,6 +7,7 @@ import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
@@ -27,6 +28,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -63,7 +65,7 @@ public interface ApiService {
     Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
     //咨讯列表
     @GET(ApiUrl.CONSULTATION_LIST_URL)
-    Observable<ConListBean> getListData(@Query("plateId")int plateId, @Query("page")int page, @Query("count")int count);
+    Observable<XbBean> getListData(@Query("plateId")int plateId,@Query("page")int page,@Query("count")int count);
 
     //获取二级列表数据
     @GET(ApiUrl.GETFRIENDGROUPLISTDATA)
@@ -89,6 +91,9 @@ public interface ApiService {
     //查询群通知
     @GET(ApiUrl.GROUPNOTICE)
     Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
+    //审核好友
+    @GET(ApiUrl.REVIEWFRIENDAPPLY)
+    Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
     //我的  签到
     @POST(ApiUrl.SIGN_URL)
     //@FormUrlEncoded   因为没有参数  所以去掉该注解
