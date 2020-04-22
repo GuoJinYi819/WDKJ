@@ -10,7 +10,7 @@ package com.wd.tech.bean.qzjbean.seach;
 public class SeachResultBean {
     private String source;
     private String title;
-    private int releaseTime;
+    private long releaseTime;
 
     public String getSource() {
         return source;
@@ -20,7 +20,7 @@ public class SeachResultBean {
         return title;
     }
 
-    public int getReleaseTime() {
+    public long getReleaseTime() {
         return releaseTime;
     }
 }
