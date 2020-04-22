@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.gjyadapter.NewsAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.FriendDataBean;
@@ -58,6 +59,8 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 //        hashMap.put("page","1");
 //        hashMap.put("count","10");
 //        presenter.getGroupNotice(hashMap);
+        NewsAdapter newsAdapter = new NewsAdapter(getContext());
+        recyclerNews.setAdapter(newsAdapter);
     }
 
     @Override
