@@ -14,6 +14,7 @@ import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
 
@@ -86,5 +87,8 @@ public interface ApiService {
     //查询群通知
     @GET(ApiUrl.GROUPNOTICE)
     Observable<GroupNoticeBean> getGroupNotice(@QueryMap Map<String,String> params);
-
+    //我的  签到
+    @POST(ApiUrl.SIGN_URL)
+    //@FormUrlEncoded   因为没有参数  所以去掉该注解
+    Observable<SignBean> getSignData();
 }
