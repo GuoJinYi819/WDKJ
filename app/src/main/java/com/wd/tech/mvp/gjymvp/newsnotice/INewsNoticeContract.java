@@ -16,18 +16,13 @@ import java.util.Map;
  */
 public interface INewsNoticeContract {
     interface INewsNoticeView extends IBaseView{
-        void onFriendDataSuccessSuccess(FriendDataBean bean);
         void onFriendNoticeSuccess(FriendNoticeBean bean);
         void onGroupNoticeSuccess(GroupNoticeBean bean);
     }
     interface INewsNoticeModule{
-        void getFriendData(FriendDataCallBack friendDataCallBack);
         void getFriendNotice(Map<String,String> params,FriendNoticeCallBack friendNoticeCallBack);
         void getGroupNotice(Map<String,String> params,GroupNoticeCallBack groupNoticeCallBack);
 
-        interface FriendDataCallBack{
-            void onFriendDataSuccessSuccess(FriendDataBean bean);
-        }
         interface FriendNoticeCallBack{
             void onFriendNoticeSuccess(FriendNoticeBean bean);
         }
@@ -37,7 +32,6 @@ public interface INewsNoticeContract {
 
     }
     interface INewsNoticePresenter{
-        void getFriendData();
         void getFriendNotice(Map<String,String> params);
         void getGroupNotice(Map<String,String> params);
     }

@@ -21,10 +21,6 @@ import io.reactivex.schedulers.Schedulers;
  * @Description: 用途：完成特定功能
  */
 public class NewsNoticeModule implements INewsNoticeContract.INewsNoticeModule {
-    @Override
-    public void getFriendData(FriendDataCallBack friendDataCallBack) {
-       //暂不需要
-    }
 
     @Override
     public void getFriendNotice(Map<String, String> params, FriendNoticeCallBack friendNoticeCallBack) {

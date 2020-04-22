@@ -21,11 +21,6 @@ public class NewsNoticePresenter extends BasePresenter<INewsNoticeContract.INews
     }
 
     @Override
-    public void getFriendData() {
-
-    }
-
-    @Override
     public void getFriendNotice(Map<String, String> params) {
         module.getFriendNotice(params, new INewsNoticeContract.INewsNoticeModule.FriendNoticeCallBack() {
             @Override

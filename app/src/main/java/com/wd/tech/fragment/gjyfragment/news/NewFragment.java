@@ -69,11 +69,6 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
     }
 
     @Override
-    public void onFriendDataSuccessSuccess(FriendDataBean bean) {
-
-    }
-
-    @Override
     public void onFriendNoticeSuccess(FriendNoticeBean bean) {
         String message = bean.getMessage();
     }
