@@ -94,6 +94,7 @@
                 >
             </ImageView>
             <LinearLayout
+                android:id="@+id/linearSignWy"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="60dp"
                 android:orientation="vertical"

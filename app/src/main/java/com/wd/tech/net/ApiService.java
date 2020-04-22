@@ -7,6 +7,7 @@ import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
@@ -16,6 +17,7 @@ import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
 
@@ -91,4 +93,11 @@ public interface ApiService {
     //咨讯模糊查询
     @GET(ApiUrl.SEACH_URL)
     Observable<SeachBean> getSeachData(@Query("title")String title, @Query("page")int page, @Query("count")int count);
+    //审核好友
+    @GET(ApiUrl.REVIEWFRIENDAPPLY)
+    Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
+    //我的  签到
+    @POST(ApiUrl.SIGN_URL)
+    //@FormUrlEncoded   因为没有参数  所以去掉该注解
+    Observable<SignBean> getSignData();
 }

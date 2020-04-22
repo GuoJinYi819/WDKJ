@@ -67,18 +67,18 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
         RetrofitUtil instance = RetrofitUtil.getInstance();
         ApiService service = instance.createService();
-        Observable<ConListBean> commentListData = service.getListData(1, 1, 7);
+        Observable<XbBean> commentListData = service.getListData(1, 1, 7);
         commentListData.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ConListBean>() {
+                .subscribe(new Observer<XbBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(ConListBean conListBean) {
-                        List<ConResultBean> result = conListBean.getResult();
+                    public void onNext(XbBean conListBean) {
+                        List<XbResultBean> result = conListBean.getResult();
                         adapter = new ConListAdapter(result, getActivity());
                         re.setAdapter(adapter);
                     }
