@@ -43,4 +43,6 @@ public interface ApiUrl {
     String GROUPNOTICE = "group/verify/v1/findGroupNoticePageList";
     //我的  签到
     String SIGN_URL="user/verify/v1/userSign";
+    //我的  收藏页
+    String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
 }
