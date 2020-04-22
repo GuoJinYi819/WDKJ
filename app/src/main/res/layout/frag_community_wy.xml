@@ -119,6 +119,7 @@
         android:text="暂时无评论数据"
         android:background="#808181"
         android:textColor="#000"
+        android:visibility="gone"
         >
     </TextView>
     <View

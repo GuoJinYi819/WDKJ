@@ -127,39 +127,6 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
         };
 
     }
-    @Override
-    public void initListener() {
-        //取消
-        tvCancleWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //销毁页面
-                finish();
-            }
-        });
-        //添加图片
-        imgAddWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //popwindow
-                initPopWindow(v);
-            }
-        });
-        //发表
-        tvPublishWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //请求
-                //请求
-                String string = etPublishWy.getText().toString().trim();
-                if(!TextUtils.isEmpty(string)){
-                    if(formData!=null){
-                        presenter.getComment(string,formData);
-                    }
-                }
-            }
-        });
-    }
     private void initPopWindow(View v) {
         View view = LayoutInflater.from(CommentActivity.this).inflate(R.layout.item_popwindow, null, false);
         Button btn_start = view.findViewById(R.id.btn_start);
@@ -208,23 +175,6 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
         startActivityForResult(intent,0);
     }
     @Override
-    public void initData() {
-    }
-    @Override
-    public CommentPresenterImpl initPresenter() {
-        return new CommentPresenterImpl();
-    }
-    @Override
-    public void onSuccess(CommentBean commentBean) {
-        String message = commentBean.getMessage();
-        Toast.makeText(CommentActivity.this,message,Toast.LENGTH_SHORT).show();
-        //销毁
-        finish();
-    }
-    @Override
-    public void onError(String msg) {
-    }
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 从相册返回的数据
@@ -247,5 +197,54 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
                 formData = MultipartBody.Part.createFormData( "image", file.getName(), requestBody );
             }
         }
+    }
+    @Override
+    public void initListener() {
+        //取消
+        tvCancleWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //销毁页面
+                finish();
+            }
+        });
+        //添加图片
+        imgAddWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //popwindow
+                initPopWindow(v);
+            }
+        });
+        //发表
+        tvPublishWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //请求
+                String string = etPublishWy.getText().toString().trim();
+                if(!TextUtils.isEmpty(string)){
+                    if(formData!=null){
+                        presenter.getComment(string,formData);
+                    }
+                }
+            }
+        });
+    }
+    @Override
+    public void initData() {
+    }
+    @Override
+    public CommentPresenterImpl initPresenter() {
+        return new CommentPresenterImpl();
+    }
+    @Override
+    public void onSuccess(CommentBean commentBean) {
+        String message = commentBean.getMessage();
+        Toast.makeText(CommentActivity.this,message,Toast.LENGTH_SHORT).show();
+        //销毁
+        finish();
+    }
+    @Override
+    public void onError(String msg) {
     }
 }
