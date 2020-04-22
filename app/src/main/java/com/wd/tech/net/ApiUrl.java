@@ -47,4 +47,6 @@ public interface ApiUrl {
     String SIGN_URL="user/verify/v1/userSign";
     //我的  收藏页
     String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
+    //我的  关注页
+    String FOLLOW_URL="user/verify/v1/findFollowUserList";
 }
