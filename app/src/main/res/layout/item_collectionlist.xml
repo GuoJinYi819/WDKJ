@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textColor="#7A7C7C"
-        android:visibility="invisible"
         >
     </CheckBox>
     <com.facebook.drawee.view.SimpleDraweeView
@@ -29,9 +28,7 @@
             android:id="@+id/tvCommentionListTitleWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="none"
-            android:maxLines="100"
-            android:scrollHorizontally="false"
+            android:singleLine="true"
             android:textSize="@dimen/dp_16"
             >
         </TextView>
@@ -39,7 +36,7 @@
             android:id="@+id/tvCollectionListTimeWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_40"
             >
         </TextView>
     </LinearLayout>

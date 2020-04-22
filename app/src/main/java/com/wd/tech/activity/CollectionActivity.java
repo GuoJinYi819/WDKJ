@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.wyadapter.CollectionListAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancollectionlist.ResultBean;
@@ -19,10 +20,12 @@ import com.wd.tech.mvp.wymvp.mvpcollectionlist.ICollectionListContract;
 import java.util.List;
 
 public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl> implements ICollectionListContract.ICollectionListView {
-    private android.widget.ImageView imgCollectionWty;
+    private android.widget.ImageView imgCollectionBackWy;
     private android.widget.ImageView imgDeleteWy;
     private android.widget.TextView tvCompleteWy;
     private androidx.recyclerview.widget.RecyclerView recyclerCollectionListWy;
+    private List<ResultBean> result;
+    private CollectionListAdapter collectionListAdapter;
 
     //我的收藏  页面
     @Override
@@ -31,7 +34,7 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
     }
     @Override
     public void initView() {
-        imgCollectionWty = (ImageView) findViewById(R.id.imgCollectionWty);
+        imgCollectionBackWy = (ImageView) findViewById(R.id.imgCollectionBackWy);
         imgDeleteWy = (ImageView) findViewById(R.id.imgDeleteWy);
         tvCompleteWy = (TextView) findViewById(R.id.tvCompleteWy);
         recyclerCollectionListWy = (RecyclerView) findViewById(R.id.recyclerCollectionListWy);
@@ -48,6 +51,11 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
             public void onClick(View v) {
                 imgDeleteWy.setVisibility(View.INVISIBLE);
                 tvCompleteWy.setVisibility(View.VISIBLE);
+                for(int i=0;i<result.size();i++){
+                    result.get(i).setDelete(true);
+                }
+                //刷新适配器
+                collectionListAdapter.notifyDataSetChanged();
             }
         });
         //点击 完成
@@ -56,6 +64,19 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
             public void onClick(View v) {
                 tvCompleteWy.setVisibility(View.INVISIBLE);
                 imgDeleteWy.setVisibility(View.VISIBLE);
+                for(int i=0;i<result.size();i++){
+                    result.get(i).setDelete(false);
+                }
+                //刷新适配器
+                collectionListAdapter.notifyDataSetChanged();
+            }
+        });
+        //点击  返回
+        imgCollectionBackWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //销毁
+                finish();
             }
         });
     }
@@ -69,8 +90,10 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
     }
     @Override
     public void onSuccess(CollectionListBean collectionList) {
-        List<ResultBean> result = collectionList.getResult();
+        result = collectionList.getResult();
         //适配器
+        collectionListAdapter = new CollectionListAdapter(result, CollectionActivity.this);
+        recyclerCollectionListWy.setAdapter(collectionListAdapter);
     }
     @Override
     public void onError(String error) {

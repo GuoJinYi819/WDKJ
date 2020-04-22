@@ -25,12 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date :2020/4/22 16:45
  * @classname :CollectionAdapter
  */
-public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.CollectionViewHolder> {
+public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAdapter.CollectionViewHolder> {
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
-    private boolean checkDelete = false;
 
-    public CollectionAdapter(List<ResultBean> result, Context context) {
+    public CollectionListAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
     }
@@ -50,6 +49,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Co
         long createTime = result.get(position).getCreateTime();
         String time = TimeToUtil.getTime(createTime);
         holder.tvCollectionListTimeWy.setText(time);
+        holder.ckCollectionListWy.setVisibility(View.GONE);
+        boolean delete = result.get(position).isDelete();
+        if(delete){
+            holder.ckCollectionListWy.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

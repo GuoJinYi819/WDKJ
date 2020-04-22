@@ -10,11 +10,20 @@ import java.io.Serializable;
  * @classname :ResultBean
  */
 public class ResultBean implements Serializable {
+    private boolean isDelete;
     private long createTime;
     private int id;
     private int infoId;
     private String thumbnail;
     private String title;
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 
     public long getCreateTime() {
         return createTime;
