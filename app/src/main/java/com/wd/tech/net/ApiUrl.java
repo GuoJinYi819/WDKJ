@@ -47,10 +47,21 @@ public interface ApiUrl {
     String REVIEWFRIENDAPPLY = "chat/verify/v1/reviewFriendApply";
     //我的  签到
     String SIGN_URL="user/verify/v1/userSign";
+    //审核群通知
+    String REVIEWGROUPAPPLY = "group/verify/v1/reviewGroupApply";
     //我的  收藏页
     String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
     //我的  关注页
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
     //咨讯详情
     String DETAILS_URL="user/verify/v1/findFollowUserList";
+    //查询好友信息
+    String QUERYFRIEND = "user/verify/v1/queryFriendInformation";
+    //查询聊天记录
+    String DIALOGUERECORD = "chat/verify/v1/findDialogueRecordPageList";
+    //发送消息
+    String SENDMESSAGE = "chat/verify/v1/sendMessage";
+
+    //我的   做任务   加分
+    String DOTASK_URL="user/verify/v1/doTheTask";
 }
