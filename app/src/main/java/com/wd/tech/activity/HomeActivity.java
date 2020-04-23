@@ -257,7 +257,7 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     @Override
     public void onTaskSuccess(DoTaskBean doTaskBean) {
         String message = doTaskBean.getMessage();
-        Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
+        Log.d("==", "onTaskSuccess: "+message);
     }
     @Override
     public void onError(String error) {
