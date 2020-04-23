@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.QueryFriendActivity"></activity>
+        <activity android:name=".activity.SendNewsActivity"></activity>
+        <activity android:name=".activity.QueryFriendActivity" />
         <activity android:name=".activity.FollowActivity" />
         <activity android:name=".activity.GroupNoticeActivity" />
         <activity android:name=".activity.FriendNoticeActivity" />

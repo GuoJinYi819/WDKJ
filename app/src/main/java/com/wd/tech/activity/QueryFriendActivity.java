@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -46,7 +47,25 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
 
     @Override
     public void initListener() {
+        //编辑
+        mTvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转编辑页面
 
+            }
+        });
+        //发送信息
+        mBtnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                int friend = intent.getIntExtra("friend", -1);
+                Intent it = new Intent(QueryFriendActivity.this, SendNewsActivity.class);
+                it.putExtra("friend",friend);
+                startActivity(it);
+            }
+        });
     }
 
     @Override
