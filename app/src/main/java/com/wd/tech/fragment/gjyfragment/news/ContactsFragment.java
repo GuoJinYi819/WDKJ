@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.wd.tech.R;
 import com.wd.tech.activity.GroupActivity;
 import com.wd.tech.activity.MyFriendSeachActivity;
+import com.wd.tech.activity.QueryFriendActivity;
 import com.wd.tech.adapter.gjyadapter.FriendGroupAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
@@ -131,7 +132,9 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                     @Override
                     public void onFriendId(int friend) {
                         //跳转界面
-
+                        Intent intent = new Intent(getContext(), QueryFriendActivity.class);
+                        intent.putExtra("friend",friend);
+                        startActivity(intent);
                     }
                 });
 

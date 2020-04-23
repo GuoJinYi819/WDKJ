@@ -7,6 +7,7 @@ import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.gjybean.QueryFriendBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
@@ -114,4 +115,7 @@ public interface ApiService {
     //我的  收藏页
     @GET(ApiUrl.FOLLOW_URL)
     Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
+    //查询我的好友信息
+    @GET(ApiUrl.QUERYFRIEND)
+    Observable<QueryFriendBean> queryFriend(@Query("friend") int friend);
 }
