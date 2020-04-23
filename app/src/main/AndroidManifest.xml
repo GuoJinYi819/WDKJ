@@ -18,10 +18,6 @@
             android:name=".activity.GroupActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.CollectionActivity" />
-        <activity android:name=".activity.PersonActivity" />
-        <activity
-            android:name=".activity.GroupActivity"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MyFriendSeachActivity"
             android:launchMode="singleTask"
