@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +26,7 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
     private android.widget.ImageView mIvHeadPic;
     private android.widget.TextView mTvSignature;
     private android.widget.TextView mTvSexTime;
-    private android.widget.TextView mTvphone;
+    private android.widget.TextView mTvphone,tvName;
     private android.widget.TextView mTvEmail;
     private android.widget.Button mBtnSend;
 
@@ -43,6 +44,7 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
         mTvphone = findViewById(R.id.tvphone);
         mTvEmail = findViewById(R.id.tvEmail);
         mBtnSend = findViewById(R.id.btnSend);
+        tvName = new TextView(QueryFriendActivity.this);
     }
 
     @Override
@@ -63,6 +65,8 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
                 int friend = intent.getIntExtra("friend", -1);
                 Intent it = new Intent(QueryFriendActivity.this, SendNewsActivity.class);
                 it.putExtra("friend",friend);
+                String name = tvName.getText().toString();
+                it.putExtra("name",name);
                 startActivity(it);
             }
         });
@@ -110,6 +114,9 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
         mTvphone.setText(p1+"****"+p2);
 
         mTvEmail.setText("暂未开通邮箱");
+
+        String nickName = result.getNickName();
+        tvName.setText(nickName);
 
     }
 
