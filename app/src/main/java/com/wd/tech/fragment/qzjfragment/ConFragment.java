@@ -79,6 +79,14 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
                         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
                         re.setLayoutManager(linearLayoutManager);
                         re.setAdapter(adapter);
+                        adapter.setAdapterCallBack(new ConListAdapter.AdapterCallBack() {
+                            @Override
+                            public void onGiveId(int id) {
+                                Intent intent = new Intent(getActivity(), ConsultaActivity.class);
+                                intent.putExtra("id",id);
+                                startActivity(intent);
+                            }
+                        });
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -91,14 +99,7 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
                     }
                 });
-        adapter.setAdapterCallBack(new ConListAdapter.AdapterCallBack() {
-            @Override
-            public void onGiveId(int id) {
-                Intent intent = new Intent(getActivity(), ConsultaActivity.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override
