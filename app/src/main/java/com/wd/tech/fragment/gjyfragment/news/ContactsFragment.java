@@ -68,6 +68,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -125,6 +126,15 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                     Toast.makeText(getContext(), "该列表没有联系人", Toast.LENGTH_SHORT).show();
                     isConfig = false;
                 }
+
+                adapter.setOnFriendListener(new FriendGroupAdapter.OnFriendListener() {
+                    @Override
+                    public void onFriendId(int friend) {
+                        //跳转界面
+
+                    }
+                });
+
             }
 
     }
