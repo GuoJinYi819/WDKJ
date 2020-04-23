@@ -126,5 +126,6 @@ public interface ApiService {
     Observable<DialogueRecordBean> getDialogueRecord(@QueryMap Map<String,String> params);
     //发送消息
     @POST(ApiUrl.SENDMESSAGE)
+    @FormUrlEncoded
     Observable<SendMessageBean> sendMessage(@FieldMap Map<String,String> params);
 }

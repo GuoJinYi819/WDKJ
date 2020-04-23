@@ -27,7 +27,7 @@
         app:layout_constraintRight_toLeftOf="@+id/ivHeadPic"
         android:paddingTop="@dimen/dp_12"
         android:paddingLeft="@dimen/dp_10"
-        android:paddingBottom="@dimen/dp_12"
+        android:paddingBottom="@dimen/dp_5"
         android:paddingRight="@dimen/dp_12"
         android:background="@mipmap/bg_left"
         android:textSize="@dimen/sp_14"

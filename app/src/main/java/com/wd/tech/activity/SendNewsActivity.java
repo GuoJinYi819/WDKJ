@@ -19,7 +19,10 @@ import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.mvp.gjymvp.sendnews.ISendNewsContract;
 import com.wd.tech.mvp.gjymvp.sendnews.SendNewsPresenter;
+import com.wd.tech.util.RsaCoder;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -72,7 +75,17 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
             public void onClick(View v) {
                 //发送消息
                 String content = mEditContent.getText().toString();
-                Toast.makeText(SendNewsActivity.this, ""+content, Toast.LENGTH_SHORT).show();
+                try {
+                    Intent intent = getIntent();
+                    int friend = intent.getIntExtra("friend", -1);
+                    String c = RsaCoder.encryptByPublicKey(content);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("receiveUid",friend+"");
+                    hashMap.put("content",c);
+                    presenter.sendMessage(hashMap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -103,6 +116,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
     public void getDialogRecordSuccess(DialogueRecordBean bean) {
         List<DialogueRecordBean.ResultBean> result = bean.getResult();
         if (result != null) {
+            Collections.reverse(result);
             DialogRecordAdapter dialogRecordAdapter = new DialogRecordAdapter(SendNewsActivity.this, result);
             mRecyclerNews.setAdapter(dialogRecordAdapter);
         }
@@ -110,6 +124,16 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
 
     @Override
     public void sendMessage(SendMessageBean bean) {
+        String message = bean.getMessage();
+        if (message.equals("发送成功")) {
+            Intent intent = getIntent();
+            int friend = intent.getIntExtra("friend", -1);
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("friendUid",friend+"");
+                hashMap.put("page","1");
+                hashMap.put("count","15");
+                presenter.getDialogRecordData(hashMap);
 
+        }
     }
 }
