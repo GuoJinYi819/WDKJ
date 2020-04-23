@@ -40,6 +40,7 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private LinearLayout linearScoreWy;
     private LinearLayout linearPostWy;
     private LinearLayout linearNoticeWy;
+    private LinearLayout linearSetupWy;
 
     @Override
     public int initLayout() {
@@ -65,11 +66,12 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearPostWy = (LinearLayout) findViewById(R.id.linearPostWy);
         //通知
         linearNoticeWy = (LinearLayout) findViewById(R.id.linearNoticeWy);
-        //
         //积分
         linearScoreWy = (LinearLayout) findViewById(R.id.linearScoreWy);
         //任务的
         linearTaskWy = (LinearLayout) findViewById(R.id.linearTaskWy);
+        //设置页面的
+        linearSetupWy = (LinearLayout) findViewById(R.id.linearSetupWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -209,7 +211,6 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
                 startActivity(intent);
             }
         });
-        //
         //点击  积分
         linearScoreWy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +226,15 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this,TaskActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  设置页
+        linearSetupWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,SetupActivity.class);
                 startActivity(intent);
             }
         });
