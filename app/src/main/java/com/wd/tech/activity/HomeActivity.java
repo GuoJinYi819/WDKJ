@@ -36,6 +36,9 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private android.widget.LinearLayout linearSignWy;
     private LinearLayout linearCollectionWy;
     private LinearLayout linearFollowWy;
+    private LinearLayout linearTaskWy;
+    private LinearLayout linearScoreWy;
+    private LinearLayout linearPostWy;
 
     @Override
     public int initLayout() {
@@ -57,6 +60,13 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearCollectionWy = (LinearLayout) findViewById(R.id.linearCollectionWy);
         //关注的
         linearFollowWy = (LinearLayout) findViewById(R.id.linearFollowWy);
+        //我的帖子
+        linearPostWy = (LinearLayout) findViewById(R.id.linearPostWy);
+        //
+        //积分
+        linearScoreWy = (LinearLayout) findViewById(R.id.linearScoreWy);
+        //任务的
+        linearTaskWy = (LinearLayout) findViewById(R.id.linearTaskWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -175,6 +185,34 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this,FollowActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  帖子页面
+        linearPostWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyPostActivity.class);
+                startActivity(intent);
+            }
+        });
+        //
+        //点击  积分
+        linearScoreWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyScoreActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  任务
+        linearTaskWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,TaskActivity.class);
                 startActivity(intent);
             }
         });

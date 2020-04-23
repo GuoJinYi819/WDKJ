@@ -178,6 +178,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearPostWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -238,6 +239,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearScoreWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -268,6 +270,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearTaskWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
