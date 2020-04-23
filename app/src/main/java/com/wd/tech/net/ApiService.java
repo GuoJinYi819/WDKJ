@@ -62,19 +62,24 @@ public interface ApiService {
     @GET(ApiUrl.CONSULTATION_XBANNER_URL)
     Observable<XbBean> getXbData();
     //社区用户评论（bean方式反参）
+    //
     @GET(ApiUrl.COMMENTLIST_URL)
     Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
+    //
     //咨讯列表
     @GET(ApiUrl.CONSULTATION_LIST_URL)
+    //列表方法
     Observable<ConListBean> getListData(@Query("plateId")int plateId, @Query("page")int page, @Query("count")int count);
 
     //获取二级列表数据
+    //
     @GET(ApiUrl.GETFRIENDGROUPLISTDATA)
     Observable<FriendGroupListBean> getFriendGroupList();
     //获取二级子列表数据
     @GET(ApiUrl.GETFRIENDCHILDLISTDATA)
     Observable<FriendChildListBean> getFriendChildList(@Query("groupId") int groupId);
     //查询用户发布的帖子
+    //
     @GET(ApiUrl.COMMENTPERSON_URL)
     Observable<PersonBean> getPersonData(@Query("fromUid")int fromUid,@Query("page")int page,@Query("count")int count);
     //搜索联系人
