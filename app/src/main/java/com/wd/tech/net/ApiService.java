@@ -1,5 +1,6 @@
 package com.wd.tech.net;
 
+import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
@@ -7,8 +8,11 @@ import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.gjybean.QueryFriendBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
+import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
+import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
@@ -28,10 +32,12 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -112,9 +118,24 @@ public interface ApiService {
     //我的  收藏页
     @GET(ApiUrl.COLLECTIONLIST_URL)
     Observable<CollectionListBean> getCollectionListData(@Query("page")int page,@Query("count")int count);
+    //审核群通知
+    @PUT(ApiUrl.REVIEWGROUPAPPLY)
+    Observable<ReviewFriendApplyBean> getReviewGroupApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
     //我的  收藏页
     @GET(ApiUrl.FOLLOW_URL)
     Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
+    @GET(ApiUrl.DETAILS_URL)
+    Observable<DetailBean> getDetailsData(@Query("id")int id);
+    //查询我的好友信息
+    @GET(ApiUrl.QUERYFRIEND)
+    Observable<QueryFriendBean> queryFriend(@Query("friend") int friend);
+    //查询与好友的聊天记录
+    @GET(ApiUrl.DIALOGUERECORD)
+    Observable<DialogueRecordBean> getDialogueRecord(@QueryMap Map<String,String> params);
+    //发送消息
+    @POST(ApiUrl.SENDMESSAGE)
+    @FormUrlEncoded
+    Observable<SendMessageBean> sendMessage(@FieldMap Map<String,String> params);
     //我的  做任务  加分
     @POST(ApiUrl.DOTASK_URL)
     @FormUrlEncoded

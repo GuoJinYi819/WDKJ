@@ -1,6 +1,9 @@
 package com.wd.tech.adapter.gjyadapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +42,15 @@ public class FriendGroupAdapter extends BaseExpandableListAdapter {
     private TextView mTvRemarkName;
     private TextView mTvSignature;
 
+    public OnFriendListener onFriendListener;
+
     public FriendGroupAdapter(List<FriendGroupListBean.ResultBean> list, Context context) {
         this.list.addAll(list);
         this.context = context;
+    }
+
+    public void setOnFriendListener(OnFriendListener onFriendListener) {
+        this.onFriendListener = onFriendListener;
     }
 
     public void setListChild(List<FriendChildListBean.ResultBean> listChild) {
@@ -134,6 +143,16 @@ public class FriendGroupAdapter extends BaseExpandableListAdapter {
             } else {
                 mTvSignature.setText(signature);
             }
+            //回调ID
+            int friendUid = resultBean.getFriendUid();
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    onFriendListener.onFriendId(friendUid);
+                }
+            });
+
             return view;
         }
 
@@ -145,15 +164,17 @@ public class FriendGroupAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    private void initView(View view) {
-
-    }
-
     public interface OnGruopIdListener {
         void onGroupId(int id,int group);
+    }
+
+    public interface OnFriendListener {
+        void onFriendId(int friend);
     }
 
     public List<FriendGroupListBean.ResultBean> getList() {
         return list;
     }
+
+
 }

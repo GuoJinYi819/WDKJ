@@ -82,6 +82,26 @@ public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> imple
         if (result != null) {
             GroupNoticeAdapter groupNoticeAdapter = new GroupNoticeAdapter(result, GroupNoticeActivity.this);
             mRecyclerGroupNotice.setAdapter(groupNoticeAdapter);
+            //监听
+            groupNoticeAdapter.onStatusListener=new GroupNoticeAdapter.OnStatusListener() {
+                @Override
+                public void onAgree(int noticeId, int flag) {
+                    //审核群通知
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    ApiService apiService = instance.createService();
+                    Observable<ReviewFriendApplyBean> observable = apiService.getReviewGroupApply(noticeId, flag);
+                    observable.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<ReviewFriendApplyBean>() {
+                                @Override
+                                public void accept(ReviewFriendApplyBean reviewFriendApplyBean) throws Exception {
+                                    String message = reviewFriendApplyBean.getMessage();
+                                    Toast.makeText(GroupNoticeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                                    groupNoticeAdapter.notifyDataSetChanged();
+                                }
+                            });
+                }
+            };
         }
     }
 }

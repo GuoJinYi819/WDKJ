@@ -16,6 +16,11 @@ public class ConResultBean {
     private int whetherAdvertising;
     private int share;
     private int collection;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public long getReleaseTime() {
         return releaseTime;
