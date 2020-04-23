@@ -122,4 +122,8 @@ public class DialogRecordAdapter extends RecyclerView.Adapter {
             mTvContent = itemView.findViewById(R.id.tvContent);
         }
     }
+
+    public List<DialogueRecordBean.ResultBean> getList() {
+        return list;
+    }
 }

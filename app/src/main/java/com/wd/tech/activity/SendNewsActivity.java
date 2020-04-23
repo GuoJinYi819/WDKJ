@@ -6,8 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
     private android.widget.EditText mEditContent;
     private android.widget.TextView mTvSend;
     private androidx.recyclerview.widget.RecyclerView mRecyclerNews;
+    private DialogRecordAdapter dialogRecordAdapter;
 
     @Override
     public int initLayout() {
@@ -70,6 +75,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                 //设置
             }
         });
+
         mTvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +94,40 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                 }
             }
         });
+
+        mEditContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogRecordAdapter != null) {
+                    List<DialogueRecordBean.ResultBean> list = dialogRecordAdapter.getList();
+                    // if (result.size()>7) {
+                    mRecyclerNews.scrollToPosition(list.size()-1);
+                    //}
+                }
+            }
+        });
+       mEditContent.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+               if (dialogRecordAdapter != null) {
+                   List<DialogueRecordBean.ResultBean> list = dialogRecordAdapter.getList();
+                   // if (result.size()>7) {
+                   mRecyclerNews.scrollToPosition(list.size()-1);
+                   //}
+               }
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+
+           }
+       });
+
     }
 
     @Override
@@ -117,8 +157,11 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
         List<DialogueRecordBean.ResultBean> result = bean.getResult();
         if (result != null) {
             Collections.reverse(result);
-            DialogRecordAdapter dialogRecordAdapter = new DialogRecordAdapter(SendNewsActivity.this, result);
+            dialogRecordAdapter = new DialogRecordAdapter(SendNewsActivity.this, result);
             mRecyclerNews.setAdapter(dialogRecordAdapter);
+            if (result.size()>7) {
+                mRecyclerNews.scrollToPosition(result.size()-1);
+            }
         }
     }
 
