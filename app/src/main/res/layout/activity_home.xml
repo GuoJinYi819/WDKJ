@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="#fff"
-                    android:text="签名">
+                    android:text="签到">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
