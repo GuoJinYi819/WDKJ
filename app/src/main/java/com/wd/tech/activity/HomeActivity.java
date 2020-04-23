@@ -18,6 +18,7 @@ import com.wd.tech.R;
 import com.wd.tech.adapter.wyadapter.HomeFragmentAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
@@ -173,6 +174,8 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             @Override
             public void onClick(View v) {
                 presenter.getSign();
+                //加分
+                presenter.getDoTask(1001);
             }
         });
         //点击   跳转 收藏页
@@ -249,6 +252,11 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     @Override
     public void onSuccess(SignBean sign) {
         String message = sign.getMessage();
+        Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onTaskSuccess(DoTaskBean doTaskBean) {
+        String message = doTaskBean.getMessage();
         Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
     }
     @Override

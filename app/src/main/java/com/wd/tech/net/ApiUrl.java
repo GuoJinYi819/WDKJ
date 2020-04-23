@@ -51,4 +51,6 @@ public interface ApiUrl {
     String COLLECTIONLIST_URL="user/verify/v1/findAllInfoCollection";
     //我的  关注页
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
+    //我的   做任务   加分
+    String DOTASK_URL="user/verify/v1/doTheTask";
 }
