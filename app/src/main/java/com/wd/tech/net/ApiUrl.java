@@ -53,4 +53,6 @@ public interface ApiUrl {
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
     //我的   做任务   加分
     String DOTASK_URL="user/verify/v1/doTheTask";
+    //根据用户ID查询用户信息
+    String SELECT_USER_URL="user/verify/v1/getUserInfoByUserId";
 }

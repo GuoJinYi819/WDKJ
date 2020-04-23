@@ -20,6 +20,7 @@ import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -118,4 +119,7 @@ public interface ApiService {
     @POST(ApiUrl.DOTASK_URL)
     @FormUrlEncoded
     Observable<DoTaskBean> getDoTaskData(@Field("taskId")int taskId);
+    //根据用户ID查询用户信息
+    @GET(ApiUrl.SELECT_USER_URL)
+    Observable<SelectUserBean> getSelectUserData();
 }
