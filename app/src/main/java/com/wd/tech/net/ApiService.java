@@ -9,6 +9,7 @@ import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
+import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
@@ -113,4 +114,6 @@ public interface ApiService {
     //我的  收藏页
     @GET(ApiUrl.FOLLOW_URL)
     Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
+    @GET(ApiUrl.DETAILS_URL)
+    Observable<DetailBean> getDetailsData(@Query("id")int id);
 }

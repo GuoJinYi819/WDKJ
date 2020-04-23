@@ -29,6 +29,11 @@ import java.util.List;
 public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHoder> {
     private List<ConResultBean> list = new ArrayList<>();
     private Context context;
+    public AdapterCallBack adapterCallBack;
+
+    public void setAdapterCallBack(AdapterCallBack adapterCallBack) {
+        this.adapterCallBack = adapterCallBack;
+    }
 
     public ConListAdapter(List<ConResultBean> list, Context context) {
         this.list.addAll(list);
@@ -54,6 +59,15 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         holder.sjc.setText(standardDate);
         holder.fxs.setText(list.get(position).getShare()+"");
         holder.xhs.setText(list.get(position).getCollection()+"");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = list.get(position).getId();
+                if (adapterCallBack!=null){
+                    adapterCallBack.onGiveId(id);
+                }
+            }
+        });
     }
 
     @Override
@@ -127,5 +141,8 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
             sb.append("前");
         }
         return sb.toString();
+    }
+    public interface AdapterCallBack{
+        void onGiveId(int id);
     }
 }

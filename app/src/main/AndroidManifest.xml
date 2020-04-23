@@ -18,16 +18,13 @@
             android:name=".activity.GroupActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.CollectionActivity" />
-        <activity android:name=".activity.PersonActivity" />
-        <activity
-            android:name=".activity.GroupActivity"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MyFriendSeachActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.CommentListActivity" />
         <activity android:name=".activity.CommentActivity" />
+        <activity android:name=".activity.ConsultaActivity"/>
         <activity android:name=".activity.BootpageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

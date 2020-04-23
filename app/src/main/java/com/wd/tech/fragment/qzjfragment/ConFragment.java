@@ -1,5 +1,6 @@
 package com.wd.tech.fragment.qzjfragment;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.bumptech.glide.Glide;
 import com.stx.xhb.xbanner.XBanner;
 import com.wd.tech.R;
+import com.wd.tech.activity.ConsultaActivity;
 import com.wd.tech.adapter.qzjadapter.ConListAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
@@ -89,6 +91,14 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
                     }
                 });
+        adapter.setAdapterCallBack(new ConListAdapter.AdapterCallBack() {
+            @Override
+            public void onGiveId(int id) {
+                Intent intent = new Intent(getActivity(), ConsultaActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
