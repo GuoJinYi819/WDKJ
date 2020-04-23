@@ -55,4 +55,9 @@ public interface ApiUrl {
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
     //查询好友信息
     String QUERYFRIEND = "user/verify/v1/queryFriendInformation";
+    //查询聊天记录
+    String DIALOGUERECORD = "chat/verify/v1/findDialogueRecordPageList";
+    //发送消息
+    String SENDMESSAGE = "chat/verify/v1/sendMessage";
+
 }

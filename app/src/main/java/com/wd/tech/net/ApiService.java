@@ -1,5 +1,6 @@
 package com.wd.tech.net;
 
+import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
@@ -9,6 +10,7 @@ import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.gjybean.QueryFriendBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
+import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
@@ -27,6 +29,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -118,4 +121,10 @@ public interface ApiService {
     //查询我的好友信息
     @GET(ApiUrl.QUERYFRIEND)
     Observable<QueryFriendBean> queryFriend(@Query("friend") int friend);
+    //查询与好友的聊天记录
+    @GET(ApiUrl.DIALOGUERECORD)
+    Observable<DialogueRecordBean> getDialogueRecord(@QueryMap Map<String,String> params);
+    //发送消息
+    @POST(ApiUrl.SENDMESSAGE)
+    Observable<SendMessageBean> sendMessage(@FieldMap Map<String,String> params);
 }
