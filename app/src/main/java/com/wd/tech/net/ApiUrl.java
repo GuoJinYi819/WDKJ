@@ -60,4 +60,6 @@ public interface ApiUrl {
     //发送消息
     String SENDMESSAGE = "chat/verify/v1/sendMessage";
 
+    //我的   做任务   加分
+    String DOTASK_URL="user/verify/v1/doTheTask";
 }

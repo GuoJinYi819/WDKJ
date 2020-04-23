@@ -18,6 +18,7 @@ import com.wd.tech.R;
 import com.wd.tech.adapter.wyadapter.HomeFragmentAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
@@ -36,6 +37,11 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private android.widget.LinearLayout linearSignWy;
     private LinearLayout linearCollectionWy;
     private LinearLayout linearFollowWy;
+    private LinearLayout linearTaskWy;
+    private LinearLayout linearScoreWy;
+    private LinearLayout linearPostWy;
+    private LinearLayout linearNoticeWy;
+    private LinearLayout linearSetupWy;
 
     @Override
     public int initLayout() {
@@ -57,6 +63,16 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearCollectionWy = (LinearLayout) findViewById(R.id.linearCollectionWy);
         //关注的
         linearFollowWy = (LinearLayout) findViewById(R.id.linearFollowWy);
+        //我的帖子
+        linearPostWy = (LinearLayout) findViewById(R.id.linearPostWy);
+        //通知
+        linearNoticeWy = (LinearLayout) findViewById(R.id.linearNoticeWy);
+        //积分
+        linearScoreWy = (LinearLayout) findViewById(R.id.linearScoreWy);
+        //任务的
+        linearTaskWy = (LinearLayout) findViewById(R.id.linearTaskWy);
+        //设置页面的
+        linearSetupWy = (LinearLayout) findViewById(R.id.linearSetupWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -158,6 +174,8 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             @Override
             public void onClick(View v) {
                 presenter.getSign();
+                //加分
+                presenter.getDoTask(1001);
             }
         });
         //点击   跳转 收藏页
@@ -178,6 +196,51 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
                 startActivity(intent);
             }
         });
+        //点击  帖子页面
+        linearPostWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyPostActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  通知页面
+        linearNoticeWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyNoticeActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  积分
+        linearScoreWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyScoreActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  任务
+        linearTaskWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,TaskActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  设置页
+        linearSetupWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,SetupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void initData() {
@@ -189,6 +252,11 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     @Override
     public void onSuccess(SignBean sign) {
         String message = sign.getMessage();
+        Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onTaskSuccess(DoTaskBean doTaskBean) {
+        String message = doTaskBean.getMessage();
         Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
     }
     @Override

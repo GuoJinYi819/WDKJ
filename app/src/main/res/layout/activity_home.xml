@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="#fff"
-                    android:text="签名">
+                    android:text="签到">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
@@ -178,6 +178,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearPostWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -208,6 +209,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearNoticeWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -238,6 +240,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearScoreWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -268,6 +271,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearTaskWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -298,6 +302,7 @@
             </ImageView>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linearSetupWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

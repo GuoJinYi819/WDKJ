@@ -1,6 +1,8 @@
 package com.wd.tech.mvp.wymvp.mvpsign;
 
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 
@@ -42,4 +44,30 @@ public class SignModelImpl implements ISignContract.ISignModel {
                     }
                 });
     }
+
+    @Override
+    public void getDoTask(int taskId, DataCallBack2 dataCallBack2) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<DoTaskBean> doTaskData = service.getDoTaskData(taskId);
+        doTaskData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DoTaskBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(DoTaskBean value) {
+                        dataCallBack2.onSuccess(value);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        dataCallBack2.onError(e.getMessage());
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 }

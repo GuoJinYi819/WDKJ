@@ -2,14 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wd.tech">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:name=".App"
@@ -23,6 +16,11 @@
             android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".activity.QueryFriendActivity" />
         <activity android:name=".activity.FollowActivity" />
+        <activity android:name=".activity.SetupActivity"></activity>
+        <activity android:name=".activity.MyNoticeActivity" />
+        <activity android:name=".activity.MyPostActivity" />
+        <activity android:name=".activity.MyScoreActivity" />
+        <activity android:name=".activity.TaskActivity" />
         <activity android:name=".activity.GroupNoticeActivity" />
         <activity android:name=".activity.FriendNoticeActivity" />
         <activity android:name=".activity.PersonActivity" />
@@ -47,5 +45,12 @@
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.HomeActivity" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

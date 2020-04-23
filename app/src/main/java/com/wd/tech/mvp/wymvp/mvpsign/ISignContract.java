@@ -1,7 +1,9 @@
 package com.wd.tech.mvp.wymvp.mvpsign;
 
 import com.wd.tech.base.IBaseView;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 
 /**
  * @author 王阳
@@ -17,6 +19,9 @@ public interface ISignContract {
         void onSuccess(SignBean sign);
         //失败
         void onError(String error);
+
+        //成功
+        void onTaskSuccess(DoTaskBean doTaskBean);
     }
     //
     interface ISignModel{
@@ -27,9 +32,17 @@ public interface ISignContract {
             //失败
             void onError(String error);
         }
+        void getDoTask(int taskId,DataCallBack2 dataCallBack2);
+        interface DataCallBack2{
+            //成功
+            void onSuccess(DoTaskBean doTaskBean);
+            //失败
+            void onError(String error);
+        }
     }
     //
     interface ISignPresenter{
         void getSign();
+        void getDoTask(int taskId);
     }
 }

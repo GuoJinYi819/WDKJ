@@ -19,6 +19,7 @@ import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -67,6 +68,7 @@ public interface ApiService {
     @GET(ApiUrl.CONSULTATION_XBANNER_URL)
     Observable<XbBean> getXbData();
     //社区用户评论（bean方式反参）
+    //
     @GET(ApiUrl.COMMENTLIST_URL)
     Observable<CommentListBean> getCommentListData(@Query("communityId")int communityId, @Query("page")int page, @Query("count")int count);
     //
@@ -76,12 +78,14 @@ public interface ApiService {
     Observable<ConListBean> getListData(@Query("plateId")int plateId, @Query("page")int page, @Query("count")int count);
 
     //获取二级列表数据
+    //
     @GET(ApiUrl.GETFRIENDGROUPLISTDATA)
     Observable<FriendGroupListBean> getFriendGroupList();
     //获取二级子列表数据
     @GET(ApiUrl.GETFRIENDCHILDLISTDATA)
     Observable<FriendChildListBean> getFriendChildList(@Query("groupId") int groupId);
     //查询用户发布的帖子
+    //
     @GET(ApiUrl.COMMENTPERSON_URL)
     Observable<PersonBean> getPersonData(@Query("fromUid")int fromUid,@Query("page")int page,@Query("count")int count);
     //搜索联系人
@@ -128,4 +132,8 @@ public interface ApiService {
     @POST(ApiUrl.SENDMESSAGE)
     @FormUrlEncoded
     Observable<SendMessageBean> sendMessage(@FieldMap Map<String,String> params);
+    //我的  做任务  加分
+    @POST(ApiUrl.DOTASK_URL)
+    @FormUrlEncoded
+    Observable<DoTaskBean> getDoTaskData(@Field("taskId")int taskId);
 }
