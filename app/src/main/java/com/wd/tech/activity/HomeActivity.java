@@ -39,6 +39,7 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     private LinearLayout linearTaskWy;
     private LinearLayout linearScoreWy;
     private LinearLayout linearPostWy;
+    private LinearLayout linearNoticeWy;
 
     @Override
     public int initLayout() {
@@ -62,6 +63,8 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearFollowWy = (LinearLayout) findViewById(R.id.linearFollowWy);
         //我的帖子
         linearPostWy = (LinearLayout) findViewById(R.id.linearPostWy);
+        //通知
+        linearNoticeWy = (LinearLayout) findViewById(R.id.linearNoticeWy);
         //
         //积分
         linearScoreWy = (LinearLayout) findViewById(R.id.linearScoreWy);
@@ -194,6 +197,15 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this,MyPostActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  通知页面
+        linearNoticeWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this,MyNoticeActivity.class);
                 startActivity(intent);
             }
         });
