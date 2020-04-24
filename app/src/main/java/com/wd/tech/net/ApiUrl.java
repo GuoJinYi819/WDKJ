@@ -66,4 +66,6 @@ public interface ApiUrl {
     String DOTASK_URL="user/verify/v1/doTheTask";
     //根据用户ID查询用户信息
     String SELECT_USER_URL="user/verify/v1/getUserInfoByUserId";
+    //我的 帖子
+    String MYPOST_URL="community/verify/v1/findMyPostById";
 }

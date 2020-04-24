@@ -23,6 +23,7 @@ import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
@@ -143,4 +144,7 @@ public interface ApiService {
     //根据用户ID查询用户信息
     @GET(ApiUrl.SELECT_USER_URL)
     Observable<SelectUserBean> getSelectUserData();
+    //我的贴子
+    @GET(ApiUrl.MYPOST_URL)
+    Observable<MyPostBean> getMyPostData(@Query("page")int page, @Query("count")int count);
 }
