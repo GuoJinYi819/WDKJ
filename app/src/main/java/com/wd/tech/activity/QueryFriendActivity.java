@@ -29,6 +29,7 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
     private android.widget.TextView mTvphone,tvName;
     private android.widget.TextView mTvEmail;
     private android.widget.Button mBtnSend;
+    private String headPic;
 
     @Override
     public int initLayout() {
@@ -66,6 +67,9 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
                 Intent it = new Intent(QueryFriendActivity.this, SendNewsActivity.class);
                 it.putExtra("friend",friend);
                 String name = tvName.getText().toString();
+                if (headPic!=null) {
+                    it.putExtra("headPic",headPic);
+                }
                 it.putExtra("name",name);
                 startActivity(it);
             }
@@ -91,7 +95,7 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
     @Override
     public void onSuccess(QueryFriendBean bean) {
         QueryFriendBean.ResultBean result = bean.getResult();
-        String headPic = result.getHeadPic();
+        headPic = result.getHeadPic();
         Glide.with(QueryFriendActivity.this).load(headPic)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(mIvHeadPic);

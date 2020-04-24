@@ -68,4 +68,8 @@ public interface ApiUrl {
     String SELECT_USER_URL="user/verify/v1/getUserInfoByUserId";
     //我的 帖子
     String MYPOST_URL="community/verify/v1/findMyPostById";
+    //查询群聊天记录
+    String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
+    //发送群消息
+    String SENDGROUP = "group/verify/v1/sendGroupMessage";
 }
