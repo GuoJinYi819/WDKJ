@@ -24,7 +24,7 @@ import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
 import com.wd.tech.net.SpUtil;
 
-public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISignContract.ISignView {
+public class HomeActivity extends BaseActivity{
     private androidx.viewpager.widget.ViewPager viewPager;
     private com.google.android.material.tabs.TabLayout tab;
     //选中数组
@@ -173,9 +173,9 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
         linearSignWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.getSign();
-                //加分
-                presenter.getDoTask(1001);
+                //跳
+                Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                startActivity(intent);
             }
         });
         //点击   跳转 收藏页
@@ -246,20 +246,7 @@ public class HomeActivity extends BaseActivity<SignPresenterImpl> implements ISi
     public void initData() {
     }
     @Override
-    public SignPresenterImpl initPresenter() {
-        return new SignPresenterImpl();
-    }
-    @Override
-    public void onSuccess(SignBean sign) {
-        String message = sign.getMessage();
-        Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onTaskSuccess(DoTaskBean doTaskBean) {
-        String message = doTaskBean.getMessage();
-        Log.d("==", "onTaskSuccess: "+message);
-    }
-    @Override
-    public void onError(String error) {
+    public BasePresenter initPresenter() {
+        return null;
     }
 }
