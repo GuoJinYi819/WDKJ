@@ -12,10 +12,16 @@ import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.FriendDataBean;
 import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
+import com.wd.tech.bean.gjybean.NewsBean;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.mvp.gjymvp.newsnotice.INewsNoticeContract;
 import com.wd.tech.mvp.gjymvp.newsnotice.NewsNoticePresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -27,6 +33,8 @@ import java.util.HashMap;
 public class NewFragment extends BaseFragment<NewsNoticePresenter> implements INewsNoticeContract.INewsNoticeView {
     private RecyclerView recyclerNews;
 
+    private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
+
     @Override
     public int initLayout() {
         return R.layout.fragment_new;
@@ -34,6 +42,11 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 
     @Override
     public void initView() {
+        boolean registered = EventBus.getDefault().isRegistered(this);
+
+        if (!registered) {
+            EventBus.getDefault().register(this);
+        }
 
         recyclerNews = view.findViewById(R.id.recyclerNews);
 
@@ -59,8 +72,13 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 //        hashMap.put("page","1");
 //        hashMap.put("count","10");
 //        presenter.getGroupNotice(hashMap);
-        NewsAdapter newsAdapter = new NewsAdapter(getContext());
+        list.add(new NewsBean("null","好友通知","null","null"));
+        list.add(new NewsBean("null","群通知","null","null"));
+        list.add(new NewsBean("heihie","三毛","","null"));
+
+        NewsAdapter newsAdapter = new NewsAdapter(getContext(),list);
         recyclerNews.setAdapter(newsAdapter);
+
     }
 
     @Override
@@ -76,5 +94,11 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
     @Override
     public void onGroupNoticeSuccess(GroupNoticeBean bean) {
         String message = bean.getMessage();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -12,7 +12,6 @@
         <ImageView
             android:background="@drawable/iv_fillet"
             android:scaleType="center"
-            android:src="@mipmap/message_icon_notice_n_xhdpi"
             android:id="@+id/ivNoticePic"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40">

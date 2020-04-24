@@ -20,13 +20,19 @@ import com.wd.tech.adapter.gjyadapter.DialogRecordAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
+import com.wd.tech.bean.gjybean.NewsBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.mvp.gjymvp.sendnews.ISendNewsContract;
 import com.wd.tech.mvp.gjymvp.sendnews.SendNewsPresenter;
 import com.wd.tech.util.RsaCoder;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,11 +90,25 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                 try {
                     Intent intent = getIntent();
                     int friend = intent.getIntExtra("friend", -1);
+                    String name = intent.getStringExtra("name");
+                    String headPic = intent.getStringExtra("headPic");
+
                     String c = RsaCoder.encryptByPublicKey(content);
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("receiveUid",friend+"");
                     hashMap.put("content",c);
                     presenter.sendMessage(hashMap);
+                    //发送消息
+                    Calendar instance = Calendar.getInstance();
+                    //获取时
+                    int hour = instance.get(Calendar.HOUR_OF_DAY);
+                    int minute = instance.get(Calendar.MINUTE);
+                    String time = hour+minute+"";
+                    NewsBean newsBean = new NewsBean(headPic, name, friend + "",time);
+
+                    EventBus.getDefault().postSticky(newsBean);
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -2,6 +2,9 @@ package com.wd.tech.adapter.gjyadapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wd.tech.R;
 import com.wd.tech.activity.FriendNoticeActivity;
 import com.wd.tech.activity.GroupNoticeActivity;
+import com.wd.tech.bean.gjybean.NewsBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -25,32 +32,45 @@ import com.wd.tech.activity.GroupNoticeActivity;
  */
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> {
 
-    private String[] str = {"好友通知", "群通知"};
     private Context context;
+    private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
 
-    public NewsAdapter(Context context) {
+    public NewsAdapter(Context context,ArrayList<NewsBean> list) {
         this.context = context;
+        this.list = list;
     }
 
     @NonNull
     @Override
     public MyNewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.item_news, parent, false);
         return new MyNewsHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsHolder holder, int position) {
-        String text = str[position];
-        if (text.contains("好友通知")) {
-            holder.mTvNotice.setText(text);
-        }else if (text.contains("群通知")){
-            holder.mTvNotice.setText(text);
+        NewsBean newsBean = list.get(position);
+
+        String img = newsBean.getImg();
+        if (img.equals("null")) {
+            String name = newsBean.getName();
+            holder.mTvNotice.setText(name);
+            Resources resources = context.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.message_icon_notice_n_xhdpi);
+            holder.mIvNoticePic.setImageBitmap(bitmap);
+        }else {
+            String name = newsBean.getName();
+            holder.mTvNotice.setText(name);
+            holder.mIvNoticePic.setBackground(null);
+
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = str[position];
+                String text = holder.mTvNotice.getText().toString();
                 if (text.contains("好友通知")) {
                     //跳转至 好友通知界面
                     Intent intent = new Intent(context, FriendNoticeActivity.class);
@@ -65,10 +85,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
         });
     }
 
+
     @Override
     public int getItemCount() {
-        return 2;
+        return list.size();
     }
+
     class MyNewsHolder extends RecyclerView.ViewHolder {
         private ImageView mIvNoticePic;
         private TextView mTvNotice;
