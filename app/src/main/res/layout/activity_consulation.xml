@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
         android:id="@+id/re"></androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:src="@mipmap/back"
+            android:id="@+id/fanhui"
+            />
+        <EditText
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="wrap_content"
+            android:id="@+id/etext"/>
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_20"
+            android:id="@+id/plt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pls"/>
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_20"
+            android:id="@+id/dzt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dzs"/>
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:id="@+id/sct"/>
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_20"
+            android:id="@+id/fxt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fxs"/>
+    </LinearLayout>
 </LinearLayout>

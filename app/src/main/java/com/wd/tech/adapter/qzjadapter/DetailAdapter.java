@@ -1,6 +1,11 @@
 package com.wd.tech.adapter.qzjadapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +14,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,15 +34,11 @@ import java.util.List;
  * @Description: 用途：完成特定功能
  */
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder> {
-    private List<DetailBean.ResultBean> list = new ArrayList<>();
+    private DetailBean.ResultBean list = new DetailBean.ResultBean();
     private Context context;
-    private List<XbBean> xbBeanList = new ArrayList<>();
+    private DetailRecommendAdapter adapter;
 
-    public void setXbBeanList(List<XbBean> xbBeanList) {
-        this.xbBeanList = xbBeanList;
-    }
-
-    public DetailAdapter(List<DetailBean.ResultBean> list, Context context) {
+    public DetailAdapter(DetailBean.ResultBean list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -48,12 +53,36 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHoder holder, int position) {
+        holder.name.setText(list.getTitle());
+        holder.laiyuan.setText(list.getSource());
+        String s = stampToDate(list.getReleaseTime() + "");
+        holder.shijian.setText(s);
+        String content = list.getContent();
+        if (!TextUtils.isEmpty(content)){
+            holder.nr.setText(Html.fromHtml(content));
+        }
 
+
+        int readPower = list.getReadPower();
+        if (readPower==1){
+            Resources resources = context.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.c4);
+            holder.pdt.setImageBitmap(bitmap);
+            List<DetailBean.ResultBean.InformationListBean> informationList = list.getInformationList();
+            adapter = new DetailRecommendAdapter(informationList,context);
+            StaggeredGridLayoutManager ss = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL);
+            holder.rere.setLayoutManager(ss);
+            holder.rere.setAdapter(adapter);
+        }else {
+            Resources resources = context.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.c4);
+            holder.pdt.setImageBitmap(bitmap);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 1;
     }
 
     public class ViewHoder extends RecyclerView.ViewHolder {
@@ -65,15 +94,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
         private final TextView shijian;
         private final TextView nr;
         private final TextView mk;
-        private final ImageView fanhui;
-        private final ImageView etext;
-        private final TextView pls;
-        private final TextView dzs;
-        private final TextView fxs;
-        private final ImageView plt;
-        private final ImageView dzt;
-        private final ImageView sct;
-        private final ImageView fxt;
+        private final SimpleDraweeView pdt;
 
         public ViewHoder(@NonNull View itemView) {
             super(itemView);
@@ -84,15 +105,16 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
             shijian = itemView.findViewById(R.id.shijian);
             nr = itemView.findViewById(R.id.nr);
             mk = itemView.findViewById(R.id.mk);
-            fanhui = itemView.findViewById(R.id.fanhui);
-            etext = itemView.findViewById(R.id.etext);
-            pls = itemView.findViewById(R.id.pls);
-            dzs = itemView.findViewById(R.id.dzs);
-            fxs = itemView.findViewById(R.id.fxs);
-            plt = itemView.findViewById(R.id.plt);
-            dzt = itemView.findViewById(R.id.dzt);
-            sct = itemView.findViewById(R.id.sct);
-            fxt = itemView.findViewById(R.id.fxt);
+            pdt = itemView.findViewById(R.id.pdt);
         }
+    }
+    public static String stampToDate(String s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //如果它本来就是long类型的,则不用写这一步
+        long lt = new Long(s);
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
     }
 }

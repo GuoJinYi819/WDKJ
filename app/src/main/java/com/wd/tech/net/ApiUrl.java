@@ -54,7 +54,7 @@ public interface ApiUrl {
     //我的  关注页
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
     //咨讯详情
-    String DETAILS_URL="user/verify/v1/findFollowUserList";
+    String DETAILS_URL="information/v1/findInformationDetails";
     //查询好友信息
     String QUERYFRIEND = "user/verify/v1/queryFriendInformation";
     //查询聊天记录
