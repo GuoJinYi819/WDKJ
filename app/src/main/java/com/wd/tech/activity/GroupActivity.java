@@ -2,12 +2,14 @@ package com.wd.tech.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +64,7 @@ public class GroupActivity extends BaseActivity<JoinedGroupPresenter> implements
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //内存改变监听
+                //内容改变监听
                 if (groupAdapter != null) {
                     List<JoinedGroupBean.ResultBean> list = groupAdapter.getList();
                     List<JoinedGroupBean.ResultBean> l = new ArrayList<>();
@@ -107,6 +109,19 @@ public class GroupActivity extends BaseActivity<JoinedGroupPresenter> implements
         if (result != null) {
             groupAdapter = new GroupAdapter(result, GroupActivity.this);
             mGroupListView.setAdapter(groupAdapter);
+
+            mGroupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    JoinedGroupBean.ResultBean resultBean = result.get(position);
+                    Intent intent = new Intent(GroupActivity.this,SendGroupActivity.class);
+                    int groupId = resultBean.getGroupId();
+                    String groupName = resultBean.getGroupName();
+                    intent.putExtra("groupName",groupName);
+                    intent.putExtra("groupId",groupId);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
