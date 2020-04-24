@@ -1,6 +1,7 @@
 package com.wd.tech.adapter.gjyadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.wd.tech.R;
+import com.wd.tech.activity.SendNewsActivity;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.net.SpUtil;
 
@@ -28,10 +30,15 @@ import java.util.List;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyRecordHolder> {
     private List<FriendSeachBean.ResultBean> list = new ArrayList<>();
     private Context context;
+    private OnFinshListener onFinshListener;
 
     public RecordAdapter(List<FriendSeachBean.ResultBean> list, Context context) {
         this.list.addAll(list);
         this.context = context;
+    }
+
+    public void setOnFinshListener(OnFinshListener onFinshListener) {
+        this.onFinshListener = onFinshListener;
     }
 
     @NonNull
@@ -60,6 +67,21 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyRecordHo
                 notifyDataSetChanged();
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FriendSeachBean.ResultBean resultBean1 = list.get(position);
+                String nickName1 = resultBean1.getNickName();
+                int friendUid = resultBean1.getFriendUid();
+                String headPic1 = resultBean1.getHeadPic();
+                Intent intent = new Intent(context, SendNewsActivity.class);
+                intent.putExtra("name",nickName1);
+                intent.putExtra("friend",friendUid);
+                intent.putExtra("headPic",headPic1);
+                context.startActivity(intent);
+                onFinshListener.onFinsh();
+            }
+        });
     }
 
     @Override
@@ -78,5 +100,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyRecordHo
             mTvNickName = itemView.findViewById(R.id.tvNickName);
             mIvRemove = itemView.findViewById(R.id.ivRemove);
         }
+    }
+    public interface OnFinshListener{
+        void onFinsh();
     }
 }
