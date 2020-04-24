@@ -103,7 +103,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                     //获取时
                     int hour = instance.get(Calendar.HOUR_OF_DAY);
                     int minute = instance.get(Calendar.MINUTE);
-                    String time = hour+minute+"";
+                    String time = hour+":"+minute;
                     NewsBean newsBean = new NewsBean(headPic, name, friend + "",time);
 
                     EventBus.getDefault().postSticky(newsBean);

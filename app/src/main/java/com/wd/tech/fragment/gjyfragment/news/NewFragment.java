@@ -18,6 +18,8 @@ import com.wd.tech.mvp.gjymvp.newsnotice.INewsNoticeContract;
 import com.wd.tech.mvp.gjymvp.newsnotice.NewsNoticePresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
     private RecyclerView recyclerNews;
 
     private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
+    private NewsAdapter newsAdapter;
 
     @Override
     public int initLayout() {
@@ -56,6 +59,17 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onEvent(NewsBean bean){
+        if (bean != null) {
+            list.add(bean);
+            if (newsAdapter != null) {
+                newsAdapter.setList(list);
+                newsAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     @Override
     public void initListener() {
 
@@ -72,11 +86,10 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 //        hashMap.put("page","1");
 //        hashMap.put("count","10");
 //        presenter.getGroupNotice(hashMap);
-        list.add(new NewsBean("null","好友通知","null","null"));
-        list.add(new NewsBean("null","群通知","null","null"));
-        list.add(new NewsBean("heihie","三毛","","null"));
+        list.add(new NewsBean("null","好友通知","null",""));
+        list.add(new NewsBean("null","群通知","null",""));
 
-        NewsAdapter newsAdapter = new NewsAdapter(getContext(),list);
+        newsAdapter = new NewsAdapter(getContext(),list);
         recyclerNews.setAdapter(newsAdapter);
 
     }

@@ -15,6 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.wd.tech.R;
 import com.wd.tech.activity.FriendNoticeActivity;
 import com.wd.tech.activity.GroupNoticeActivity;
@@ -60,11 +63,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
             Resources resources = context.getResources();
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.message_icon_notice_n_xhdpi);
             holder.mIvNoticePic.setImageBitmap(bitmap);
+            String time = newsBean.getTime();
+            holder.tvTime.setText(time);
         }else {
             String name = newsBean.getName();
             holder.mTvNotice.setText(name);
-            holder.mIvNoticePic.setBackground(null);
-
+            String img1 = newsBean.getImg();
+            Glide.with(context).load(img1).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(holder.mIvNoticePic);
+            String time = newsBean.getTime();
+            holder.tvTime.setText(time);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -93,11 +100,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
 
     class MyNewsHolder extends RecyclerView.ViewHolder {
         private ImageView mIvNoticePic;
-        private TextView mTvNotice;
+        private TextView mTvNotice,tvTime;
         public MyNewsHolder(@NonNull View itemView) {
             super(itemView);
             mIvNoticePic = itemView.findViewById(R.id.ivNoticePic);
             mTvNotice = itemView.findViewById(R.id.tvNotice);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
+    }
+
+    public void setList(ArrayList<NewsBean> list) {
+        this.list = list;
     }
 }
