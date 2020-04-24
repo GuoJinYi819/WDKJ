@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MyPostActivity"
+    tools:context=".activity.SigninActivity"
     android:orientation="vertical"
     >
     <LinearLayout
@@ -16,7 +16,7 @@
         android:gravity="center_vertical"
         >
         <ImageView
-            android:id="@+id/imgPostBackWy"
+            android:id="@+id/imgSigninBackWy"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:src="@mipmap/common_nav_btn_back_n_xhdpi"
@@ -28,14 +28,26 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="我的帖子"
+            android:text="签到"
             android:textColor="#878888"
             >
         </TextView>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerPostWy"
+    <com.wd.tech.view.SignTimeView
+        android:id="@+id/signTimeViewWy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content">
+    </com.wd.tech.view.SignTimeView>
+    <Button
+        android:id="@+id/btnSignWy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#03A9F4"
+        android:textColor="#fff"
+        android:text="签到"
+        android:textSize="20sp"
+        >
+    </Button>
 </LinearLayout>

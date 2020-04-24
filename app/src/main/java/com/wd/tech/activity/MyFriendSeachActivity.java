@@ -106,6 +106,12 @@ public class MyFriendSeachActivity extends BaseActivity<FriendSeachPresenter> im
             RecordAdapter recordAdapter = new RecordAdapter(result, MyFriendSeachActivity.this);
             mRecyclerRecord.setAdapter(recordAdapter);
 
+            recordAdapter.setOnFinshListener(new RecordAdapter.OnFinshListener() {
+                @Override
+                public void onFinsh() {
+                    finish();
+                }
+            });
         }
     }
 

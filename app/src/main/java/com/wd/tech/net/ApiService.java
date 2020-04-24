@@ -9,7 +9,9 @@ import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.gjybean.QueryFriendBean;
+import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
+import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
@@ -23,7 +25,9 @@ import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -140,4 +144,17 @@ public interface ApiService {
     @POST(ApiUrl.DOTASK_URL)
     @FormUrlEncoded
     Observable<DoTaskBean> getDoTaskData(@Field("taskId")int taskId);
+    //根据用户ID查询用户信息
+    @GET(ApiUrl.SELECT_USER_URL)
+    Observable<SelectUserBean> getSelectUserData();
+    //我的贴子
+    @GET(ApiUrl.MYPOST_URL)
+    Observable<MyPostBean> getMyPostData(@Query("page")int page, @Query("count")int count);
+    //查询群消息
+    @GET(ApiUrl.QUERYGROUP)
+    Observable<QueryGroupBean> queryGroup(@QueryMap Map<String,String> params);
+    //发送群消息
+    @POST(ApiUrl.SENDGROUP)
+    @FormUrlEncoded
+    Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
 }
