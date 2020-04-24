@@ -16,7 +16,9 @@ import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.mvp.gjymvp.sendgroup.ISendGroupContract;
 import com.wd.tech.mvp.gjymvp.sendgroup.SendGroupPresenter;
+import com.wd.tech.util.RsaCoder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
     private androidx.recyclerview.widget.RecyclerView mRecyclerGroup;
     private android.widget.EditText mEditContent;
     private android.widget.TextView mTvSend;
+    private SendGroupAdapter sendGroupAdapter;
 
     @Override
     public int initLayout() {
@@ -58,6 +61,35 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
                 finish();
             }
         });
+        mTvSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //发送数据
+                String content = mEditContent.getText().toString();
+                try {
+                    String text = RsaCoder.encryptByPublicKey(content);
+                    Intent intent = getIntent();
+                    int groupId = intent.getIntExtra("groupId", -1);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("content",text);
+                    hashMap.put("groupId",groupId+"");
+                    presenter.sendGroup(hashMap);
+                    mEditContent.setText("");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mEditContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sendGroupAdapter != null) {
+                    List<QueryGroupBean.ResultBean> list = sendGroupAdapter.getList();
+                    mRecyclerGroup.scrollToPosition(list.size()-1);
+                }
+            }
+        });
 
     }
 
@@ -83,13 +115,27 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
     public void onQueryGroupSuccess(QueryGroupBean bean) {
         List<QueryGroupBean.ResultBean> result = bean.getResult();
         if (result != null) {
-            SendGroupAdapter sendGroupAdapter = new SendGroupAdapter(SendGroupActivity.this, result);
+            //倒叙
+            Collections.reverse(result);
+            sendGroupAdapter = new SendGroupAdapter(SendGroupActivity.this, result);
             mRecyclerGroup.setAdapter(sendGroupAdapter);
+            mRecyclerGroup.scrollToPosition(result.size()-1);
         }
     }
 
     @Override
     public void onSendGroupSuccess(SendGroupBean bean) {
+        String message = bean.getMessage();
+        boolean b = message.equals("发送成功");
+        if (b) {
+            Intent intent = getIntent();
+            int groupId = intent.getIntExtra("groupId", -1);
 
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("groupId",groupId+"");
+            hashMap.put("page","1");
+            hashMap.put("count","15");
+            presenter.getQueryGroup(hashMap);
+        }
     }
 }

@@ -134,4 +134,8 @@ public class SendGroupAdapter extends RecyclerView.Adapter {
             mTvContent = itemView.findViewById(R.id.tvContent);
         }
     }
+
+    public List<QueryGroupBean.ResultBean> getList() {
+        return list;
+    }
 }
