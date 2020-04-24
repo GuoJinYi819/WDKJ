@@ -1,2 +1,3 @@
 rootProject.name='WdDetroy'
 include ':app'
+include ':app:mybuttonkinfe'

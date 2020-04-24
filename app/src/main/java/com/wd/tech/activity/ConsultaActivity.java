@@ -3,6 +3,7 @@ package com.wd.tech.activity;
 import android.content.Intent;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.qzjadapter.DetailAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
@@ -10,6 +11,10 @@ import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * ClassName: WdDetroy
@@ -20,6 +25,7 @@ import io.reactivex.Observable;
  */
 public class ConsultaActivity extends BaseActivity {
     private androidx.recyclerview.widget.RecyclerView re;
+    private DetailAdapter adapter;
 
     @Override
     public int initLayout() {
@@ -41,9 +47,7 @@ public class ConsultaActivity extends BaseActivity {
     public void initData() {
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 3);
-        RetrofitUtil instance = RetrofitUtil.getInstance();
-        ApiService service = instance.createService();
-        Observable<DetailBean> detailsData = service.getDetailsData(id);
+
     }
 
     @Override

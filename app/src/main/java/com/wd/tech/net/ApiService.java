@@ -123,6 +123,7 @@ public interface ApiService {
     //我的  收藏页
     @GET(ApiUrl.FOLLOW_URL)
     Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
+   //咨讯详情
     @GET(ApiUrl.DETAILS_URL)
     Observable<DetailBean> getDetailsData(@Query("id")int id);
     //查询我的好友信息
