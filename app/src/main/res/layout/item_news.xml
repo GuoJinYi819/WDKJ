@@ -6,6 +6,8 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_10"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40">
@@ -46,9 +48,9 @@
     </LinearLayout>
     <View
         android:layout_marginTop="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_8"
         android:layout_width="match_parent"
-        android:background="#333333"
+        android:background="#999999"
         android:layout_height="@dimen/dp_1">
 
     </View>

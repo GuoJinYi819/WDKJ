@@ -91,22 +91,31 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                     Intent intent = getIntent();
                     int friend = intent.getIntExtra("friend", -1);
                     String name = intent.getStringExtra("name");
-                    String headPic = intent.getStringExtra("headPic");
 
                     String c = RsaCoder.encryptByPublicKey(content);
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("receiveUid",friend+"");
                     hashMap.put("content",c);
                     presenter.sendMessage(hashMap);
-                    //发送消息
-                    Calendar instance = Calendar.getInstance();
-                    //获取时
-                    int hour = instance.get(Calendar.HOUR_OF_DAY);
-                    int minute = instance.get(Calendar.MINUTE);
-                    String time = hour+":"+minute;
-                    NewsBean newsBean = new NewsBean(headPic, name, friend + "",time);
 
-                    EventBus.getDefault().postSticky(newsBean);
+                    int help = intent.getIntExtra("help", -1);
+                    if(help==1){
+
+                    }else if (help==-1){
+                        String headPic = intent.getStringExtra("headPic");
+                        //发送消息
+                        Calendar instance = Calendar.getInstance();
+                        //获取时
+                        int hour = instance.get(Calendar.HOUR_OF_DAY);
+                        int minute = instance.get(Calendar.MINUTE);
+                        String time = hour+":"+minute;
+                        NewsBean newsBean = new NewsBean(headPic, name, friend + "",time);
+
+                        EventBus.getDefault().postSticky(newsBean);
+
+                    }
+
+                    mEditContent.setText("");
 
 
                 } catch (Exception e) {

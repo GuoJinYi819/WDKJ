@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wd.tech.R;
 import com.wd.tech.activity.FriendNoticeActivity;
 import com.wd.tech.activity.GroupNoticeActivity;
+import com.wd.tech.activity.SendNewsActivity;
 import com.wd.tech.bean.gjybean.NewsBean;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
         NewsBean newsBean = list.get(position);
 
         String img = newsBean.getImg();
-        if (img.equals("null")) {
+        if (img.equals("null")||img.equals("nullnull")) {
             String name = newsBean.getName();
             holder.mTvNotice.setText(name);
             Resources resources = context.getResources();
@@ -86,7 +87,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNewsHolder> 
                     //跳转至 群通知界面
                     Intent intent = new Intent(context, GroupNoticeActivity.class);
                     context.startActivity(intent);
-
+                }else{
+                    Intent intent = new Intent(context, SendNewsActivity.class);
+                    String name = newsBean.getName();
+                    String userId = newsBean.getUserId();
+                    String img1 = newsBean.getImg();
+                    intent.putExtra("headPic",img1);
+                    intent.putExtra("name",name);
+                    intent.putExtra("friend",Integer.parseInt(userId));
+                    intent.putExtra("help",1);
+                    context.startActivity(intent);
                 }
             }
         });

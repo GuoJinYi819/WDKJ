@@ -37,6 +37,7 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 
     private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
     private NewsAdapter newsAdapter;
+    private int help = 0;
 
     @Override
     public int initLayout() {
@@ -62,7 +63,17 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onEvent(NewsBean bean){
         if (bean != null) {
+
             list.add(bean);
+            //去重
+            for  ( int  i  =   0 ; i  <  list.size()  -   1 ; i ++ )  {
+                for  ( int  j  =  list.size()  -   1 ; j  >  i; j -- )  {
+                    if  (list.get(j).getUserId().equals(list.get(i).getUserId()))  {
+                        list.remove(j);
+                    }
+                }
+            }
+
             if (newsAdapter != null) {
                 newsAdapter.setList(list);
                 newsAdapter.notifyDataSetChanged();
@@ -87,7 +98,7 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 //        hashMap.put("count","10");
 //        presenter.getGroupNotice(hashMap);
         list.add(new NewsBean("null","好友通知","null",""));
-        list.add(new NewsBean("null","群通知","null",""));
+        list.add(new NewsBean("null","群通知","nullnull",""));
 
         newsAdapter = new NewsAdapter(getContext(),list);
         recyclerNews.setAdapter(newsAdapter);
