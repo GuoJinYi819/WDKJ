@@ -9,11 +9,19 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.gjyadapter.SendGroupAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.gjybean.QueryGroupBean;
+import com.wd.tech.bean.gjybean.SendGroupBean;
+import com.wd.tech.mvp.gjymvp.sendgroup.ISendGroupContract;
+import com.wd.tech.mvp.gjymvp.sendgroup.SendGroupPresenter;
+
+import java.util.HashMap;
+import java.util.List;
 
 //发送群消息
-public class SendGroupActivity extends BaseActivity {
+public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implements ISendGroupContract.ISendGroupView {
 
     private android.widget.ImageView mIvBlack;
     private android.widget.TextView mTvName;
@@ -59,10 +67,29 @@ public class SendGroupActivity extends BaseActivity {
         int groupId = intent.getIntExtra("groupId", -1);
         String groupName = intent.getStringExtra("groupName");
         mTvName.setText(groupName);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("groupId",groupId+"");
+        hashMap.put("page","1");
+        hashMap.put("count","15");
+        presenter.getQueryGroup(hashMap);
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public SendGroupPresenter initPresenter() {
+        return new SendGroupPresenter();
+    }
+
+    @Override
+    public void onQueryGroupSuccess(QueryGroupBean bean) {
+        List<QueryGroupBean.ResultBean> result = bean.getResult();
+        if (result != null) {
+            SendGroupAdapter sendGroupAdapter = new SendGroupAdapter(SendGroupActivity.this, result);
+            mRecyclerGroup.setAdapter(sendGroupAdapter);
+        }
+    }
+
+    @Override
+    public void onSendGroupSuccess(SendGroupBean bean) {
+
     }
 }

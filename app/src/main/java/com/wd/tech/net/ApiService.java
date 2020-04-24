@@ -9,7 +9,9 @@ import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.gjybean.QueryFriendBean;
+import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
+import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
@@ -143,4 +145,11 @@ public interface ApiService {
     //根据用户ID查询用户信息
     @GET(ApiUrl.SELECT_USER_URL)
     Observable<SelectUserBean> getSelectUserData();
+    //查询群消息
+    @GET(ApiUrl.QUERYGROUP)
+    Observable<QueryGroupBean> queryGroup(@QueryMap Map<String,String> params);
+    //发送群消息
+    @POST(ApiUrl.SENDGROUP)
+    @FormUrlEncoded
+    Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
 }
