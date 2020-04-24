@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.NewsBean;
+import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.mvp.gjymvp.sendnews.ISendNewsContract;
 import com.wd.tech.mvp.gjymvp.sendnews.SendNewsPresenter;
@@ -124,38 +127,25 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
             }
         });
 
-        mEditContent.setOnClickListener(new View.OnClickListener() {
+        mEditContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onClick(View v) {
-                if (dialogRecordAdapter != null) {
-                    List<DialogueRecordBean.ResultBean> list = dialogRecordAdapter.getList();
-                    // if (result.size()>7) {
-                    mRecyclerNews.scrollToPosition(list.size()-1);
-                    //}
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                SendNewsActivity.this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);//获取当前界面可视部分
+                int screenHeight = SendNewsActivity.this.getWindow().getDecorView().getRootView().getHeight();//获取屏幕高度
+                int heiDifference = screenHeight - rect.bottom;//获取键盘高度，键盘没有弹出时，高度为0，键盘弹出时，高度为正数
+                if (heiDifference == 0) {
+                    //todo:键盘没有弹出时
+                } else {
+                    //todo：键盘弹出时
+                    if (dialogRecordAdapter != null) {
+                        List<DialogueRecordBean.ResultBean> list = dialogRecordAdapter.getList();
+                        mRecyclerNews.scrollToPosition(list.size()-1);
+
+                    }
                 }
             }
         });
-       mEditContent.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-               if (dialogRecordAdapter != null) {
-                   List<DialogueRecordBean.ResultBean> list = dialogRecordAdapter.getList();
-                   // if (result.size()>7) {
-                   mRecyclerNews.scrollToPosition(list.size()-1);
-                   //}
-               }
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-
-           }
-       });
 
     }
 

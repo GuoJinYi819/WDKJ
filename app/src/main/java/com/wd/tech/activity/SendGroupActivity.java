@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import com.wd.tech.R;
 import com.wd.tech.adapter.gjyadapter.SendGroupAdapter;
@@ -81,12 +85,32 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
                 }
             }
         });
-        mEditContent.setOnClickListener(new View.OnClickListener() {
+        mEditContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onClick(View v) {
-                if (sendGroupAdapter != null) {
-                    List<QueryGroupBean.ResultBean> list = sendGroupAdapter.getList();
-                    mRecyclerGroup.scrollToPosition(list.size()-1);
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                SendGroupActivity.this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);//获取当前界面可视部分
+                int screenHeight = SendGroupActivity.this.getWindow().getDecorView().getRootView().getHeight();//获取屏幕高度
+                int heiDifference = screenHeight - rect.bottom;//获取键盘高度，键盘没有弹出时，高度为0，键盘弹出时，高度为正数
+                if (heiDifference == 0) {
+                    //todo:键盘没有弹出时
+                } else {
+                    //todo：键盘弹出时
+                    if (sendGroupAdapter != null) {
+                        List<QueryGroupBean.ResultBean> list = sendGroupAdapter.getList();
+                        mRecyclerGroup.scrollToPosition(list.size()-1);
+                    }
+                }
+            }
+        });
+
+
+
+        mEditContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+
                 }
             }
         });
