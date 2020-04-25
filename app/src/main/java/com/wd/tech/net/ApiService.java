@@ -22,6 +22,7 @@ import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -157,4 +159,7 @@ public interface ApiService {
     @POST(ApiUrl.SENDGROUP)
     @FormUrlEncoded
     Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
+    //删除帖子  我的
+    @DELETE(ApiUrl.DELETEPOST_URL)
+    Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
 }

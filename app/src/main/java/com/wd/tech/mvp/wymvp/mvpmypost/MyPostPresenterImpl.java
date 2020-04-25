@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.wymvp.mvpmypost;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 
 /**
@@ -28,6 +29,21 @@ public class MyPostPresenterImpl extends BasePresenter<IMyPostContract.IMyPostVi
             @Override
             public void onError(String error) {
                 iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getDeletePost(String communityId) {
+        myPostModel.getDeletePost(communityId, new IMyPostContract.IMyPostModel.DataCallBack2() {
+            @Override
+            public void onDeletePostSuccess(DeletePostBean deletePostBean) {
+                iBaseView.onDeletePostSuccess(deletePostBean);
+            }
+
+            @Override
+            public void onDeleteError(String error) {
+                iBaseView.onDeleteError(error);
             }
         });
     }
