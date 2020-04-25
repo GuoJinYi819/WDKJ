@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AddUserActivity">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:src="@mipmap/common_icon_back_n_xhdpi"
+        android:padding="@dimen/dp_5"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        tools:ignore="MissingConstraints">
+
+    </ImageView>
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/sp_18"
+        android:text="添加"
+        android:textColor="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+    </TextView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/addTabLayout"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="#ffffff"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        app:tabTextColor="#000"
+        app:tabSelectedTextColor="#000"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#87CEFF"
+        app:tabIndicatorFullWidth="false"
+        tools:ignore="MissingConstraints">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/addViewPager"
+        android:layout_marginTop="@dimen/dp_110"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

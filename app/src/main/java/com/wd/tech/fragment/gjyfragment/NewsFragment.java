@@ -1,5 +1,6 @@
 package com.wd.tech.fragment.gjyfragment;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.wd.tech.R;
+import com.wd.tech.activity.AddUserActivity;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.fragment.gjyfragment.news.ContactsFragment;
@@ -31,6 +33,7 @@ public class NewsFragment extends BaseFragment {
     private TextView mTvContacts;
     private ImageView mIvAdd;
     private ViewPager mNewsViewPager;
+    private PopupWindow popupWindow;
 
     @Override
     public int initLayout() {
@@ -125,14 +128,15 @@ public class NewsFragment extends BaseFragment {
         mIvFriendPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "加好友或群", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), AddUserActivity.class);
+                startActivity(intent);
             }
         });
         mTvFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "加好友或群", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getContext(), AddUserActivity.class);
+                startActivity(intent);
             }
         });
         mIvGroupPic.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +156,7 @@ public class NewsFragment extends BaseFragment {
         inflate.measure(0, 0);
         int measuredWidth = inflate.getMeasuredWidth();
         int measuredHeight = inflate.getMeasuredHeight();
-        PopupWindow popupWindow = new PopupWindow(inflate, measuredWidth, measuredHeight);
+        popupWindow = new PopupWindow(inflate, measuredWidth, measuredHeight);
         //设置背景  ---不设置 setOutsideTouchable不好使
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         //点击试图外 关闭popupWindow
@@ -167,6 +171,12 @@ public class NewsFragment extends BaseFragment {
                 popupWindow.showAsDropDown(mIvAdd);
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        popupWindow.dismiss();
     }
 
     @Override
