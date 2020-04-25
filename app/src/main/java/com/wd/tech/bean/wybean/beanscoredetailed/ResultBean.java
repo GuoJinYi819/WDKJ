@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class ResultBean implements Serializable {
     private int amount;
-    private long createTime;
+    private Long createTime;
     private int direction;
     private int type;
 
@@ -23,11 +23,11 @@ public class ResultBean implements Serializable {
         this.amount = amount;
     }
 
-    public long getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

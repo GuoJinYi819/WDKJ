@@ -172,6 +172,6 @@ public interface ApiService {
     @GET(ApiUrl.SCORE_URL)
     Observable<ScoreBean> getScoreData();
     //用户积分明细
-    @GET(ApiUrl.SCORE_URL)
+    @GET(ApiUrl.SCOREDETAILED_URL)
     Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);
 }

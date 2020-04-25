@@ -1,6 +1,7 @@
 package com.wd.tech.bean.wybean.beanscoredetailed;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,13 +12,13 @@ import java.util.List;
  * @classname :ScoreDetailedBean
  */
 public class ScoreDetailedBean implements Serializable {
-    private List<ResultBean> result;
+    private ArrayList<ResultBean> result;
 
-    public List<ResultBean> getResult() {
+    public ArrayList<ResultBean> getResult() {
         return result;
     }
 
-    public void setResult(List<ResultBean> result) {
+    public void setResult(ArrayList<ResultBean> result) {
         this.result = result;
     }
 }

@@ -2,6 +2,7 @@ package com.wd.tech.mvp.wymvp.mvpscore;
 
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.wybean.beanscore.ScoreBean;
+import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 
 /**
  * @author 王阳
@@ -28,6 +29,21 @@ public class ScorePresenterImpl extends BasePresenter<IScoreContract.IScoreView>
             @Override
             public void onError(String error) {
                 iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getDetailedScore(int page, int count) {
+        scoreModel.getDetailedScore(page, count, new IScoreContract.IScoreModel.DataCallBack2() {
+            @Override
+            public void onDetailedSuccess(ScoreDetailedBean scoreDetailedBean) {
+                iBaseView.onDetailedSuccess(scoreDetailedBean);
+            }
+
+            @Override
+            public void onDetailedError(String error) {
+                iBaseView.onDetailedError(error);
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.wd.tech.mvp.wymvp.mvpscore;
 
+import android.util.Log;
+
 import com.wd.tech.bean.wybean.beanscore.ScoreBean;
+import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 
@@ -36,6 +39,32 @@ public class ScoreModelImpl implements IScoreContract.IScoreModel {
                     @Override
                     public void onError(Throwable e) {
                         dataCallBack.onError(e.getMessage());
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    @Override
+    public void getDetailedScore(int page, int count, DataCallBack2 dataCallBack2) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<ScoreDetailedBean> scoreDetailedData = service.getScoreDetailedData(page, count);
+        scoreDetailedData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ScoreDetailedBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(ScoreDetailedBean value) {
+                        dataCallBack2.onDetailedSuccess(value);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("==", "onError: "+e.getMessage());
+                        dataCallBack2.onDetailedError(e.getMessage());
                     }
                     @Override
                     public void onComplete() {

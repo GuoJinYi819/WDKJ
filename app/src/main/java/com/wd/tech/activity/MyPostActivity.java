@@ -97,4 +97,13 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
     @Override
     public void onDeleteError(String error) {
     }
+    //销毁
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        boolean registered = EventBus.getDefault().isRegistered(this);
+        if(registered){
+            EventBus.getDefault().unregister(this);
+        }
+    }
 }
