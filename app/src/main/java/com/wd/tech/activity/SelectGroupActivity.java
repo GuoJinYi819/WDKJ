@@ -15,8 +15,11 @@ import com.bumptech.glide.Glide;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.gjybean.AddFriendGroupBean;
+import com.wd.tech.mvp.gjymvp.addfriendgroup.AddFriendGroupPresenter;
+import com.wd.tech.mvp.gjymvp.addfriendgroup.IAddFriendGroupContract;
 
-public class SelectGroupActivity extends BaseActivity {
+public class SelectGroupActivity extends BaseActivity<AddFriendGroupPresenter> implements IAddFriendGroupContract.IAddFriendGroupView {
 
     private android.widget.ImageView mIvBlac;
     private android.widget.TextView mTvAdd;
@@ -51,8 +54,7 @@ public class SelectGroupActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         String text = edContent.getText().toString();
-
-
+                        presenter.addFriendGroup(text);
                     }
                 });
                 btnC.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,18 @@ public class SelectGroupActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public AddFriendGroupPresenter initPresenter() {
+        return new AddFriendGroupPresenter();
+    }
+
+    @Override
+    public void onAddFriendGroupSuccess(AddFriendGroupBean bean) {
+        String message = bean.getMessage();
+        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailed(String error) {
+
     }
 }

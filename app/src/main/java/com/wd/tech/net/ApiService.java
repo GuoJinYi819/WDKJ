@@ -1,6 +1,7 @@
 package com.wd.tech.net;
 
 import com.wd.tech.bean.gjybean.AddFriendBean;
+import com.wd.tech.bean.gjybean.AddFriendGroupBean;
 import com.wd.tech.bean.gjybean.CreateGroupBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
@@ -166,4 +167,8 @@ public interface ApiService {
     @POST(ApiUrl.CREATEGROUP)
     @FormUrlEncoded
     Observable<CreateGroupBean> createGroup(@FieldMap Map<String,String> params);
+    //创建自定义分组
+    @POST(ApiUrl.ADDFRIENDGROUP)
+    @FormUrlEncoded
+    Observable<AddFriendGroupBean> addFriendGroup(@Field("groupName")String groupName);
 }
