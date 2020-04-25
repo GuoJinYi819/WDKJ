@@ -27,6 +27,7 @@ import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
+import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
@@ -162,4 +163,7 @@ public interface ApiService {
     //删除帖子  我的
     @DELETE(ApiUrl.DELETEPOST_URL)
     Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
+    //系统通知
+    @GET(ApiUrl.NOTICE_URL)
+    Observable<NoticeBean> getNoticeData(@Query("page")int page, @Query("count")int count);
 }

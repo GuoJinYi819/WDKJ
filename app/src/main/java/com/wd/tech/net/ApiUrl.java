@@ -74,4 +74,6 @@ public interface ApiUrl {
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
     //删除帖子  只能是自己的
     String DELETEPOST_URL="community/verify/v1/deletePost";
+    //通知
+    String NOTICE_URL="tool/verify/v1/findSysNoticeList";
 }
