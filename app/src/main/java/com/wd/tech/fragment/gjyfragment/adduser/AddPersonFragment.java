@@ -46,6 +46,7 @@ public class AddPersonFragment extends BaseFragment<AddFriendPresenter> implemen
                     hashMap.put("friendUid",phone);
                     hashMap.put("remark","快tm同意，over");
                     presenter.addFriend(hashMap);
+                    mEditPhone.setText("");
                 }
                 return false;
             }

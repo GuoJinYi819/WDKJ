@@ -157,4 +157,8 @@ public interface ApiService {
     @POST(ApiUrl.ADDFRIEND)
     @FormUrlEncoded
     Observable<AddFriendBean> addFriend(@FieldMap Map<String,String> params);
+    //添加群
+    @POST(ApiUrl.ADDGROUP)
+    @FormUrlEncoded
+    Observable<AddFriendBean> addGroup(@FieldMap Map<String,String> params);
 }

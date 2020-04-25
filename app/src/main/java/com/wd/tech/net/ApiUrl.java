@@ -72,4 +72,6 @@ public interface ApiUrl {
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
     //添加好友
     String ADDFRIEND = "chat/verify/v1/addFriend";
+    //添加群
+    String ADDGROUP = "group/verify/v1/applyAddGroup";
 }

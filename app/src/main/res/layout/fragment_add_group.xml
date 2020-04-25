@@ -23,6 +23,8 @@
         </ImageView>
 
         <EditText
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:id="@+id/editPhone"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_15"
