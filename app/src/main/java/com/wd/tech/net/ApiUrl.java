@@ -76,4 +76,8 @@ public interface ApiUrl {
     String DELETEPOST_URL="community/verify/v1/deletePost";
     //通知
     String NOTICE_URL="tool/verify/v1/findSysNoticeList";
+    //积分
+    String SCORE_URL="user/verify/v1/findUserIntegral";
+    //积分明细
+    String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
 }

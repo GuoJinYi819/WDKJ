@@ -29,6 +29,8 @@ import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beanscore.ScoreBean;
+import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
@@ -166,4 +168,10 @@ public interface ApiService {
     //系统通知
     @GET(ApiUrl.NOTICE_URL)
     Observable<NoticeBean> getNoticeData(@Query("page")int page, @Query("count")int count);
+    //用户积分
+    @GET(ApiUrl.SCORE_URL)
+    Observable<ScoreBean> getScoreData();
+    //用户积分明细
+    @GET(ApiUrl.SCORE_URL)
+    Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);
 }

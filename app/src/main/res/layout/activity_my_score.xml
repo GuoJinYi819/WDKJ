@@ -40,12 +40,13 @@
             </TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/tvScoreWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:text="积分"
             >
         </TextView>
@@ -60,6 +61,7 @@
             >
         </TextView>
         <TextView
+            android:id="@+id/tvDayCountWy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -71,6 +73,7 @@
         </TextView>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerScoreWy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_20"
