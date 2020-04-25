@@ -1,7 +1,9 @@
 package com.wd.tech.fragment.gjyfragment;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,6 @@ import com.wd.tech.fragment.gjyfragment.news.ContactsFragment;
 import com.wd.tech.fragment.gjyfragment.news.NewFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -58,6 +59,7 @@ public class NewsFragment extends BaseFragment {
                 return list.size();
             }
         });
+
     }
 
     @Override
@@ -94,10 +96,10 @@ public class NewsFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
+                if (position == 0) {
                     mTvContacts.setBackgroundResource(R.drawable.text_fillet_noselect);
                     mTvNews.setBackgroundResource(R.drawable.text_fillet_select);
-                }else if (position==1){
+                } else if (position == 1) {
                     mTvContacts.setBackgroundResource(R.drawable.text_fillet_select);
                     mTvNews.setBackgroundResource(R.drawable.text_fillet_noselect);
                 }
@@ -108,11 +110,61 @@ public class NewsFragment extends BaseFragment {
 
             }
         });
+
+        View inflate = View.inflate(getContext(), R.layout.item_popupwindow, null);
+        ImageView mIvFriendPic;
+        TextView mTvFriend;
+        ImageView mIvGroupPic;
+        TextView mTvGroup;
+        mIvFriendPic = inflate.findViewById(R.id.ivFriendPic);
+        mTvFriend = inflate.findViewById(R.id.tvFriend);
+        mIvGroupPic = inflate.findViewById(R.id.ivGroupPic);
+        mTvGroup = inflate.findViewById(R.id.tvGroup);
+
+        //设置点击事件
+        mIvFriendPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "加好友或群", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mTvFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "加好友或群", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        mIvGroupPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "创建群聊", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mTvGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "创建群聊", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //测量当前View的宽高
+        inflate.measure(0, 0);
+        int measuredWidth = inflate.getMeasuredWidth();
+        int measuredHeight = inflate.getMeasuredHeight();
+        PopupWindow popupWindow = new PopupWindow(inflate, measuredWidth, measuredHeight);
+        //设置背景  ---不设置 setOutsideTouchable不好使
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //点击试图外 关闭popupWindow
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+
         //添加
         mIvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "添加", Toast.LENGTH_SHORT).show();
+                //显示
+                popupWindow.showAsDropDown(mIvAdd);
             }
         });
     }
