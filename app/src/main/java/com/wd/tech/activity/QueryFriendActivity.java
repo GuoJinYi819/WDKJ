@@ -22,7 +22,6 @@ import com.wd.tech.mvp.gjymvp.queryfriend.QueryFriendPresenter;
 //查询好友个人资料
 public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> implements IQueryFriendContract.IQueryFriendView {
 
-    private android.widget.TextView mTvEdit;
     private android.widget.ImageView mIvHeadPic;
     private android.widget.TextView mTvSignature;
     private android.widget.TextView mTvSexTime;
@@ -38,7 +37,6 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
 
     @Override
     public void initView() {
-        mTvEdit = findViewById(R.id.tvEdit);
         mIvHeadPic = findViewById(R.id.ivHeadPic);
         mTvSignature = findViewById(R.id.tvSignature);
         mTvSexTime = findViewById(R.id.tvSexTime);
@@ -50,14 +48,7 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
 
     @Override
     public void initListener() {
-        //编辑
-        mTvEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //跳转编辑页面
-
-            }
-        });
+     
         //发送信息
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
