@@ -26,6 +26,7 @@ import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -174,4 +175,8 @@ public interface ApiService {
     //用户积分明细
     @GET(ApiUrl.SCOREDETAILED_URL)
     Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);
+    //发送群消息
+    @POST(ApiUrl.IMPROVEINFORMATION_URL)
+    @FormUrlEncoded
+    Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
 }

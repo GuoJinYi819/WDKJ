@@ -80,4 +80,6 @@ public interface ApiUrl {
     String SCORE_URL="user/verify/v1/findUserIntegral";
     //积分明细
     String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
+    //完善用户 信息
+    String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
 }
