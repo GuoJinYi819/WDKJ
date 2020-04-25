@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-//好友通知
+//群通知
 public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> implements INewsNoticeContract.INewsNoticeView {
 
     private android.widget.ImageView mIvBack;
@@ -62,7 +62,7 @@ public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> imple
     public void initData() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("page","1");
-        hashMap.put("count","10");
+        hashMap.put("count","15");
         presenter.getGroupNotice(hashMap);
     }
 
@@ -96,8 +96,10 @@ public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> imple
                                 @Override
                                 public void accept(ReviewFriendApplyBean reviewFriendApplyBean) throws Exception {
                                     String message = reviewFriendApplyBean.getMessage();
-                                    Toast.makeText(GroupNoticeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
-                                    groupNoticeAdapter.notifyDataSetChanged();
+                                    HashMap<String, String> hashMap = new HashMap<>();
+                                    hashMap.put("page","1");
+                                    hashMap.put("count","15");
+                                    presenter.getGroupNotice(hashMap);
                                 }
                             });
                 }
