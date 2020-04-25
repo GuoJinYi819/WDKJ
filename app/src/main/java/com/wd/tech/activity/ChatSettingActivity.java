@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.wd.tech.R;
@@ -42,7 +43,18 @@ public class ChatSettingActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-
+        mRelativeFz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                int groupId = intent.getIntExtra("groupId", -1);
+                int friend = intent.getIntExtra("friend", -1);
+                Intent it = new Intent(ChatSettingActivity.this, SelectGroupActivity.class);
+                it.putExtra("groupId",groupId);
+                it.putExtra("friend",friend);
+                startActivity(it);
+            }
+        });
     }
 
     @Override

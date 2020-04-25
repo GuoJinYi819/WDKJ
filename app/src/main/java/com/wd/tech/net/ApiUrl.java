@@ -76,4 +76,5 @@ public interface ApiUrl {
     String ADDGROUP = "group/verify/v1/applyAddGroup";
     //创建群
     String CREATEGROUP = "group/verify/v1/createGroup";
+    
 }
