@@ -78,4 +78,6 @@ public interface ApiUrl {
     String CREATEGROUP = "group/verify/v1/createGroup";
     //创建自定义分组
     String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
+    //转移好友值 其他分组
+    String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
 }

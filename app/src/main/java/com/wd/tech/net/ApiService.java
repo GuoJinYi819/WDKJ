@@ -16,6 +16,7 @@ import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
+import com.wd.tech.bean.gjybean.TransferFriendBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
@@ -171,4 +172,7 @@ public interface ApiService {
     @POST(ApiUrl.ADDFRIENDGROUP)
     @FormUrlEncoded
     Observable<AddFriendGroupBean> addFriendGroup(@Field("groupName")String groupName);
+    //转移好友值 其他分组
+    @PUT(ApiUrl.TRANSFERGROUP)
+    Observable<TransferFriendBean> transferGroup(@Query("newGroupId")int newGroupId, @Query("friendUid")int friendUid);
 }

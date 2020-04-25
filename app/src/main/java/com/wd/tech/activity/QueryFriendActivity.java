@@ -68,6 +68,8 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
                 }
                 it.putExtra("name",name);
                 startActivity(it);
+                setResult(100,null);
+                finish();
             }
         });
     }

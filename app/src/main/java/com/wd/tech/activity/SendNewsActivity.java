@@ -113,7 +113,6 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                                     it.putExtra("groupId",groupId);
                                     it.putExtra("friend",friend);
                                     startActivity(it);
-                                    finish();
 
                                 }
                             }

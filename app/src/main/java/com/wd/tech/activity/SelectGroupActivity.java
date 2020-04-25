@@ -10,6 +10,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.AddFriendGroupBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
+import com.wd.tech.bean.gjybean.TransferFriendBean;
 import com.wd.tech.mvp.gjymvp.addfriendgroup.AddFriendGroupPresenter;
 import com.wd.tech.mvp.gjymvp.addfriendgroup.IAddFriendGroupContract;
 import com.wd.tech.net.ApiService;
@@ -40,6 +42,7 @@ public class SelectGroupActivity extends BaseActivity<AddFriendGroupPresenter> i
     private android.widget.TextView mTvAdd;
     private android.widget.ListView mListView;
     private AlertDialog alertDialog;
+    private int friend;
 
     @Override
     public int initLayout() {
@@ -84,15 +87,15 @@ public class SelectGroupActivity extends BaseActivity<AddFriendGroupPresenter> i
 
             }
         });
-
+        showListView();
     }
 
     @Override
     public void initData() {
         Intent intent = getIntent();
         int groupId = intent.getIntExtra("groupId", -1);
-        int friend = intent.getIntExtra("friend", -1);
-        showListView();
+        friend = intent.getIntExtra("friend", -1);
+
 
     }
 
@@ -154,6 +157,31 @@ public class SelectGroupActivity extends BaseActivity<AddFriendGroupPresenter> i
                                     return inflate;
                                 }
 
+                            });
+                            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    FriendGroupListBean.ResultBean resultBean = list.get(position);
+                                    int groupId = resultBean.getGroupId();
+
+                                    //转移分组
+                                    RetrofitUtil instance1 = RetrofitUtil.getInstance();
+                                    ApiService service = instance1.createService();
+                                    Observable<TransferFriendBean> group = service.transferGroup(groupId, friend);
+                                    group.subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new Consumer<TransferFriendBean>() {
+                                                @Override
+                                                public void accept(TransferFriendBean transferFriendBean) throws Exception {
+                                                    String message1 = transferFriendBean.getMessage();
+                                                    Toast.makeText(SelectGroupActivity.this, ""+message1, Toast.LENGTH_SHORT).show();
+                                                    if (message1.equals("转移成功")) {
+                                                        finish();
+                                                    }
+                                                }
+                                            });
+
+                                }
                             });
                         }
                     }

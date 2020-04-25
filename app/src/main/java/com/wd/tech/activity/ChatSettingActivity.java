@@ -55,6 +55,12 @@ public class ChatSettingActivity extends BaseActivity {
                 startActivity(it);
             }
         });
+        mIvBlac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

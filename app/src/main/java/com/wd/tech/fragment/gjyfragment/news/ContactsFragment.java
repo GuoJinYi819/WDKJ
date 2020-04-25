@@ -84,6 +84,17 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100&&resultCode==100&&data==null){
+            //刷新列表
+            isConfig = false;
+            presenter.getFriendGroupData();
+
+        }
+    }
+
+    @Override
     public void onGroupSuccess(FriendGroupListBean bean) {
         //外层
         String message = bean.getMessage();
@@ -137,7 +148,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                         Intent intent = new Intent(getContext(), QueryFriendActivity.class);
                         intent.putExtra("friend",friend);
                         intent.putExtra("groupId",groupid);
-                        startActivity(intent);
+                        startActivityForResult(intent,100);
                     }
                 });
 
