@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.wd.tech.R;
 import com.wd.tech.activity.AddUserActivity;
+import com.wd.tech.activity.CreateGroupActivity;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.fragment.gjyfragment.news.ContactsFragment;
@@ -142,13 +143,15 @@ public class NewsFragment extends BaseFragment {
         mIvGroupPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "创建群聊", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), CreateGroupActivity.class);
+                startActivity(intent);
             }
         });
         mTvGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "创建群聊", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), CreateGroupActivity.class);
+                startActivity(intent);
             }
         });
 
