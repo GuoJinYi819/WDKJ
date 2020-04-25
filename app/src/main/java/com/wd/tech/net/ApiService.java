@@ -1,5 +1,6 @@
 package com.wd.tech.net;
 
+import com.wd.tech.bean.gjybean.AddFriendBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
@@ -152,4 +153,8 @@ public interface ApiService {
     @POST(ApiUrl.SENDGROUP)
     @FormUrlEncoded
     Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
+    //添加好友
+    @POST(ApiUrl.ADDFRIEND)
+    @FormUrlEncoded
+    Observable<AddFriendBean> addFriend(@FieldMap Map<String,String> params);
 }

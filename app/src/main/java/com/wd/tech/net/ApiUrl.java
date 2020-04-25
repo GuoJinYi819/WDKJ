@@ -70,4 +70,6 @@ public interface ApiUrl {
     String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
     //发送群消息
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
+    //添加好友
+    String ADDFRIEND = "chat/verify/v1/addFriend";
 }
