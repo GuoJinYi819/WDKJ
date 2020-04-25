@@ -48,15 +48,20 @@ public class QueryFriendActivity extends BaseActivity<QueryFriendPresenter> impl
 
     @Override
     public void initListener() {
-     
+
         //发送信息
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
                 int friend = intent.getIntExtra("friend", -1);
+                int groupId = intent.getIntExtra("groupId", -1);
+
                 Intent it = new Intent(QueryFriendActivity.this, SendNewsActivity.class);
                 it.putExtra("friend",friend);
+                if (groupId!=-1) {
+                    it.putExtra("groupId",groupId);
+                }
                 String name = tvName.getText().toString();
                 if (headPic!=null) {
                     it.putExtra("headPic",headPic);

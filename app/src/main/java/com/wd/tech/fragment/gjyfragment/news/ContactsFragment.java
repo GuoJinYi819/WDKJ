@@ -34,6 +34,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
     private FriendGroupAdapter adapter;
     private boolean isConfig = false;
     private int nummber = 0;
+    private int groupid = 0;
 
     @Override
     public int initLayout() {
@@ -94,6 +95,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
             adapter.onGruopIdListener = new FriendGroupAdapter.OnGruopIdListener() {
                 @Override
                 public void onGroupId(int id,int groud) {
+                    groupid = id;
                     if(!isConfig){
                         nummber = groud;
                         presenter.getFriendChildData(id);
@@ -134,6 +136,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                         //跳转界面
                         Intent intent = new Intent(getContext(), QueryFriendActivity.class);
                         intent.putExtra("friend",friend);
+                        intent.putExtra("groupId",groupid);
                         startActivity(intent);
                     }
                 });

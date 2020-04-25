@@ -23,10 +23,13 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.NewsBean;
+import com.wd.tech.bean.gjybean.QueryFriendBean;
 import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.mvp.gjymvp.sendnews.ISendNewsContract;
 import com.wd.tech.mvp.gjymvp.sendnews.SendNewsPresenter;
+import com.wd.tech.net.ApiService;
+import com.wd.tech.net.RetrofitUtil;
 import com.wd.tech.util.RsaCoder;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +41,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements ISendNewsContract.ISendNewsView {
 
@@ -82,6 +90,36 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
             @Override
             public void onClick(View v) {
                 //设置
+                //查询好友信息
+                Intent intent = getIntent();
+                int groupId = intent.getIntExtra("groupId", -1);
+                int friend = intent.getIntExtra("friend", -1);
+                RetrofitUtil instance = RetrofitUtil.getInstance();
+                ApiService apiService = instance.createService();
+                Observable<QueryFriendBean> observable = apiService.queryFriend(friend);
+                observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<QueryFriendBean>() {
+                            @Override
+                            public void accept(QueryFriendBean bean) throws Exception {
+                                String message = bean.getMessage();
+                                if (message.equals("查询成功")) {
+                                    Intent it = new Intent(SendNewsActivity.this, ChatSettingActivity.class);
+                                    QueryFriendBean.ResultBean result = bean.getResult();
+                                    String headPic = result.getHeadPic();
+                                    it.putExtra("headPic",headPic);
+                                    String nickName = result.getNickName();
+                                    it.putExtra("nickName",nickName);
+                                    it.putExtra("groupId",groupId);
+                                    it.putExtra("friend",friend);
+                                    startActivity(it);
+                                    finish();
+
+                                }
+                            }
+                        });
+
+
             }
         });
 
@@ -174,6 +212,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
     @Override
     public void getDialogRecordSuccess(DialogueRecordBean bean) {
         List<DialogueRecordBean.ResultBean> result = bean.getResult();
+
         if (result != null) {
             Collections.reverse(result);
             dialogRecordAdapter = new DialogRecordAdapter(SendNewsActivity.this, result);
