@@ -63,7 +63,7 @@ public class FriendNoticeActivity extends BaseActivity<NewsNoticePresenter> impl
     public void initData() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("page","1");
-        hashMap.put("count","10");
+        hashMap.put("count","20");
         presenter.getFriendNotice(hashMap);
     }
 
@@ -92,9 +92,12 @@ public class FriendNoticeActivity extends BaseActivity<NewsNoticePresenter> impl
                                 @Override
                                 public void accept(ReviewFriendApplyBean reviewFriendApplyBean) throws Exception {
                                     String message = reviewFriendApplyBean.getMessage();
-                                    Toast.makeText(FriendNoticeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
                                     //刷新 列表
-                                    adapter.notifyDataSetChanged();
+                                    HashMap<String, String> hashMap = new HashMap<>();
+                                    hashMap.put("page","1");
+                                    hashMap.put("count","20");
+                                    //重新请求数据
+                                    presenter.getFriendNotice(hashMap);
                                 }
                             });
                 }

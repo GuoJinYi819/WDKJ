@@ -113,7 +113,7 @@ public interface ApiService {
     @GET(ApiUrl.SEACH_URL)
     Observable<SeachBean> getSeachData(@Query("title")String title, @Query("page")int page, @Query("count")int count);
     //审核好友
-    @GET(ApiUrl.REVIEWFRIENDAPPLY)
+    @PUT(ApiUrl.REVIEWFRIENDAPPLY)
     Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
     //我的  签到
     @POST(ApiUrl.SIGN_URL)
