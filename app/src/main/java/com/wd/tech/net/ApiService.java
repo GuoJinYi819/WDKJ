@@ -20,13 +20,17 @@ import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.gjybean.TransferFriendBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
@@ -41,6 +45,7 @@ import com.wd.tech.bean.wybean.beanperson.PersonBean;
 import com.wd.tech.bean.wybean.beanscore.ScoreBean;
 import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
+import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -171,6 +176,18 @@ public interface ApiService {
     @POST(ApiUrl.SENDGROUP)
     @FormUrlEncoded
     Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
+    //咨讯评论查询
+    @GET(ApiUrl.CONSULTATION_COMMENT_URL)
+    Observable<ConCommentBean> getCommentData(@Query("infoId")int infoId,@Query("page")int page,@Query("count")int count);
+    //咨讯添加评论
+    @POST(ApiUrl.CONSULTATION_ADDCOMMENT_URL)
+    @FormUrlEncoded
+    Observable<AddBean> getAddData(@Field("infoId") int infoId, @Field("content") String content);
+    @POST(ApiUrl.CONSULTATION_GREATRECORD_URL)
+    @FormUrlEncoded
+    Observable<GreatBean> getDDate(@Field("infoId") int infoId);
+    @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
+    Observable<GreatBean> getNDate(@Query("infoId") int infoId);
     //添加好友
     @POST(ApiUrl.ADDFRIEND)
     @FormUrlEncoded
@@ -206,6 +223,17 @@ public interface ApiService {
     @POST(ApiUrl.IMPROVEINFORMATION_URL)
     @FormUrlEncoded
     Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
+    //vip 商品列表
+    @GET(ApiUrl.SELECTVIPLIST_URL)
+    Observable<SelectVipListBean> getSelectVipListData();
+    //购买  下单
+    @POST(ApiUrl.BUYVIP_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
+    //购买
+    /*@POST(ApiUrl.BUY_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
     //删除好友的聊天记录
     @DELETE(ApiUrl.DELETECHAT)
     Observable<DeleteChatBean> deleteChatRecord(@Query("friendUid")int friendUid);

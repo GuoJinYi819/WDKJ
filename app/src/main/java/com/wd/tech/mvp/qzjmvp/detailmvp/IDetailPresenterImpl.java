@@ -1,7 +1,10 @@
 package com.wd.tech.mvp.qzjmvp.detailmvp;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
 
 /**
  * ClassName: WdDetroy
@@ -23,6 +26,47 @@ public class IDetailPresenterImpl extends BasePresenter<IDetailConter.IDetaView>
             @Override
             public void onDetaSuccess(DetailBean detailBean) {
                 iBaseView.onDetaSuccess(detailBean);
+            }
+        });
+    }
+
+    @Override
+    public void onCommentDate(int infoId, int page, int count) {
+        detailMoudle.onCommentDate(infoId,page,count, new IDetailConter.IDetailMoudle.CommentCallBack() {
+            @Override
+            public void onDetaSuccess(ConCommentBean conCommentBean) {
+                iBaseView.onComment(conCommentBean);
+            }
+        });
+
+    }
+
+    @Override
+    public void onAddDate(int infoId, String content) {
+        detailMoudle.onAddDate(infoId, content, new IDetailConter.IDetailMoudle.AddCallBack() {
+            @Override
+            public void onDetaSuccess(AddBean addBean) {
+                iBaseView.onAddcomm(addBean);
+            }
+        });
+    }
+
+    @Override
+    public void onDDate(int infoId) {
+        detailMoudle.onDDate(infoId, new IDetailConter.IDetailMoudle.DCallBack() {
+            @Override
+            public void onDetaSuccess(GreatBean greatBean) {
+                iBaseView.ondSuccess(greatBean);
+            }
+        });
+    }
+
+    @Override
+    public void onNDate(int infoId) {
+        detailMoudle.onNDate(infoId, new IDetailConter.IDetailMoudle.NCallBack() {
+            @Override
+            public void onDetaSuccess(GreatBean greatBean) {
+                iBaseView.ondSuccess(greatBean);
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.wd.tech.adapter.qzjadapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,6 +72,75 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
                 }
             }
         });
+        int whetherCollection = list.get(position).getWhetherCollection();
+        Resources resources = context.getResources();
+        if (whetherCollection==1){
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+            holder.xh.setImageBitmap(bitmap);
+        }else {
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+            holder.xh.setImageBitmap(bitmap);
+        }
+        holder.xh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int whetherCollection1 = list.get(position).getWhetherCollection();
+                if (whetherCollection1==1){
+                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+                    holder.xh.setImageBitmap(bitmap);
+                    list.get(position).setWhetherCollection(2);
+                    String trim = holder.xhs.getText().toString().trim();
+                    Integer integer = Integer.valueOf(trim);
+                    integer--;
+                    holder.xhs.setText(integer+"");
+
+                }else if (whetherCollection1==2){
+                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+                    holder.xh.setImageBitmap(bitmap);
+                    list.get(position).setWhetherCollection(1);
+                    String trim = holder.xhs.getText().toString().trim();
+                    Integer integer = Integer.valueOf(trim);
+                    integer++;
+                    holder.xhs.setText(integer+"");
+                }
+            }
+        });
+//        if (whetherCollection==1){
+//
+//            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+//            holder.xh.setImageBitmap(bitmap);
+//            holder.xh.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    list.get(position).setWhetherCollection(2);
+//                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+//                    holder.xh.setImageBitmap(bitmap);
+//                }
+//            });
+//        }else {
+//            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+//            holder.xh.setImageBitmap(bitmap);
+//            holder.xh.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    list.get(position).setWhetherCollection(1);
+//                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+//                    holder.xh.setImageBitmap(bitmap);
+//                }
+//            });
+//        }
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.common_icon_collect_n_xxhdpi);
+        holder.fx.setImageBitmap(bitmap);
+        holder.fx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String trim = holder.fxs.getText().toString().trim();
+                Integer integer = Integer.valueOf(trim);
+                integer++;
+                holder.fxs.setText(integer+"");
+                Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -84,8 +157,8 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         private final TextView sjc;
         private final TextView xhs;
         private final TextView fxs;
-        private final CheckBox xh;
-        private final CheckBox fx;
+        private final ImageView xh;
+        private final ImageView fx;
 
         public ViewHoder(@NonNull View itemView) {
             super(itemView);

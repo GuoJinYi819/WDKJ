@@ -72,6 +72,14 @@ public interface ApiUrl {
     String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
     //发送群消息
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
+    //咨讯评论
+    String CONSULTATION_COMMENT_URL = "information/v1/findAllInfoCommentList";
+    //添加评论
+    String CONSULTATION_ADDCOMMENT_URL = "information/verify/v1/addInfoComment";
+    //咨讯点赞
+    String CONSULTATION_GREATRECORD_URL = "information/verify/v1/addGreatRecord";
+    //咨讯取消点赞
+    String CONSULTATION_CANCELGREAT_URL = "information/verify/v1/cancelGreat";
     //删除帖子  只能是自己的
     String DELETEPOST_URL="community/verify/v1/deletePost";
     //通知
@@ -102,4 +110,10 @@ public interface ApiUrl {
     String GETGROUPMEMBERLIST = "group/verify/v1/findGroupMemberList";
     //修改群简介
     String MODIFYGROUPDESCRIPTION = "group/verify/v1/modifyGroupDescription";
+    //查询所有会员商品
+    String SELECTVIPLIST_URL="tool/v1/findVipCommodityList";
+    //VIP 下单
+    String BUYVIP_URL="tool/verify/v1/buyVip";
+    //支付
+    String BUY_URL="tool/verify/v1/pay";
 }
