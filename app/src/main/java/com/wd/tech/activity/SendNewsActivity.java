@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,7 +113,7 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                                     it.putExtra("nickName",nickName);
                                     it.putExtra("groupId",groupId);
                                     it.putExtra("friend",friend);
-                                    startActivity(it);
+                                    startActivityForResult(it,100);
 
                                 }
                             }
@@ -184,6 +185,14 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100&&resultCode==100){
+            finish();
+        }
     }
 
     @Override

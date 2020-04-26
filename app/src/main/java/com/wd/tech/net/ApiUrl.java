@@ -94,4 +94,6 @@ public interface ApiUrl {
     String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
     //删除好友聊天记录
     String DELETECHAT  = "chat/verify/v1/deleteChatRecord";
+    //删除好友
+    String DELETEFRIEND = "chat/verify/v1/deleteFriendRelation";
 }

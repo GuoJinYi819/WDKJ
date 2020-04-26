@@ -206,4 +206,8 @@ public interface ApiService {
     //删除好友的聊天记录
     @DELETE(ApiUrl.DELETECHAT)
     Observable<DeleteChatBean> deleteChatRecord(@Query("friendUid")int friendUid);
+    //删除好友
+    @DELETE(ApiUrl.DELETEFRIEND)
+    Observable<DeleteChatBean> deleteFriend(@Query("friendUid")int friendUid);
+
 }
