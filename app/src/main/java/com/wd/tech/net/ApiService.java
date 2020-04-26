@@ -22,15 +22,22 @@ import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
+import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beanscore.ScoreBean;
+import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
+import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -173,4 +180,31 @@ public interface ApiService {
     Observable<GreatBean> getDDate(@Field("infoId") int infoId);
     @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
     Observable<GreatBean> getNDate(@Query("infoId") int infoId);
+    //删除帖子  我的
+    @DELETE(ApiUrl.DELETEPOST_URL)
+    Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
+    //系统通知
+    @GET(ApiUrl.NOTICE_URL)
+    Observable<NoticeBean> getNoticeData(@Query("page")int page, @Query("count")int count);
+    //用户积分
+    @GET(ApiUrl.SCORE_URL)
+    Observable<ScoreBean> getScoreData();
+    //用户积分明细
+    @GET(ApiUrl.SCOREDETAILED_URL)
+    Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);
+    //发送群消息
+    @POST(ApiUrl.IMPROVEINFORMATION_URL)
+    @FormUrlEncoded
+    Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
+    //vip 商品列表
+    @GET(ApiUrl.SELECTVIPLIST_URL)
+    Observable<SelectVipListBean> getSelectVipListData();
+    //购买  下单
+    @POST(ApiUrl.BUYVIP_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
+    //购买
+    /*@POST(ApiUrl.BUY_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
 }

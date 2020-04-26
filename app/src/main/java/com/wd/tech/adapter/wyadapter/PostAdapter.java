@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beanmypost.ResultBean;
 import com.wd.tech.net.TimeToUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +101,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
         });
         //删除
+        holder.tvPostDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //传值
+                int id = result.get(position).getId();
+                Event event=new Event();
+                event.setId(id);
+                EventBus.getDefault().postSticky(event);
+            }
+        });
     }
 
     @Override

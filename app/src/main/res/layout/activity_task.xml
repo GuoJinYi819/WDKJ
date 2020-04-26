@@ -60,6 +60,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToSignWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去签到"
@@ -94,6 +95,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToCommentListWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去评价"
@@ -128,6 +130,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToCommentWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去发帖"
@@ -162,6 +165,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToSharedWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去分享"
@@ -196,6 +200,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToAdvertisementWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去看看"
@@ -240,6 +245,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToPerfectWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去完善"
@@ -274,6 +280,7 @@
             >
         </TextView>
         <Button
+            android:id="@+id/btnToBindingWy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去绑定"
