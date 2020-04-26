@@ -54,7 +54,7 @@ public interface ApiUrl {
     //我的  关注页
     String FOLLOW_URL="user/verify/v1/findFollowUserList";
     //咨讯详情
-    String DETAILS_URL="user/verify/v1/findFollowUserList";
+    String DETAILS_URL="information/v1/findInformationDetails";
     //查询好友信息
     String QUERYFRIEND = "user/verify/v1/queryFriendInformation";
     //查询聊天记录
@@ -72,16 +72,6 @@ public interface ApiUrl {
     String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
     //发送群消息
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
-    //添加好友
-    String ADDFRIEND = "chat/verify/v1/addFriend";
-    //添加群
-    String ADDGROUP = "group/verify/v1/applyAddGroup";
-    //创建群
-    String CREATEGROUP = "group/verify/v1/createGroup";
-    //创建自定义分组
-    String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
-    //转移好友值 其他分组
-    String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
     //删除帖子  只能是自己的
     String DELETEPOST_URL="community/verify/v1/deletePost";
     //通知
@@ -92,4 +82,14 @@ public interface ApiUrl {
     String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
     //完善用户 信息
     String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
+    //添加好友
+    String ADDFRIEND = "chat/verify/v1/addFriend";
+    //添加群
+    String ADDGROUP = "group/verify/v1/applyAddGroup";
+    //创建群
+    String CREATEGROUP = "group/verify/v1/createGroup";
+    //创建自定义分组
+    String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
+    //转移好友值 其他分组
+    String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
 }
