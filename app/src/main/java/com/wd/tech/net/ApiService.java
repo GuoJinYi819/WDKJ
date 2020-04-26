@@ -3,6 +3,7 @@ package com.wd.tech.net;
 import com.wd.tech.bean.gjybean.AddFriendBean;
 import com.wd.tech.bean.gjybean.AddFriendGroupBean;
 import com.wd.tech.bean.gjybean.CreateGroupBean;
+import com.wd.tech.bean.gjybean.DeleteChatBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
@@ -202,4 +203,7 @@ public interface ApiService {
     @POST(ApiUrl.IMPROVEINFORMATION_URL)
     @FormUrlEncoded
     Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
+    //删除好友的聊天记录
+    @DELETE(ApiUrl.DELETECHAT)
+    Observable<DeleteChatBean> deleteChatRecord(@Query("friendUid")int friendUid);
 }

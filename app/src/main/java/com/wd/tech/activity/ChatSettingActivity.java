@@ -1,19 +1,34 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.gjybean.DeleteChatBean;
+import com.wd.tech.mvp.gjymvp.deletechat.DeleteChatPresenter;
+import com.wd.tech.mvp.gjymvp.deletechat.IDeleteChatContract;
 
-public class ChatSettingActivity extends BaseActivity {
+public class ChatSettingActivity extends BaseActivity<DeleteChatPresenter> implements IDeleteChatContract.IDeleteChatView {
 
     private android.widget.ImageView mIvBlac;
     private android.widget.ImageView mIvFriendPic;
@@ -70,9 +85,41 @@ public class ChatSettingActivity extends BaseActivity {
             }
         });
         mTvClose.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                
+                //弹框
+                View view = View.inflate(ChatSettingActivity.this, R.layout.pupup_closemessage, null);
+                PopupWindow popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.setFocusable(true);
+                popupWindow.setOutsideTouchable(true);
+
+                //动画
+                TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
+                        Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
+                animation.setInterpolator(new AccelerateInterpolator());
+                animation.setDuration(200);
+                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                view.startAnimation(animation);
+
+                view.findViewById(R.id.tvQ).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //删除聊天记录
+                        Intent intent = getIntent();
+                        int friend = intent.getIntExtra("friend", -1);
+                        presenter.deleteChat(friend);
+                        popupWindow.dismiss();
+                    }
+                });
+                view.findViewById(R.id.tvC).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
             }
         });
     }
@@ -92,7 +139,17 @@ public class ChatSettingActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public DeleteChatPresenter initPresenter() {
+        return new DeleteChatPresenter();
+    }
+
+    @Override
+    public void onSuccess(DeleteChatBean bean) {
+        Toast.makeText(this, ""+bean.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailed(String error) {
+
     }
 }

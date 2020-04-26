@@ -130,7 +130,7 @@
         android:id="@+id/tvClose"
         app:layout_constraintTop_toBottomOf="@id/tvQurey"
         android:background="#fff"
-        android:text="查询聊天记录"
+        android:text="删除聊天记录"
         android:textSize="@dimen/sp_14"
         android:textColor="#333333"
         android:paddingLeft="@dimen/dp_12"

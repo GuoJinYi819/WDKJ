@@ -92,4 +92,6 @@ public interface ApiUrl {
     String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
     //转移好友值 其他分组
     String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
+    //删除好友聊天记录
+    String DELETECHAT  = "chat/verify/v1/deleteChatRecord";
 }
