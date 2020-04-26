@@ -91,6 +91,22 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
 
             GroupInfoBean.ResultBean result = bean.getResult();
 
+            String description = result.getDescription();
+            int groupId = result.getGroupId();
+
+            mRelativeIntroduce.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //跳转群简介
+                    Intent intent = new Intent(GroupSettingActivity.this, GroupIntroduceActivity.class);
+                    intent.putExtra("description",description);
+                    intent.putExtra("groupId",groupId);
+                    startActivity(intent);
+
+                }
+            });
+
+
             String groupImage = result.getGroupImage();
             Glide.with(GroupSettingActivity.this)
                     .load(groupImage)

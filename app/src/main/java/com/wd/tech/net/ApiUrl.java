@@ -100,4 +100,6 @@ public interface ApiUrl {
     String FINDGROUPINFO = "group/verify/v1/findGroupInfo";
     //查询群组好友信息
     String GETGROUPMEMBERLIST = "group/verify/v1/findGroupMemberList";
+    //修改群简介
+    String MODIFYGROUPDESCRIPTION = "group/verify/v1/modifyGroupDescription";
 }
