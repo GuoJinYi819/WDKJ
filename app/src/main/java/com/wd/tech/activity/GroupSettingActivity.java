@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -83,6 +84,15 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
         return new GroupInfoPreenter();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==10&&resultCode==10){
+            Intent intent = getIntent();
+            int groupId = intent.getIntExtra("groupId", -1);
+            presenter.getGroupInfo(groupId);
+        }
+    }
 
     @Override
     public void onSuccess(GroupInfoBean bean) {
@@ -101,7 +111,7 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                     Intent intent = new Intent(GroupSettingActivity.this, GroupIntroduceActivity.class);
                     intent.putExtra("description",description);
                     intent.putExtra("groupId",groupId);
-                    startActivity(intent);
+                    startActivityForResult(intent,10);
 
                 }
             });
