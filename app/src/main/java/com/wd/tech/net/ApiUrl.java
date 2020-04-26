@@ -96,4 +96,6 @@ public interface ApiUrl {
     String DELETECHAT  = "chat/verify/v1/deleteChatRecord";
     //删除好友
     String DELETEFRIEND = "chat/verify/v1/deleteFriendRelation";
+    //查询群组详情
+    String FINDGROUPINFO = "group/verify/v1/findGroupInfo";
 }
