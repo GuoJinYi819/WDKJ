@@ -66,6 +66,8 @@ public interface ApiUrl {
     String DOTASK_URL="user/verify/v1/doTheTask";
     //根据用户ID查询用户信息
     String SELECT_USER_URL="user/verify/v1/getUserInfoByUserId";
+    //我的 帖子
+    String MYPOST_URL="community/verify/v1/findMyPostById";
     //查询群聊天记录
     String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
     //发送群消息
@@ -80,4 +82,14 @@ public interface ApiUrl {
     String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
     //转移好友值 其他分组
     String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
+    //删除帖子  只能是自己的
+    String DELETEPOST_URL="community/verify/v1/deletePost";
+    //通知
+    String NOTICE_URL="tool/verify/v1/findSysNoticeList";
+    //积分
+    String SCORE_URL="user/verify/v1/findUserIntegral";
+    //积分明细
+    String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
+    //完善用户 信息
+    String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
 }

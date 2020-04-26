@@ -26,10 +26,16 @@ import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
+import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
+import com.wd.tech.bean.wybean.beanscore.ScoreBean;
+import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
@@ -37,6 +43,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -115,7 +122,7 @@ public interface ApiService {
     @GET(ApiUrl.SEACH_URL)
     Observable<SeachBean> getSeachData(@Query("title")String title, @Query("page")int page, @Query("count")int count);
     //审核好友
-    @PUT(ApiUrl.REVIEWFRIENDAPPLY)
+    @GET(ApiUrl.REVIEWFRIENDAPPLY)
     Observable<ReviewFriendApplyBean> getReviewFriendApply(@Query("noticeId")int noticeId,@Query("flag")int flag);
     //我的  签到
     @POST(ApiUrl.SIGN_URL)
@@ -130,6 +137,7 @@ public interface ApiService {
     //我的  收藏页
     @GET(ApiUrl.FOLLOW_URL)
     Observable<FollowBean> getFollowData(@Query("page")int page, @Query("count")int count);
+   //咨讯详情
     @GET(ApiUrl.DETAILS_URL)
     Observable<DetailBean> getDetailsData(@Query("id")int id);
     //查询我的好友信息
@@ -149,6 +157,9 @@ public interface ApiService {
     //根据用户ID查询用户信息
     @GET(ApiUrl.SELECT_USER_URL)
     Observable<SelectUserBean> getSelectUserData();
+    //我的贴子
+    @GET(ApiUrl.MYPOST_URL)
+    Observable<MyPostBean> getMyPostData(@Query("page")int page, @Query("count")int count);
     //查询群消息
     @GET(ApiUrl.QUERYGROUP)
     Observable<QueryGroupBean> queryGroup(@QueryMap Map<String,String> params);
@@ -175,4 +186,20 @@ public interface ApiService {
     //转移好友值 其他分组
     @PUT(ApiUrl.TRANSFERGROUP)
     Observable<TransferFriendBean> transferGroup(@Query("newGroupId")int newGroupId, @Query("friendUid")int friendUid);
+    //删除帖子  我的
+    @DELETE(ApiUrl.DELETEPOST_URL)
+    Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
+    //系统通知
+    @GET(ApiUrl.NOTICE_URL)
+    Observable<NoticeBean> getNoticeData(@Query("page")int page, @Query("count")int count);
+    //用户积分
+    @GET(ApiUrl.SCORE_URL)
+    Observable<ScoreBean> getScoreData();
+    //用户积分明细
+    @GET(ApiUrl.SCOREDETAILED_URL)
+    Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);
+    //发送群消息
+    @POST(ApiUrl.IMPROVEINFORMATION_URL)
+    @FormUrlEncoded
+    Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
 }
