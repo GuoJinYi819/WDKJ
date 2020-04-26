@@ -1,5 +1,7 @@
 package com.wd.tech.mvp.qzjmvp.detailmvp;
 
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
@@ -34,6 +36,66 @@ public class IDetailImpl implements IDetailConter.IDetailMoudle {
                     @Override
                     public void onNext(DetailBean value) {
                         callBack.onDetaSuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onCommentDate(int infoId, int page, int count, CommentCallBack commentCallBack) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<ConCommentBean> detailsData = service.getCommentData(infoId,page,count);
+        detailsData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ConCommentBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ConCommentBean value) {
+                        commentCallBack.onDetaSuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onAddDate(int infoId, String content, AddCallBack addCallBack) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<AddBean> detailsData = service.getAddData(infoId,content);
+        detailsData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AddBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(AddBean value) {
+                        addCallBack.onDetaSuccess(value);
                     }
 
                     @Override

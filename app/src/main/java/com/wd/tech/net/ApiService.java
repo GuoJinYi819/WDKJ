@@ -13,6 +13,8 @@ import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
@@ -157,4 +159,11 @@ public interface ApiService {
     @POST(ApiUrl.SENDGROUP)
     @FormUrlEncoded
     Observable<SendGroupBean> sendGroup(@FieldMap Map<String,String> params);
+    //咨讯评论查询
+    @GET(ApiUrl.CONSULTATION_COMMENT_URL)
+    Observable<ConCommentBean> getCommentData(@Query("infoId")int infoId,@Query("page")int page,@Query("count")int count);
+    //咨讯添加评论
+    @POST(ApiUrl.CONSULTATION_ADDCOMMENT_URL)
+    @FormUrlEncoded
+    Observable<AddBean> getAddData(@Field("infoId") int infoId, @Field("content") String content);
 }

@@ -72,4 +72,8 @@ public interface ApiUrl {
     String QUERYGROUP = "group/verify/v1/findGroupChatRecordPage";
     //发送群消息
     String SENDGROUP = "group/verify/v1/sendGroupMessage";
+    //咨讯评论
+    String CONSULTATION_COMMENT_URL = "information/v1/findAllInfoCommentList";
+    //添加评论
+    String CONSULTATION_ADDCOMMENT_URL = "information/verify/v1/addInfoComment";
 }
