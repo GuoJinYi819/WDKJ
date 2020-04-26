@@ -66,10 +66,9 @@
                         android:id="@+id/sjc"
                         />
                 </LinearLayout>
-                <CheckBox
+                <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
-                    android:background="@mipmap/xhxh"
                     android:id="@+id/xh"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:button="@null"/>
@@ -77,11 +76,10 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="wrap_content"
                     android:id="@+id/xhs"/>
-                <CheckBox
+                <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:background="@mipmap/common_icon_collect_n_xxhdpi"
                     android:id="@+id/fx"
                     android:button="@null"/>
                 <TextView

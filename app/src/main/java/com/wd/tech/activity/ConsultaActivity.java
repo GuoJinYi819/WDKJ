@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -102,6 +103,14 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
                     im.hideSoftInputFromWindow(ConsultaActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 return true;
+            }
+        });
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ConsultaActivity.this,HomeActivity.class);
+                startActivity(intent1);
+                finish();
             }
         });
     }
