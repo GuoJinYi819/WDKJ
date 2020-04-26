@@ -11,6 +11,7 @@ import com.wd.tech.bean.gjybean.FriendGroupListBean;
 import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
 import com.wd.tech.bean.gjybean.GroupInfoBean;
+import com.wd.tech.bean.gjybean.GroupMemberListBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
 import com.wd.tech.bean.gjybean.QueryFriendBean;
@@ -213,7 +214,8 @@ public interface ApiService {
     //查询群聊详情页
     @GET(ApiUrl.FINDGROUPINFO)
     Observable<GroupInfoBean> getGroupInfo(@Query("groupId") int groupId);
-
-
+    //查询群中所有好友
+    @GET(ApiUrl.GETGROUPMEMBERLIST)
+    Observable<GroupMemberListBean> getGroupMemberList(@Query("groupId")int groupId);
 
 }

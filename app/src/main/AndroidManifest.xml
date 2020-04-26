@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GroupSettingActivity"></activity>
+        <activity android:name=".activity.GroupFriendActivity"></activity>
+        <activity android:name=".activity.GroupSettingActivity" />
         <activity android:name=".activity.ImproveInformationActivity" />
         <activity android:name=".activity.SigninActivity" />
         <activity android:name=".activity.SelectGroupActivity" />

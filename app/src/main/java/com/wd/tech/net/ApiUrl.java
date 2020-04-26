@@ -98,4 +98,6 @@ public interface ApiUrl {
     String DELETEFRIEND = "chat/verify/v1/deleteFriendRelation";
     //查询群组详情
     String FINDGROUPINFO = "group/verify/v1/findGroupInfo";
+    //查询群组好友信息
+    String GETGROUPMEMBERLIST = "group/verify/v1/findGroupMemberList";
 }

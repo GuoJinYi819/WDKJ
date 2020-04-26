@@ -59,6 +59,16 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                 finish();
             }
         });
+        mRelativeMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                int groupId = intent.getIntExtra("groupId", -1);
+                Intent it = new Intent(GroupSettingActivity.this, GroupFriendActivity.class);
+                it.putExtra("groupId",groupId);
+                startActivity(it);
+            }
+        });
     }
 
     @Override
@@ -93,7 +103,7 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
             SpUtil instance = SpUtil.getInstance();
             int userId = instance.getSpInt("userId");
             int ownerUid = result.getOwnerUid();
-            if(userId==userId){
+            if(userId!=ownerUid){
                 mTvParty.setVisibility(View.GONE);
                 mRelativeIntroduce.setVisibility(View.GONE);
                mRelativeAdministration.setVisibility(View.GONE);
