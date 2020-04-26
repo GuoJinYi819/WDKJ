@@ -84,4 +84,8 @@ public interface ApiUrl {
     String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
     //查询所有会员商品
     String SELECTVIPLIST_URL="tool/v1/findVipCommodityList";
+    //VIP 下单
+    String BUYVIP_URL="tool/verify/v1/buyVip";
+    //支付
+    String BUY_URL="tool/verify/v1/pay";
 }

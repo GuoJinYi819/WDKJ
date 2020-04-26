@@ -23,6 +23,7 @@ import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
+import com.wd.tech.net.EncryptionUtil;
 import com.wd.tech.net.SpUtil;
 
 public class HomeActivity extends BaseActivity{

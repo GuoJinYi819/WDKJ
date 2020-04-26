@@ -1,6 +1,8 @@
 package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,15 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.activity.BuyVipActivity;
+import com.wd.tech.activity.HomeActivity;
+import com.wd.tech.activity.MyVIPActivity;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beanselectviplist.ResultBean;
+import com.wd.tech.net.EncryptionUtil;
+import com.wd.tech.net.SpUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +57,33 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.VipListV
         holder.imgVIPNameWy.setImageURI(result.get(position).getImageUrl());
         holder.tvVIPNameWy.setText(result.get(position).getCommodityName());
         holder.tvVIPPriceWy.setText("$:"+result.get(position).getPrice());
+        //缓存  id
+        int commodityId = result.get(position).getCommodityId();
+        SpUtil instance = SpUtil.getInstance();
+        instance.saveInt("commodityId",commodityId);
+        holder.linearVIPWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转
+                ResultBean resultBean = result.get(position);
+                EventBus.getDefault().postSticky(resultBean);
+                //跳
+                Intent intent = new Intent(context, BuyVipActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        /*
+        签名
+        int userId = instance.getSpInt("userId");
+        String sessionId = instance.getSpString("sessionId");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(userId);
+        stringBuffer.append(commodityId);
+        Log.d("=====", "initData: "+sessionId);
+        stringBuffer.append("tech");
+        String trim = stringBuffer.toString().trim();
+        String s1 = EncryptionUtil.MD5(trim);
+        Log.d("=====", "onCreate: "+s1);*/
     }
 
     @Override

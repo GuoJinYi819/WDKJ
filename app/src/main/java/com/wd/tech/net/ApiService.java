@@ -19,6 +19,7 @@ import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
@@ -183,4 +184,12 @@ public interface ApiService {
     //vip 商品列表
     @GET(ApiUrl.SELECTVIPLIST_URL)
     Observable<SelectVipListBean> getSelectVipListData();
+    //购买  下单
+    @POST(ApiUrl.BUYVIP_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
+    //购买
+    /*@POST(ApiUrl.BUY_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
 }
