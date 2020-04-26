@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class HomeActivity extends BaseActivity{
     private LinearLayout linearPostWy;
     private LinearLayout linearNoticeWy;
     private LinearLayout linearSetupWy;
+    private android.widget.ImageView imgVIPWy;
 
     @Override
     public int initLayout() {
@@ -73,6 +75,8 @@ public class HomeActivity extends BaseActivity{
         linearTaskWy = (LinearLayout) findViewById(R.id.linearTaskWy);
         //设置页面的
         linearSetupWy = (LinearLayout) findViewById(R.id.linearSetupWy);
+        //点击VIP图标   开通VIP
+        imgVIPWy = (ImageView) findViewById(R.id.imgVIPWy);
         //取缓  设置头像  名称   签名
         SpUtil instance = SpUtil.getInstance();
         String headPic = instance.getSpString("headPic");
@@ -175,6 +179,15 @@ public class HomeActivity extends BaseActivity{
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                startActivity(intent);
+            }
+        });
+        //点击  VIP
+        imgVIPWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(HomeActivity.this, MyVIPActivity.class);
                 startActivity(intent);
             }
         });

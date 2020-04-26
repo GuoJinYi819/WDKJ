@@ -82,4 +82,6 @@ public interface ApiUrl {
     String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
     //完善用户 信息
     String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
+    //查询所有会员商品
+    String SELECTVIPLIST_URL="tool/v1/findVipCommodityList";
 }

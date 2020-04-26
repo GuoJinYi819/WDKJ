@@ -33,6 +33,7 @@ import com.wd.tech.bean.wybean.beanperson.PersonBean;
 import com.wd.tech.bean.wybean.beanscore.ScoreBean;
 import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
+import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -179,4 +180,7 @@ public interface ApiService {
     @POST(ApiUrl.IMPROVEINFORMATION_URL)
     @FormUrlEncoded
     Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
+    //vip 商品列表
+    @GET(ApiUrl.SELECTVIPLIST_URL)
+    Observable<SelectVipListBean> getSelectVipListData();
 }
