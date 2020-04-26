@@ -3,6 +3,7 @@ package com.wd.tech.mvp.qzjmvp.detailmvp;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 
@@ -96,6 +97,66 @@ public class IDetailImpl implements IDetailConter.IDetailMoudle {
                     @Override
                     public void onNext(AddBean value) {
                         addCallBack.onDetaSuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onDDate(int infoId, DCallBack dCallBack) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<GreatBean> detailsData = service.getDDate(infoId);
+        detailsData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GreatBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(GreatBean value) {
+                        dCallBack.onDetaSuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onNDate(int infoId, NCallBack nCallBack) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<GreatBean> detailsData = service.getNDate(infoId);
+        detailsData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GreatBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(GreatBean value) {
+                        nCallBack.onDetaSuccess(value);
                     }
 
                     @Override

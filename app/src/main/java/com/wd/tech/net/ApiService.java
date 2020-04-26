@@ -17,6 +17,7 @@ import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
@@ -36,6 +37,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -166,4 +168,9 @@ public interface ApiService {
     @POST(ApiUrl.CONSULTATION_ADDCOMMENT_URL)
     @FormUrlEncoded
     Observable<AddBean> getAddData(@Field("infoId") int infoId, @Field("content") String content);
+    @POST(ApiUrl.CONSULTATION_GREATRECORD_URL)
+    @FormUrlEncoded
+    Observable<GreatBean> getDDate(@Field("infoId") int infoId);
+    @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
+    Observable<GreatBean> getNDate(@Query("infoId") int infoId);
 }

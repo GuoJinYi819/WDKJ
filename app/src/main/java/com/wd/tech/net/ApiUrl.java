@@ -76,4 +76,8 @@ public interface ApiUrl {
     String CONSULTATION_COMMENT_URL = "information/v1/findAllInfoCommentList";
     //添加评论
     String CONSULTATION_ADDCOMMENT_URL = "information/verify/v1/addInfoComment";
+    //咨讯点赞
+    String CONSULTATION_GREATRECORD_URL = "information/verify/v1/addGreatRecord";
+    //咨讯取消点赞
+    String CONSULTATION_CANCELGREAT_URL = "information/verify/v1/cancelGreat";
 }

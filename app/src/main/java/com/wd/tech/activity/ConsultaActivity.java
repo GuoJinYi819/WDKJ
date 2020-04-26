@@ -24,6 +24,7 @@ import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.mvp.qzjmvp.detailmvp.IDetailConter;
 import com.wd.tech.mvp.qzjmvp.detailmvp.IDetailPresenterImpl;
 import com.wd.tech.net.ApiService;
@@ -156,6 +157,28 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
             int praise = list.getPraise();
             dzs.setText(praise+"");
         }
+        dzt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int whetherGreat1 = list.getWhetherGreat();
+                if (whetherGreat1==1){
+                    Bitmap bitmap1 = BitmapFactory.decodeResource(resources, R.mipmap.bdz);
+                    dzt.setImageBitmap(bitmap1);
+                    int praise = list.getPraise();
+                    dzs.setText(praise+"");
+                    presenter.onNDate(id);
+                    list.setWhetherGreat(2);
+                }else {
+                    Bitmap bitmap1 = BitmapFactory.decodeResource(resources, R.mipmap.dzdzdz);
+                    dzt.setImageBitmap(bitmap1);
+                    int praise = list.getPraise();
+                    praise++;
+                    dzs.setText(praise+"");
+                    presenter.onDDate(id);
+                    list.setWhetherGreat(1);
+                }
+            }
+        });
         int share = list.getShare();
         Bitmap bitmap3 = BitmapFactory.decodeResource(resources, R.mipmap.common_icon_collect_n_xxhdpi);
         fxt.setImageBitmap(bitmap3);
@@ -177,5 +200,17 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
         String message = addBean.getMessage();
         Log.d("TTT",message);
         etext.setText("");
+    }
+
+    @Override
+    public void ondSuccess(GreatBean greatBean) {
+        String message = greatBean.getMessage();
+        Log.d("AAA",message);
+    }
+
+    @Override
+    public void onnSuccess(GreatBean greatBean) {
+        String message = greatBean.getMessage();
+        Log.d("AAA",message);
     }
 }
