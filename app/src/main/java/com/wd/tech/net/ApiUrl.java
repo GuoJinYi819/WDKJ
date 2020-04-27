@@ -116,4 +116,8 @@ public interface ApiUrl {
     String BUYVIP_URL="tool/verify/v1/buyVip";
     //支付
     String BUY_URL="tool/verify/v1/pay";
+    //解散群聊
+    String DISBANDGROUP = "group/verify/v1/disbandGroup";
+    //退群
+    String RETREAT = "group/verify/v1/retreat";
 }

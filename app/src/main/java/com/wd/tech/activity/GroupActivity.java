@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -99,6 +100,14 @@ public class GroupActivity extends BaseActivity<JoinedGroupPresenter> implements
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==12&&resultCode==12){
+            presenter.getJoinedGroup();
+        }
+    }
+
+    @Override
     public JoinedGroupPresenter initPresenter() {
         return new JoinedGroupPresenter();
     }
@@ -119,7 +128,7 @@ public class GroupActivity extends BaseActivity<JoinedGroupPresenter> implements
                     String groupName = resultBean.getGroupName();
                     intent.putExtra("groupName",groupName);
                     intent.putExtra("groupId",groupId);
-                    startActivity(intent);
+                    startActivityForResult(intent,12);
                 }
             });
         }

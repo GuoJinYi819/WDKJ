@@ -4,6 +4,7 @@ import com.wd.tech.bean.gjybean.AddFriendBean;
 import com.wd.tech.bean.gjybean.AddFriendGroupBean;
 import com.wd.tech.bean.gjybean.CreateGroupBean;
 import com.wd.tech.bean.gjybean.DeleteChatBean;
+import com.wd.tech.bean.gjybean.DeleteGroupBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
@@ -252,8 +253,10 @@ public interface ApiService {
     @POST(ApiUrl.BUYVIP_URL)
     @FormUrlEncoded
     Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
-    //购买
-    /*@POST(ApiUrl.BUY_URL)
-    @FormUrlEncoded
-    Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
+    //解散群组
+    @DELETE(ApiUrl.DISBANDGROUP)
+    Observable<DeleteGroupBean> deleteGroup(@Query("groupId") int groupId);
+    //退群
+    @DELETE(ApiUrl.RETREAT)
+    Observable<DeleteGroupBean> retreat(@Query("groupId") int groupId);
 }
