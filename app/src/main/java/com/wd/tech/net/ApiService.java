@@ -23,6 +23,8 @@ import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.gjybean.TransferFriendBean;
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
@@ -223,13 +225,6 @@ public interface ApiService {
     @POST(ApiUrl.IMPROVEINFORMATION_URL)
     @FormUrlEncoded
     Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
-    //vip 商品列表
-    @GET(ApiUrl.SELECTVIPLIST_URL)
-    Observable<SelectVipListBean> getSelectVipListData();
-    //购买  下单
-    @POST(ApiUrl.BUYVIP_URL)
-    @FormUrlEncoded
-    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
     //购买
     /*@POST(ApiUrl.BUY_URL)
     @FormUrlEncoded
@@ -250,4 +245,15 @@ public interface ApiService {
     @PUT(ApiUrl.MODIFYGROUPDESCRIPTION)
     Observable<ModifyGroupDescriptionBean> modifyGroupDescription(@Query("groupId")int groupId, @Query("description")String description);
 
+    //vip 商品列表
+    @GET(ApiUrl.SELECTVIPLIST_URL)
+    Observable<SelectVipListBean> getSelectVipListData();
+    //购买  下单
+    @POST(ApiUrl.BUYVIP_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
+    //购买
+    /*@POST(ApiUrl.BUY_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
 }

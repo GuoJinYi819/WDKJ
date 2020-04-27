@@ -70,6 +70,13 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                 startActivity(it);
             }
         });
+        mRelativeNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupSettingActivity.this, GroupNoticeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
