@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wd.tech.R;
 import com.wd.tech.bean.gjybean.GroupMemberListBean;
+import com.wd.tech.custom.SwipeRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class GroupFriendAdapter extends RecyclerView.Adapter<GroupFriendAdapter.
                         list3.add(resultBean1);
                     }
                 }
-                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list3, context);
+                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list3, context,3);
                 holder.mRecyclerChild.setAdapter(groupFriendChildAdapter);
                 break;}
             case 1:{
@@ -69,7 +70,7 @@ public class GroupFriendAdapter extends RecyclerView.Adapter<GroupFriendAdapter.
                         list2.add(resultBean1);
                     }
                 }
-                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list2, context);
+                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list2, context,2);
                 holder.mRecyclerChild.setAdapter(groupFriendChildAdapter);
                 break;}
             case 2:{
@@ -81,7 +82,7 @@ public class GroupFriendAdapter extends RecyclerView.Adapter<GroupFriendAdapter.
                         list1.add(resultBean1);
                     }
                 }
-                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list1, context);
+                GroupFriendChildAdapter groupFriendChildAdapter = new GroupFriendChildAdapter(list1, context,1);
                 holder.mRecyclerChild.setAdapter(groupFriendChildAdapter);
                 break;}
         }
@@ -94,7 +95,7 @@ public class GroupFriendAdapter extends RecyclerView.Adapter<GroupFriendAdapter.
 
     class MyGroupFriendHolder extends RecyclerView.ViewHolder {
         private TextView mTvGroup;
-        private RecyclerView mRecyclerChild;
+        private SwipeRecyclerView mRecyclerChild;
         public MyGroupFriendHolder(@NonNull View itemView) {
             super(itemView);
             mTvGroup = itemView.findViewById(R.id.tvGroup);

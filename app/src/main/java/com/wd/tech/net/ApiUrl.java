@@ -120,4 +120,6 @@ public interface ApiUrl {
     String DISBANDGROUP = "group/verify/v1/disbandGroup";
     //退群
     String RETREAT = "group/verify/v1/retreat";
+    //删除
+    String REMOVEGROUPMEMBER = "group/verify/v1/removeGroupMember";
 }

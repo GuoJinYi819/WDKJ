@@ -259,4 +259,7 @@ public interface ApiService {
     //退群
     @DELETE(ApiUrl.RETREAT)
     Observable<DeleteGroupBean> retreat(@Query("groupId") int groupId);
+    //删除群成员
+    @DELETE(ApiUrl.REMOVEGROUPMEMBER)
+    Observable<DeleteGroupBean> removeGroupMember(@Query("groupId") int groupId,@Query("groupUserId")int groupUserId);
 }
