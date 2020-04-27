@@ -93,6 +93,15 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
                 startActivity(intent);
             }
         });
+        //点击  换签名
+        tvSetUpSignatureWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳
+                Intent intent = new Intent(SetupActivity.this, ModifySignatureActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void initPopWindow(View v) {
         View view = LayoutInflater.from(SetupActivity.this).inflate(R.layout.item_popwindow, null, false);

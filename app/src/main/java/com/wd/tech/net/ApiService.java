@@ -42,6 +42,7 @@ import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
 import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
 import com.wd.tech.bean.wybean.beanmodifynickname.ModifyNickNameBean;
+import com.wd.tech.bean.wybean.beanmodifysignature.ModifySignatureBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -267,4 +268,7 @@ public interface ApiService {
     //修改用户 昵称
     @PUT(ApiUrl.MODIFYNICKNAME_URL)
     Observable<ModifyNickNameBean> getModifyNickNameData(@Query("nickName")String nickName);
+    //修改用户 签名
+    @PUT(ApiUrl.MODIFYSIGNATURE_URL)
+    Observable<ModifySignatureBean> getModifySignatureData(@Query("signature")String signature);
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ModifyNickName2Activity"
+    tools:context=".activity.ModifySignatureActivity"
     android:orientation="vertical"
     >
     <LinearLayout
@@ -17,7 +17,7 @@
         android:background="#C9D1D1"
         >
         <ImageView
-            android:id="@+id/imgModifyNickNameBackWy"
+            android:id="@+id/imgModifySignatureBackWy"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:src="@mipmap/common_nav_btn_back_n_xhdpi"
@@ -29,22 +29,22 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="修改用户名"
+            android:text="修改用户签名"
             android:textColor="#878888"
             >
         </TextView>
     </LinearLayout>
     <EditText
-        android:id="@+id/etModifyNickNameWy"
+        android:id="@+id/etModifySignatureWy"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_50"
-        android:hint="请输入新昵称"
+        android:hint="请输入新签名"
         >
     </EditText>
     <Button
-        android:id="@+id/btnModifyNickNamWy"
+        android:id="@+id/btnModifySignatureWy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

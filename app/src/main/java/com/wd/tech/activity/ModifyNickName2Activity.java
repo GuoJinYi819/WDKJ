@@ -19,7 +19,7 @@ import com.wd.tech.mvp.wymvp.mvpmodifynickname.ModifyNickNamePresenterImpl;
 public class ModifyNickName2Activity extends BaseActivity<ModifyNickNamePresenterImpl> implements IModifyNickNameContract.IModifyNickNameView {
     private android.widget.ImageView imgModifyNickNameBackWy;
     private android.widget.EditText etModifyNickNameWy;
-    private android.widget.Button btnModifyNickNamBackWy;
+    private android.widget.Button btnModifyNickNamWy;
 
     //改用户名 页面
     @Override
@@ -30,7 +30,7 @@ public class ModifyNickName2Activity extends BaseActivity<ModifyNickNamePresente
     public void initView() {
         imgModifyNickNameBackWy = (ImageView) findViewById(R.id.imgModifyNickNameBackWy);
         etModifyNickNameWy = (EditText) findViewById(R.id.etModifyNickNameWy);
-        btnModifyNickNamBackWy = (Button) findViewById(R.id.btnModifyNickNamBackWy);
+        btnModifyNickNamWy = (Button) findViewById(R.id.btnModifyNickNamWy);
     }
     @Override
     public void initListener() {
@@ -42,7 +42,7 @@ public class ModifyNickName2Activity extends BaseActivity<ModifyNickNamePresente
             }
         });
         //提交
-        btnModifyNickNamBackWy.setOnClickListener(new View.OnClickListener() {
+        btnModifyNickNamWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String string = etModifyNickNameWy.getText().toString().trim();
