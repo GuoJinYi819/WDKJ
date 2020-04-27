@@ -120,4 +120,6 @@ public interface ApiUrl {
     String COMMUNITYCOMMENTLIST_URL="community/v1/findCommunityCommentList";
     //社区 评论
     String SENDCOMMENT_URL="community/verify/v1/addCommunityComment";
+    //用户上传/更换头像
+    String MODIFYHEADPIC_URL="user/verify/v1/modifyHeadPic";
 }

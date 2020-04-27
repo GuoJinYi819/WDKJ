@@ -40,6 +40,7 @@ import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -258,4 +259,8 @@ public interface ApiService {
     @POST(ApiUrl.SENDCOMMENT_URL)
     @FormUrlEncoded
     Observable<SendCommentBean> getSendCommentData(@Field("communityId")int communityId, @Field("content")String content);
+    //用户 上传头像/更换
+    @POST(ApiUrl.MODIFYHEADPIC_URL)
+    @Multipart
+    Observable<ModifyHeadPicBean> getModifyHeadPicData(@Part MultipartBody.Part image);
 }

@@ -1,7 +1,10 @@
 package com.wd.tech.mvp.wymvp.mvpselectuser;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
+
+import okhttp3.MultipartBody;
 
 /**
  * @author 王阳
@@ -23,6 +26,21 @@ public class SelectUserPresenterImpl extends BasePresenter<ISelectUserContract.I
             @Override
             public void onSuccess(SelectUserBean selectUser) {
                 iBaseView.onSuccess(selectUser);
+            }
+
+            @Override
+            public void onError(String error) {
+                iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getModifyHeadPic(MultipartBody.Part image) {
+        selectUserModel.getModifyHeadPic(image, new ISelectUserContract.ISelectUserModel.DataCallBack2() {
+            @Override
+            public void onHeadSuccess(ModifyHeadPicBean modifyHeadPicBean) {
+                iBaseView.onHeadSuccess(modifyHeadPicBean);
             }
 
             @Override
