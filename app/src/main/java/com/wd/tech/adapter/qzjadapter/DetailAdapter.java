@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 
@@ -35,8 +36,19 @@ import java.util.List;
  */
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder> {
     private DetailBean.ResultBean list = new DetailBean.ResultBean();
+    private List<ConCommentBean.ResultBean> clist = new ArrayList<>();
     private Context context;
     private DetailRecommendAdapter adapter;
+    private String mmk="";
+    private DetailCommentAdapter cadapter;
+
+    public DetailBean.ResultBean getList() {
+        return list;
+    }
+
+    public void setClist(List<ConCommentBean.ResultBean> clist) {
+        this.clist = clist;
+    }
 
     public DetailAdapter(DetailBean.ResultBean list, Context context) {
         this.list = list;
@@ -72,6 +84,17 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
             adapter = new DetailRecommendAdapter(informationList,context);
             StaggeredGridLayoutManager ss = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL);
             holder.rere.setLayoutManager(ss);
+            holder.tj.setText("推荐");
+            List<DetailBean.ResultBean.PlateBean> plate = list.getPlate();
+            for (int i = 0; i < plate.size(); i++) {
+                mmk = mmk + plate.get(i).getName()+" ";
+                holder.mk.setText("模块: "+mmk);
+            }
+            cadapter = new DetailCommentAdapter(clist,context);
+            StaggeredGridLayoutManager ta = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+            holder.plre.setLayoutManager(ta);
+            holder.plre.setAdapter(cadapter);
+
             holder.rere.setAdapter(adapter);
         }else {
             Resources resources = context.getResources();
@@ -94,6 +117,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
         private final TextView shijian;
         private final TextView nr;
         private final TextView mk;
+        private final TextView tj;
         private final SimpleDraweeView pdt;
 
         public ViewHoder(@NonNull View itemView) {
@@ -106,6 +130,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
             nr = itemView.findViewById(R.id.nr);
             mk = itemView.findViewById(R.id.mk);
             pdt = itemView.findViewById(R.id.pdt);
+            tj = itemView.findViewById(R.id.tj);
         }
     }
     public static String stampToDate(String s){

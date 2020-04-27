@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-//好友通知
+//群通知
 public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> implements INewsNoticeContract.INewsNoticeView {
 
     private android.widget.ImageView mIvBack;
@@ -62,7 +62,7 @@ public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> imple
     public void initData() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("page","1");
-        hashMap.put("count","10");
+        hashMap.put("count","15");
         presenter.getGroupNotice(hashMap);
     }
 
@@ -83,25 +83,33 @@ public class GroupNoticeActivity extends BaseActivity<NewsNoticePresenter> imple
             GroupNoticeAdapter groupNoticeAdapter = new GroupNoticeAdapter(result, GroupNoticeActivity.this);
             mRecyclerGroupNotice.setAdapter(groupNoticeAdapter);
             //监听
-            groupNoticeAdapter.onStatusListener=new GroupNoticeAdapter.OnStatusListener() {
+            groupNoticeAdapter.setOnStatusListener(new GroupNoticeAdapter.OnStatusListener() {
                 @Override
                 public void onAgree(int noticeId, int flag) {
-                    //审核群通知
-                    RetrofitUtil instance = RetrofitUtil.getInstance();
-                    ApiService apiService = instance.createService();
-                    Observable<ReviewFriendApplyBean> observable = apiService.getReviewGroupApply(noticeId, flag);
-                    observable.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Consumer<ReviewFriendApplyBean>() {
-                                @Override
-                                public void accept(ReviewFriendApplyBean reviewFriendApplyBean) throws Exception {
-                                    String message = reviewFriendApplyBean.getMessage();
-                                    Toast.makeText(GroupNoticeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
-                                    groupNoticeAdapter.notifyDataSetChanged();
-                                }
-                            });
+                   new Thread(){
+                       @Override
+                       public void run() {
+                           super.run();
+                           //审核群通知
+                           RetrofitUtil instance = RetrofitUtil.getInstance();
+                           ApiService apiService = instance.createService();
+                           Observable<ReviewFriendApplyBean> observable = apiService.getReviewGroupApply(noticeId, flag);
+                           observable.subscribeOn(Schedulers.io());
+                           observable.observeOn(AndroidSchedulers.mainThread());
+                           observable.subscribe(new Consumer<ReviewFriendApplyBean>() {
+                               @Override
+                               public void accept(ReviewFriendApplyBean reviewFriendApplyBean) throws Exception {
+                                   String status = reviewFriendApplyBean.getStatus();
+                                   HashMap<String, String> hashMap = new HashMap<>();
+                                   hashMap.put("page", "1");
+                                   hashMap.put("count", "15");
+                                   presenter.getGroupNotice(hashMap);
+                               }
+                           });
+                       }
+                   }.start();
                 }
-            };
+            });
         }
     }
 }

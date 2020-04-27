@@ -104,17 +104,17 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
             }
         });
 
-
-
-        mEditContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mIvSetting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-
-                }
+            public void onClick(View v) {
+                //群设置
+                Intent intent = getIntent();
+                int groupId = intent.getIntExtra("groupId", -1);
+                Intent it = new Intent(SendGroupActivity.this, GroupSettingActivity.class);
+                it.putExtra("groupId",groupId);
+                startActivity(it);
             }
         });
-
     }
 
     @Override

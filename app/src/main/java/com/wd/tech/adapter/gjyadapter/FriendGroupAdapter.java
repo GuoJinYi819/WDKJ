@@ -123,6 +123,7 @@ public class FriendGroupAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
         if (listChild != null) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_friend_child, parent, false);
             mIvHeadPic = view.findViewById(R.id.ivHeadPic);

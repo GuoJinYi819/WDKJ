@@ -14,9 +14,54 @@ public class ConResultBean {
     private String thumbnail;
     private String title;
     private int whetherAdvertising;
+    private int whetherCollection;
     private int share;
     private int collection;
     private int id;
+
+    public int getWhetherCollection() {
+        return whetherCollection;
+    }
+
+    public void setWhetherCollection(int whetherCollection) {
+        this.whetherCollection = whetherCollection;
+    }
+
+    public void setReleaseTime(long releaseTime) {
+        this.releaseTime = releaseTime;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setWhetherAdvertising(int whetherAdvertising) {
+        this.whetherAdvertising = whetherAdvertising;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
+    }
+
+    public void setCollection(int collection) {
+        this.collection = collection;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
