@@ -122,4 +122,6 @@ public interface ApiUrl {
     String SENDCOMMENT_URL="community/verify/v1/addCommunityComment";
     //用户上传/更换头像
     String MODIFYHEADPIC_URL="user/verify/v1/modifyHeadPic";
+    //修改昵称
+    String MODIFYNICKNAME_URL="user/verify/v1/modifyNickName";
 }

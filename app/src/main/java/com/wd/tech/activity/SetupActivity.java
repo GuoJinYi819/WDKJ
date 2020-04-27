@@ -84,6 +84,15 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
                 initPopWindow(v);
             }
         });
+        //点击  换名字
+        tvSetUpNameWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转
+                Intent intent = new Intent(SetupActivity.this, ModifyNickName2Activity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void initPopWindow(View v) {
         View view = LayoutInflater.from(SetupActivity.this).inflate(R.layout.item_popwindow, null, false);

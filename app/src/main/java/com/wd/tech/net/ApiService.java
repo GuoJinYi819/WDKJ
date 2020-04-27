@@ -41,6 +41,7 @@ import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
 import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
+import com.wd.tech.bean.wybean.beanmodifynickname.ModifyNickNameBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -263,4 +264,7 @@ public interface ApiService {
     @POST(ApiUrl.MODIFYHEADPIC_URL)
     @Multipart
     Observable<ModifyHeadPicBean> getModifyHeadPicData(@Part MultipartBody.Part image);
+    //修改用户 昵称
+    @PUT(ApiUrl.MODIFYNICKNAME_URL)
+    Observable<ModifyNickNameBean> getModifyNickNameData(@Query("nickName")String nickName);
 }
