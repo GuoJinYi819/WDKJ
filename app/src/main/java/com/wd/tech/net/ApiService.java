@@ -36,6 +36,7 @@ import com.wd.tech.bean.wybean.beanscore.ScoreBean;
 import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -193,6 +194,10 @@ public interface ApiService {
     /*@POST(ApiUrl.BUY_URL)
     @FormUrlEncoded
     Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
-    @GET(ApiUrl.CommunityCommentList_URL)
+    @GET(ApiUrl.COMMUNITYCOMMENTLIST_URL)
     Observable<CommunityCommentListBean> getCommunityCommentListData(@Query("communityId")int communityId,@Query("page")int page,@Query("count")int count);
+    //购买  下单
+    @POST(ApiUrl.SENDCOMMENT_URL)
+    @FormUrlEncoded
+    Observable<SendCommentBean> getSendCommentData(@Field("communityId")int communityId, @Field("content")String content);
 }

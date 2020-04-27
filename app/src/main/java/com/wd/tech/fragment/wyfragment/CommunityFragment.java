@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
@@ -14,6 +15,7 @@ import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanhome.ResultBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.mvp.wymvp.mvphome.HomePresenterImpl;
 import com.wd.tech.mvp.wymvp.mvphome.IHomeContract;
 
@@ -84,6 +86,10 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
         //标签   评论
         //presenter.getCommunityCommentList(id,1,10);
         String content = event.getContent();
+        //发  评论
+        if(!TextUtils.isEmpty(content)){
+            presenter.getSendComment(1,content);
+        }
     }
     @Override
     public HomePresenterImpl initPresenter() {
@@ -112,6 +118,15 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     }
     @Override
     public void onCommunityCommentListError(String error) {
+    }
+    @Override
+    public void onSendCommentSuccess(SendCommentBean sendCommentBean) {
+        //成功  发表评论
+        String message = sendCommentBean.getMessage();
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onSendCommentError(String error) {
     }
     //销毁
     @Override

@@ -89,5 +89,7 @@ public interface ApiUrl {
     //支付
     String BUY_URL="tool/verify/v1/pay";
     //社区评论列表（标签方式返参）
-    String CommunityCommentList_URL="community/v1/findCommunityCommentList";
+    String COMMUNITYCOMMENTLIST_URL="community/v1/findCommunityCommentList";
+    //社区 评论
+    String SENDCOMMENT_URL="community/verify/v1/addCommunityComment";
 }

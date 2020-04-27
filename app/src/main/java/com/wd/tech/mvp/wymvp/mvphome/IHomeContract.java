@@ -3,6 +3,7 @@ package com.wd.tech.mvp.wymvp.mvphome;
 import com.wd.tech.base.IBaseView;
 import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.mvp.wymvp.mvpcommunitycommentList.ICommunityCommentListContract;
 
 /**
@@ -23,6 +24,10 @@ public interface IHomeContract {
         void onCommunityCommentListSuccess(CommunityCommentListBean communityCommentListBean);
         //
         void onCommunityCommentListError(String error);
+        //
+        void onSendCommentSuccess(SendCommentBean sendCommentBean);
+        //
+        void onSendCommentError(String error);
     }
     //
     interface IHomeModel{
@@ -41,10 +46,19 @@ public interface IHomeContract {
             //
             void onCommunityCommentListError(String error);
         }
+
+        void getSendComment(int communityId, String content,DataCallBack3 dataCallBack3);
+        interface DataCallBack3{
+            //
+            void onSendCommentSuccess(SendCommentBean sendCommentBean);
+            //
+            void onSendCommentError(String error);
+        }
     }
     //
     interface IHomePresenter{
         void getHome(int page,int count);
         void getCommunityCommentList(int communityId,int page,int count);
+        void getSendComment(int communityId, String content);
     }
 }
