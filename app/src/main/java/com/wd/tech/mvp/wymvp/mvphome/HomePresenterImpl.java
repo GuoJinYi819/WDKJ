@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.wymvp.mvphome;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 
 /**
@@ -28,6 +29,21 @@ public class HomePresenterImpl extends BasePresenter<IHomeContract.IHomeView> im
             @Override
             public void onError(String error) {
                 iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getCommunityCommentList(int communityId, int page, int count) {
+        homeModel.getCommunityCommentList(communityId, page, count, new IHomeContract.IHomeModel.DataCallBack2() {
+            @Override
+            public void onCommunityCommentListSuccess(CommunityCommentListBean communityCommentListBean) {
+                iBaseView.onCommunityCommentListSuccess(communityCommentListBean);
+            }
+
+            @Override
+            public void onCommunityCommentListError(String error) {
+                iBaseView.onCommunityCommentListError(error);
             }
         });
     }

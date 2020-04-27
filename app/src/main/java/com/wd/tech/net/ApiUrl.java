@@ -88,4 +88,6 @@ public interface ApiUrl {
     String BUYVIP_URL="tool/verify/v1/buyVip";
     //支付
     String BUY_URL="tool/verify/v1/pay";
+    //社区评论列表（标签方式返参）
+    String CommunityCommentList_URL="community/v1/findCommunityCommentList";
 }

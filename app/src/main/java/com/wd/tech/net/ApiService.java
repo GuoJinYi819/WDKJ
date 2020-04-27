@@ -23,6 +23,7 @@ import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
@@ -192,4 +193,6 @@ public interface ApiService {
     /*@POST(ApiUrl.BUY_URL)
     @FormUrlEncoded
     Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
+    @GET(ApiUrl.CommunityCommentList_URL)
+    Observable<CommunityCommentListBean> getCommunityCommentListData(@Query("communityId")int communityId,@Query("page")int page,@Query("count")int count);
 }
