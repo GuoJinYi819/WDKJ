@@ -100,4 +100,7 @@ public interface ApiUrl {
     String CONSULTATION_ADDCOLLECTION_URL = "user/verify/v1/addCollection";
     //咨讯取消点赞
     String CONSULTATION_CANCELCOLLECTION_URL = "user/verify/v1/cancelCollection";
+    //咨讯所有版块查询
+    String CONSULTATION_MOST_URL = "information/v1/findAllInfoPlate";
+
 }

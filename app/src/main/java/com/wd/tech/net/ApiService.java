@@ -19,6 +19,7 @@ import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
+import com.wd.tech.bean.qzjbean.most.MostBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
@@ -189,6 +190,9 @@ public interface ApiService {
     //咨讯取消收藏
     @DELETE(ApiUrl.CONSULTATION_CANCELCOLLECTION_URL)
     Observable<GreatBean> getDelete(@Query("infoId") int infoId);
+    //咨讯所有模块查询
+    @GET(ApiUrl.CONSULTATION_MOST_URL)
+    Observable<MostBean> getMostData();
     //删除帖子  我的
     @DELETE(ApiUrl.DELETEPOST_URL)
     Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
