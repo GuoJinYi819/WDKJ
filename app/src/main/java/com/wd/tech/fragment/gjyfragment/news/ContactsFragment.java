@@ -34,6 +34,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
     private FriendGroupAdapter adapter;
     private boolean isConfig = false;
     private int nummber = 0;
+    private int groupid = 0;
 
     @Override
     public int initLayout() {
@@ -83,6 +84,17 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100&&resultCode==100&&data==null){
+            //刷新列表
+            isConfig = false;
+            presenter.getFriendGroupData();
+
+        }
+    }
+
+    @Override
     public void onGroupSuccess(FriendGroupListBean bean) {
         //外层
         String message = bean.getMessage();
@@ -94,6 +106,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
             adapter.onGruopIdListener = new FriendGroupAdapter.OnGruopIdListener() {
                 @Override
                 public void onGroupId(int id,int groud) {
+                    groupid = id;
                     if(!isConfig){
                         nummber = groud;
                         presenter.getFriendChildData(id);
@@ -134,7 +147,8 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
                         //跳转界面
                         Intent intent = new Intent(getContext(), QueryFriendActivity.class);
                         intent.putExtra("friend",friend);
-                        startActivity(intent);
+                        intent.putExtra("groupId",groupid);
+                        startActivityForResult(intent,100);
                     }
                 });
 

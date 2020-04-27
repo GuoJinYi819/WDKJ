@@ -5,11 +5,19 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
@@ -38,10 +46,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommunityAdapter.CommunityViewHolder> {
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
-    private boolean check=false;
+    private boolean check=true;
+
+    private List<String> resultList =new ArrayList<>();
+
     public RecyclerCommunityAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
+    }
+
+    public void setResultList(List<String> resultList) {
+        this.resultList = resultList;
     }
 
     @NonNull
@@ -64,7 +79,7 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         holder.tvCountComment.setText(result.get(position).getComment() + "");
         holder.tvCountPraise.setText(result.get(position).getPraise() + "");
         //评论  跳转
-        holder.imgCommentWy.setOnClickListener(new View.OnClickListener() {
+        holder.imgContentPersonWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //获取communityId   传参
@@ -82,24 +97,77 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
                 context.startActivity(intent);
             }
         });
-        //评论
-        holder.tvCountComment.setOnClickListener(new View.OnClickListener() {
+        holder.tvContentWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //获取communityId   传参
+                Event event=new Event();
+                //id
+                event.setId(position);
+                //头像
+                event.setHead(result.get(position).getHeadPic());
+                //名称
+                event.setPersonName(result.get(position).getNickName());
+                //数量
+                event.setCount(result.size());
+                EventBus.getDefault().postSticky(event);
+                Intent intent = new Intent(context, CommentListActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        //评论   发评论   点击 评论图片  发评论
+        holder.imgCommentWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //传值
+                int id = result.get(position).getId();
+                Event eventBus = new Event();
+                eventBus.setId(id);
+
                 if(check){
                     check=false;
-                    holder.recyclrCommentListWy.setVisibility(View.INVISIBLE);
-                    holder.tvWu.setVisibility(View.INVISIBLE);
-                    RecyclerView recyclrCommentListWy = holder.recyclrCommentListWy;
+                    holder.linearCommentWy.setVisibility(View.VISIBLE);
+                    RecyclerView recyclerCommentListWy = holder.recyclerCommentListWy;
                     //布局管理器
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                    recyclrCommentListWy.setLayoutManager(linearLayoutManager);
+                    recyclerCommentListWy.setLayoutManager(linearLayoutManager);
                     //适配器
+                    Log.d("==", "onClick: "+resultList);
+                    CommentAdapter commentAdapter = new CommentAdapter(resultList, context);
+                    recyclerCommentListWy.setAdapter(commentAdapter);
+                    //软键盘  发送
+                    holder.etShuRu.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                            if(actionId== EditorInfo.IME_ACTION_SEND){
+                                String str = holder.etShuRu.getText().toString();
+                                if(!TextUtils.isEmpty(str)){
+                                    eventBus.setContent(str);
+                                    EventBus.getDefault().postSticky(eventBus);
+                                }else{
+                                    Toast.makeText(context,"评论不能为空",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            return false;//隐藏软键盘
+                        }
+                    });
+                    //按钮  发送
+                    holder.btnSend.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String str = holder.etShuRu.getText().toString();
+                            if(!TextUtils.isEmpty(str)){
+                                eventBus.setContent(str);
+                                EventBus.getDefault().postSticky(eventBus);
+                            }else{
+                                Toast.makeText(context,"评论不能为空",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }else{
                     check=true;
-                    holder.recyclrCommentListWy.setVisibility(View.GONE);
-                    holder.tvWu.setVisibility(View.GONE);
+                    holder.linearCommentWy.setVisibility(View.GONE);
                 }
             }
         });
@@ -190,8 +258,10 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         private TextView tvCountComment;
         private ImageView imgCountPraise;
         private TextView tvCountPraise;
-        private RecyclerView recyclrCommentListWy;
-        private TextView tvWu;
+        private RecyclerView recyclerCommentListWy;
+        private EditText etShuRu;
+        private LinearLayout linearCommentWy;
+        private Button btnSend;
 
         public CommunityViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -205,8 +275,10 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
             tvCountComment = (TextView) itemView.findViewById(R.id.tvCountComment);
             imgCountPraise = (ImageView) itemView.findViewById(R.id.imgCountPraise);
             tvCountPraise = (TextView) itemView.findViewById(R.id.tvCountPraise);
-            recyclrCommentListWy=itemView.findViewById(R.id.recyclrCommentListWy);
-            tvWu=itemView.findViewById(R.id.tvWu);
+            recyclerCommentListWy=itemView.findViewById(R.id.recyclerCommentListWy);
+            etShuRu=itemView.findViewById(R.id.etShuRu);
+            linearCommentWy=itemView.findViewById(R.id.linearCommentWy);
+            btnSend=itemView.findViewById(R.id.btnSend);
         }
     }
 }

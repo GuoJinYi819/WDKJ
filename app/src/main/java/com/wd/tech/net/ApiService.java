@@ -1,13 +1,20 @@
 package com.wd.tech.net;
 
+import com.wd.tech.bean.gjybean.AddFriendBean;
+import com.wd.tech.bean.gjybean.AddFriendGroupBean;
+import com.wd.tech.bean.gjybean.CreateGroupBean;
+import com.wd.tech.bean.gjybean.DeleteChatBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
 import com.wd.tech.bean.gjybean.FriendGroupListBean;
 import com.wd.tech.bean.gjybean.FriendNoticeBean;
 import com.wd.tech.bean.gjybean.FriendSeachBean;
+import com.wd.tech.bean.gjybean.GroupInfoBean;
+import com.wd.tech.bean.gjybean.GroupMemberListBean;
 import com.wd.tech.bean.gjybean.GroupNoticeBean;
 import com.wd.tech.bean.gjybean.JoinedGroupBean;
+import com.wd.tech.bean.gjybean.ModifyGroupDescriptionBean;
 import com.wd.tech.bean.gjybean.QueryFriendBean;
 import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
@@ -15,6 +22,7 @@ import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
+import com.wd.tech.bean.gjybean.TransferFriendBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
@@ -27,11 +35,15 @@ import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
+import com.wd.tech.bean.wybean.beanmodifynickname.ModifyNickNameBean;
+import com.wd.tech.bean.wybean.beanmodifysignature.ModifySignatureBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -39,6 +51,7 @@ import com.wd.tech.bean.wybean.beanscore.ScoreBean;
 import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -183,6 +196,25 @@ public interface ApiService {
     //咨讯取消点赞
     @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
     Observable<GreatBean> getNDate(@Query("infoId") int infoId);
+    //添加好友
+    @POST(ApiUrl.ADDFRIEND)
+    @FormUrlEncoded
+    Observable<AddFriendBean> addFriend(@FieldMap Map<String,String> params);
+    //添加群
+    @POST(ApiUrl.ADDGROUP)
+    @FormUrlEncoded
+    Observable<AddFriendBean> addGroup(@FieldMap Map<String,String> params);
+    //创建群
+    @POST(ApiUrl.CREATEGROUP)
+    @FormUrlEncoded
+    Observable<CreateGroupBean> createGroup(@FieldMap Map<String,String> params);
+    //创建自定义分组
+    @POST(ApiUrl.ADDFRIENDGROUP)
+    @FormUrlEncoded
+    Observable<AddFriendGroupBean> addFriendGroup(@Field("groupName")String groupName);
+    //转移好友值 其他分组
+    @PUT(ApiUrl.TRANSFERGROUP)
+    Observable<TransferFriendBean> transferGroup(@Query("newGroupId")int newGroupId, @Query("friendUid")int friendUid);
     //咨讯收藏
     @POST(ApiUrl.CONSULTATION_ADDCOLLECTION_URL)
     @FormUrlEncoded
@@ -220,4 +252,36 @@ public interface ApiService {
     /*@POST(ApiUrl.BUY_URL)
     @FormUrlEncoded
     Observable<BuyVipBean> getBuyVipData(@Field("orderId")String orderId, @Field("payType")int payType);*/
+    //删除好友的聊天记录
+    @DELETE(ApiUrl.DELETECHAT)
+    Observable<DeleteChatBean> deleteChatRecord(@Query("friendUid")int friendUid);
+    //删除好友
+    @DELETE(ApiUrl.DELETEFRIEND)
+    Observable<DeleteChatBean> deleteFriend(@Query("friendUid")int friendUid);
+    //查询群聊详情页
+    @GET(ApiUrl.FINDGROUPINFO)
+    Observable<GroupInfoBean> getGroupInfo(@Query("groupId") int groupId);
+    //查询群中所有好友
+    @GET(ApiUrl.GETGROUPMEMBERLIST)
+    Observable<GroupMemberListBean> getGroupMemberList(@Query("groupId")int groupId);
+    //修改群简介
+    @PUT(ApiUrl.MODIFYGROUPDESCRIPTION)
+    Observable<ModifyGroupDescriptionBean> modifyGroupDescription(@Query("groupId")int groupId, @Query("description")String description);
+
+    @GET(ApiUrl.COMMUNITYCOMMENTLIST_URL)
+    Observable<CommunityCommentListBean> getCommunityCommentListData(@Query("communityId")int communityId,@Query("page")int page,@Query("count")int count);
+    //购买  下单
+    @POST(ApiUrl.SENDCOMMENT_URL)
+    @FormUrlEncoded
+    Observable<SendCommentBean> getSendCommentData(@Field("communityId")int communityId, @Field("content")String content);
+    //用户 上传头像/更换
+    @POST(ApiUrl.MODIFYHEADPIC_URL)
+    @Multipart
+    Observable<ModifyHeadPicBean> getModifyHeadPicData(@Part MultipartBody.Part image);
+    //修改用户 昵称
+    @PUT(ApiUrl.MODIFYNICKNAME_URL)
+    Observable<ModifyNickNameBean> getModifyNickNameData(@Query("nickName")String nickName);
+    //修改用户 签名
+    @PUT(ApiUrl.MODIFYSIGNATURE_URL)
+    Observable<ModifySignatureBean> getModifySignatureData(@Query("signature")String signature);
 }

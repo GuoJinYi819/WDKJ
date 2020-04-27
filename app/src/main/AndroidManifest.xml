@@ -10,10 +10,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BuyVipActivity"></activity>
+        <activity android:name=".activity.ModifySignatureActivity"></activity>
+        <activity android:name=".activity.ModifyNickName2Activity" />
+        <activity android:name=".activity.BuyVipActivity" />
         <activity android:name=".activity.MyVIPActivity" />
         <activity android:name=".activity.ImproveInformationActivity" />
+        <activity android:name=".activity.GroupIntroduceActivity" />
+        <activity android:name=".activity.GroupFriendActivity" />
+        <activity android:name=".activity.GroupSettingActivity" />
         <activity android:name=".activity.SigninActivity" />
+        <activity android:name=".activity.SelectGroupActivity" />
+        <activity android:name=".activity.ChatSettingActivity" />
+        <activity android:name=".activity.CreateGroupActivity" />
+        <activity android:name=".activity.AddUserActivity" />
+        <activity android:name=".activity.SendGroupActivity" />
         <activity
             android:name=".activity.SendNewsActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -50,10 +60,10 @@
         <activity android:name=".activity.HomeActivity" />
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

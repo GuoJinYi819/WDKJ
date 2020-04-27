@@ -90,6 +90,26 @@ public interface ApiUrl {
     String SCOREDETAILED_URL="user/verify/v1/findUserIntegralRecord";
     //完善用户 信息
     String IMPROVEINFORMATION_URL="user/verify/v1/perfectUserInfo";
+    //添加好友
+    String ADDFRIEND = "chat/verify/v1/addFriend";
+    //添加群
+    String ADDGROUP = "group/verify/v1/applyAddGroup";
+    //创建群
+    String CREATEGROUP = "group/verify/v1/createGroup";
+    //创建自定义分组
+    String ADDFRIENDGROUP = "chat/verify/v1/addFriendGroup";
+    //转移好友值 其他分组
+    String TRANSFERGROUP = "chat/verify/v1/transferFriendGroup";
+    //删除好友聊天记录
+    String DELETECHAT  = "chat/verify/v1/deleteChatRecord";
+    //删除好友
+    String DELETEFRIEND = "chat/verify/v1/deleteFriendRelation";
+    //查询群组详情
+    String FINDGROUPINFO = "group/verify/v1/findGroupInfo";
+    //查询群组好友信息
+    String GETGROUPMEMBERLIST = "group/verify/v1/findGroupMemberList";
+    //修改群简介
+    String MODIFYGROUPDESCRIPTION = "group/verify/v1/modifyGroupDescription";
     //查询所有会员商品
     String SELECTVIPLIST_URL="tool/v1/findVipCommodityList";
     //VIP 下单
@@ -103,4 +123,14 @@ public interface ApiUrl {
     //咨讯所有版块查询
     String CONSULTATION_MOST_URL = "information/v1/findAllInfoPlate";
 
+    //社区评论列表（标签方式返参）
+    String COMMUNITYCOMMENTLIST_URL="community/v1/findCommunityCommentList";
+    //社区 评论
+    String SENDCOMMENT_URL="community/verify/v1/addCommunityComment";
+    //用户上传/更换头像
+    String MODIFYHEADPIC_URL="user/verify/v1/modifyHeadPic";
+    //修改昵称
+    String MODIFYNICKNAME_URL="user/verify/v1/modifyNickName";
+    //修改签名
+    String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
 }

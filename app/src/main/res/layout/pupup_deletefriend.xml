@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvText"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="是否将谁谁谁删除 同时删除与联系人的聊天记录"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvQ"
+        android:layout_marginTop="@dimen/dp_2"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:textColor="#ff00"
+        android:textSize="@dimen/sp_16"
+        android:text="删除好友"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10">
+
+    </View>
+    <TextView
+        android:id="@+id/tvC"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="@dimen/sp_16"
+        android:text="取消"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+    </TextView>
+</LinearLayout>
