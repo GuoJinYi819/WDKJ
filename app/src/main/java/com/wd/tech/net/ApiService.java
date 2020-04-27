@@ -175,11 +175,20 @@ public interface ApiService {
     @POST(ApiUrl.CONSULTATION_ADDCOMMENT_URL)
     @FormUrlEncoded
     Observable<AddBean> getAddData(@Field("infoId") int infoId, @Field("content") String content);
+    //咨讯点赞
     @POST(ApiUrl.CONSULTATION_GREATRECORD_URL)
     @FormUrlEncoded
     Observable<GreatBean> getDDate(@Field("infoId") int infoId);
+    //咨讯取消点赞
     @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
     Observable<GreatBean> getNDate(@Query("infoId") int infoId);
+    //咨讯收藏
+    @POST(ApiUrl.CONSULTATION_ADDCOLLECTION_URL)
+    @FormUrlEncoded
+    Observable<GreatBean> getAdd(@Field("infoId") int infoId);
+    //咨讯取消收藏
+    @DELETE(ApiUrl.CONSULTATION_CANCELCOLLECTION_URL)
+    Observable<GreatBean> getDelete(@Query("infoId") int infoId);
     //删除帖子  我的
     @DELETE(ApiUrl.DELETEPOST_URL)
     Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
