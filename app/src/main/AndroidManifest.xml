@@ -24,6 +24,8 @@
         <activity android:name=".activity.CreateGroupActivity" />
         <activity android:name=".activity.AddUserActivity" />
         <activity android:name=".activity.SendGroupActivity" />
+        <activity android:name=".activity.MostActivity"/>
+        <activity android:name=".activity.IntegralActivity"/>
         <activity
             android:name=".activity.SendNewsActivity"
             android:windowSoftInputMode="adjustResize" />

@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
@@ -61,6 +67,7 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
     private DetailCommentAdapter commentAdapter;
     private List<ConCommentBean.ResultBean> list = new ArrayList<>();
     private int id;
+    private int ismoney;
 
     @Override
     public int initLayout() {
@@ -90,8 +97,8 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
     @Override
     public void initData() {
         Intent intent = getIntent();
+        ismoney = intent.getIntExtra("ismoney",2);
         id = intent.getIntExtra("id", 3);
-        Log.d("XXX", id +"");
         presenter.onDetaDate(id);
         presenter.onCommentDate(id,1,5);
         etext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -127,7 +134,13 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
         DetailBean.ResultBean result = detailBean.getResult();
         StaggeredGridLayoutManager s = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
         re.setLayoutManager(s);
-        adapter = new DetailAdapter(result,ConsultaActivity.this);
+        adapter = new DetailAdapter(result,ConsultaActivity.this,ismoney);
+        adapter.setGetIdLenter(new DetailAdapter.GetIdLenter() {
+            @Override
+            public void onId(int id,int integral) {
+                initPopWindow(id,integral);
+            }
+        });
         if (list!=null){
             adapter.setClist(list);
         }
@@ -214,4 +227,80 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
         String message = greatBean.getMessage();
         Log.d("AAA",message);
     }
+    private void initPopWindow(int id,int integral) {
+        View view = LayoutInflater.from(ConsultaActivity.this).inflate(R.layout.item_popwindowssss, null, false);
+        View jf = view.findViewById(R.id.jf);
+        View vip = view.findViewById(R.id.vip);
+        //1.构造一个PopupWindow，参数依次是加载的View，宽高
+        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setAnimationStyle(R.anim.anim_pop);//设置加载动画
+        //点击非PopupWindow区域，PopupWindow会消失的
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+        //要为popWindow设置一个背景才有效
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
+        View inflate = LayoutInflater.from(ConsultaActivity.this).inflate(R.layout.activity_consulation, null);
+        popupWindow.showAtLocation(inflate, Gravity.BOTTOM, 0,0);
+        //点击事件
+        jf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到积分兑换页面
+                Intent intent = new Intent(ConsultaActivity.this,IntegralActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("integral",integral);
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+        //点击事件
+        vip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+    }
+    // 打开相册
+//    public void openGallery(View view) {
+//        Intent intent =new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//
+//        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+//        startActivityForResult(intent,0);
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        // 从相册返回的数据
+//        if(requestCode ==0) {
+//            if(data !=null) {
+//                Uri uri = data.getData();
+//                //图片  圆
+//                /*CircleCrop circleCrop = new CircleCrop();
+//                RequestOptions requestOptions = RequestOptions.bitmapTransform(circleCrop);*/
+//                Glide.with(App.context).load(uri).into(imgSetUpHeadWy);
+//                //uri转换成file
+//                String[] arr = {MediaStore.Images.Media.DATA};
+//                Cursor cursor = managedQuery(uri, arr, null, null, null);
+//                int img_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                cursor.moveToFirst();
+//                String img_path = cursor.getString(img_index);
+//                File file = new File(img_path);
+//
+//                RequestBody requestBody = RequestBody.create( MediaType.parse( "multipart/form-data"), file );
+//                MultipartBody.Part image = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+//                //头像  请求接口
+//                presenter.getModifyHeadPic(image);
+//            }
+//        }
+//    }
 }

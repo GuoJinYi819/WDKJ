@@ -75,8 +75,9 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
             @Override
             public void onClick(View v) {
                 int id = list.get(position).getId();
+                int whetherPay = list.get(position).getWhetherPay();
                 if (adapterCallBack!=null){
-                    adapterCallBack.onGiveId(id);
+                    adapterCallBack.onGiveId(id,whetherPay);
                 }
             }
         });
@@ -278,6 +279,6 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         return sb.toString();
     }
     public interface AdapterCallBack{
-        void onGiveId(int id);
+        void onGiveId(int id,int ismoney);
     }
 }

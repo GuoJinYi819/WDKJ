@@ -1,9 +1,12 @@
 package com.wd.tech.fragment.qzjfragment;
 
+import android.content.Intent;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.wd.tech.R;
+import com.wd.tech.activity.MostActivity;
 import com.wd.tech.adapter.qzjadapter.MostAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.bean.qzjbean.most.MostBean;
@@ -55,5 +58,13 @@ public class ChannelFragment extends BaseFragment<MostPresenterImpl> implements 
         StaggeredGridLayoutManager s = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         rlv.setLayoutManager(s);
         rlv.setAdapter(adapter);
+        adapter.setMostIdLenter(new MostAdapter.MostIdLenter() {
+            @Override
+            public void onMost(int id) {
+                Intent intent = new Intent(getActivity(), MostActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
     }
 }

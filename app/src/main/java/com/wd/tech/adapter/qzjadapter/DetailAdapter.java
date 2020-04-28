@@ -41,6 +41,12 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
     private DetailRecommendAdapter adapter;
     private String mmk="";
     private DetailCommentAdapter cadapter;
+    private int ismoney;
+    public GetIdLenter getIdLenter;
+
+    public void setGetIdLenter(GetIdLenter getIdLenter) {
+        this.getIdLenter = getIdLenter;
+    }
 
     public DetailBean.ResultBean getList() {
         return list;
@@ -50,9 +56,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
         this.clist = clist;
     }
 
-    public DetailAdapter(DetailBean.ResultBean list, Context context) {
+    public DetailAdapter(DetailBean.ResultBean list, Context context, int ismoney) {
         this.list = list;
         this.context = context;
+        this.ismoney = ismoney;
     }
 
     @NonNull
@@ -76,10 +83,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
 
 
         int readPower = list.getReadPower();
-        if (readPower==1){
+        if (ismoney==2){
             Resources resources = context.getResources();
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.c4);
-            holder.pdt.setImageBitmap(bitmap);
+            holder.pdt.setImageURI(list.getThumbnail());
             List<DetailBean.ResultBean.InformationListBean> informationList = list.getInformationList();
             adapter = new DetailRecommendAdapter(informationList,context);
             StaggeredGridLayoutManager ss = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL);
@@ -98,8 +105,22 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
             holder.rere.setAdapter(adapter);
         }else {
             Resources resources = context.getResources();
-            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.c4);
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.c5);
             holder.pdt.setImageBitmap(bitmap);
+            cadapter = new DetailCommentAdapter(clist,context);
+            StaggeredGridLayoutManager ta = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+            holder.plre.setLayoutManager(ta);
+            holder.plre.setAdapter(cadapter);
+            holder.pdt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id = list.getId();
+                    int integralCost = list.getIntegralCost();
+                    if (getIdLenter!=null){
+                        getIdLenter.onId(id,integralCost);
+                    }
+                }
+            });
         }
     }
 
@@ -141,5 +162,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;
+    }
+    public interface GetIdLenter{
+        void onId(int id,int integral);
     }
 }
