@@ -1,6 +1,7 @@
 package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.activity.ConsultaActivity;
 import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beancollectionlist.ResultBean;
 import com.wd.tech.net.TimeToUtil;
@@ -74,6 +76,17 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
                 Event event = new Event();
                 event.setCancleId(string);
                 EventBus.getDefault().postSticky(event);
+            }
+        });
+        //点击  跳转 资讯详情页面
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ConsultaActivity.class);
+                int infoId = result.get(position).getInfoId();
+                intent.putExtra("id",infoId);
+                intent.putExtra("ismoney",2);
+                context.startActivity(intent);
             }
         });
     }
