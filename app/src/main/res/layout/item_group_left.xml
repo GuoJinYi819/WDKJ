@@ -10,7 +10,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:layout_marginTop="@dimen/dp_5"
-        android:background="@color/colorAccent"
         android:id="@+id/ivHeadPic"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,9 +113,18 @@ public class SendGroupActivity extends BaseActivity<SendGroupPresenter> implemen
                 int groupId = intent.getIntExtra("groupId", -1);
                 Intent it = new Intent(SendGroupActivity.this, GroupSettingActivity.class);
                 it.putExtra("groupId",groupId);
-                startActivity(it);
+                startActivityForResult(it,11);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==11&&resultCode==11){
+            setResult(12,null);
+            finish();
+        }
     }
 
     @Override
