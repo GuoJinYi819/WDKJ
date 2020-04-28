@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
 import com.wd.tech.bean.wybean.beancommentlist.ResultBean;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.mvp.wymvp.mvpcommentlist.CommentListPresenterImpl;
 import com.wd.tech.mvp.wymvp.mvpcommentlist.ICommentListContract;
 
@@ -87,6 +89,8 @@ public class CommentListActivity extends BaseActivity<CommentListPresenterImpl> 
             tvCommentSum.setText(count+"条数据");
         }
         presenter.getCommentList(id,1,10);
+        //加分
+        presenter.getDoTask(1002);
     }
     @Override
     public CommentListPresenterImpl initPresenter() {
@@ -101,6 +105,11 @@ public class CommentListActivity extends BaseActivity<CommentListPresenterImpl> 
     }
     @Override
     public void onError(String error) {
+    }
+    @Override
+    public void onTaskSuccess(DoTaskBean doTaskBean) {
+        String message = doTaskBean.getMessage();
+        Log.d("==", "onTaskSuccess: "+message);
     }
     //销毁
     @Override

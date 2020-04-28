@@ -36,6 +36,7 @@ import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.mvp.wymvp.mvpcomment.CommentPresenterImpl;
 import com.wd.tech.mvp.wymvp.mvpcomment.ICommentContract;
 
@@ -226,6 +227,8 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
                     if(formData!=null){
                         Log.d("===", "onClick: "+formData);
                         presenter.getComment(string,formData);
+                        //加分
+                        presenter.getDoTask(1003);
                     }
                 }
             }
@@ -247,5 +250,11 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
     }
     @Override
     public void onError(String msg) {
+    }
+
+    @Override
+    public void onTaskSuccess(DoTaskBean doTaskBean) {
+        String message = doTaskBean.getMessage();
+        Log.d("==", "onTaskSuccess: "+message);
     }
 }

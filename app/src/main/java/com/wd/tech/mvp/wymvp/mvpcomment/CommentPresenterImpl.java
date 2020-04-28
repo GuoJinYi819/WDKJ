@@ -2,6 +2,8 @@ package com.wd.tech.mvp.wymvp.mvpcomment;
 
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
+import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 
 import okhttp3.MultipartBody;
 
@@ -30,6 +32,21 @@ public class CommentPresenterImpl extends BasePresenter<ICommentContract.ICommen
             @Override
             public void onError(String msg) {
                 iBaseView.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getDoTask(int taskId) {
+        commentModel.getDoTask(taskId, new ISignContract.ISignModel.DataCallBack2() {
+            @Override
+            public void onSuccess(DoTaskBean doTaskBean) {
+                iBaseView.onTaskSuccess(doTaskBean);
+            }
+
+            @Override
+            public void onError(String error) {
+                iBaseView.onError(error);
             }
         });
     }

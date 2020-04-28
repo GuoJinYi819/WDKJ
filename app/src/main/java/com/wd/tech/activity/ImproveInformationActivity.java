@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
 import com.wd.tech.mvp.wymvp.mvpimproveinformation.IImproveInformationContract;
 import com.wd.tech.mvp.wymvp.mvpimproveinformation.ImproveInformationPresenterImpl;
@@ -71,6 +73,8 @@ public class ImproveInformationActivity extends BaseActivity<ImproveInformationP
                                 String email = etImproveEmailWy.getText().toString().trim();
                                 if(!TextUtils.isEmpty(email)){
                                     presenter.getImproveInformation(name,integer,signature,birthday,email);
+                                    //加分
+                                    presenter.getDoTask(1006);
                                 }else{
                                     Toast.makeText(ImproveInformationActivity.this,"邮箱不能为空",Toast.LENGTH_SHORT).show();
                                 }
@@ -105,5 +109,10 @@ public class ImproveInformationActivity extends BaseActivity<ImproveInformationP
     }
     @Override
     public void onError(String error) {
+    }
+    @Override
+    public void onTaskSuccess(DoTaskBean doTaskBean) {
+        String message = doTaskBean.getMessage();
+        Log.d("==", "onTaskSuccess: "+message);
     }
 }
