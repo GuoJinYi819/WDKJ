@@ -1,7 +1,9 @@
 package com.wd.tech.mvp.wymvp.mvpimproveinformation;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 
 /**
  * @author 王阳
@@ -23,6 +25,21 @@ public class ImproveInformationPresenterImpl extends BasePresenter<IImproveInfor
             @Override
             public void onSuccess(ImproveInformationBean improveInformationBean) {
                 iBaseView.onSuccess(improveInformationBean);
+            }
+
+            @Override
+            public void onError(String error) {
+                iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getDoTask(int taskId) {
+        improveInformationModel.getDoTask(taskId, new ISignContract.ISignModel.DataCallBack2() {
+            @Override
+            public void onSuccess(DoTaskBean doTaskBean) {
+                iBaseView.onTaskSuccess(doTaskBean);
             }
 
             @Override

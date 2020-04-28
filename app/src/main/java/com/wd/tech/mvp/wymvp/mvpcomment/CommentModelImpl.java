@@ -1,6 +1,8 @@
 package com.wd.tech.mvp.wymvp.mvpcomment;
 
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
+import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
 
@@ -37,6 +39,31 @@ public class CommentModelImpl implements ICommentContract.ICommentModel {
                     @Override
                     public void onError(Throwable e) {
                         dataCallBack.onError(e.getMessage());
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    @Override
+    public void getDoTask(int taskId, ISignContract.ISignModel.DataCallBack2 dataCallBack2) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<DoTaskBean> doTaskData = service.getDoTaskData(taskId);
+        doTaskData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DoTaskBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(DoTaskBean value) {
+                        dataCallBack2.onSuccess(value);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        dataCallBack2.onError(e.getMessage());
                     }
                     @Override
                     public void onComplete() {

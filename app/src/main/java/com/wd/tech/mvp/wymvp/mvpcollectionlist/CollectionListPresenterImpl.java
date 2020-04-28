@@ -2,6 +2,7 @@ package com.wd.tech.mvp.wymvp.mvpcollectionlist;
 
 import com.google.gson.internal.$Gson$Preconditions;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beancancelcollection.CancelCollectionBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 
 /**
@@ -24,6 +25,21 @@ public class CollectionListPresenterImpl extends BasePresenter<ICollectionListCo
             @Override
             public void onSuccess(CollectionListBean collectionList) {
                 iBaseView.onSuccess(collectionList);
+            }
+
+            @Override
+            public void onError(String error) {
+                iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getCancleCollection(String infoId) {
+        collectionListModel.getCancleCollection(infoId, new ICollectionListContract.ICollectionListModel.DataCallBack2() {
+            @Override
+            public void onCancleCollectionSuccess(CancelCollectionBean cancelCollectionBean) {
+                iBaseView.onCancleCollectionSuccess(cancelCollectionBean);
             }
 
             @Override

@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.wymvp.mvpcollectionlist;
 
 import com.wd.tech.base.IBaseView;
+import com.wd.tech.bean.wybean.beancancelcollection.CancelCollectionBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 
 /**
@@ -15,6 +16,8 @@ public interface ICollectionListContract {
     interface ICollectionListView extends IBaseView {
         //成功
         void onSuccess(CollectionListBean collectionList);
+        //成功
+        void onCancleCollectionSuccess(CancelCollectionBean cancelCollectionBean);
         //失败
         void onError(String error);
     }
@@ -27,9 +30,18 @@ public interface ICollectionListContract {
             //失败
             void onError(String error);
         }
+
+        void getCancleCollection(String infoId,DataCallBack2 dataCallBack2);
+        interface DataCallBack2{
+            //成功
+            void onCancleCollectionSuccess(CancelCollectionBean cancelCollectionBean);
+            //失败
+            void onError(String error);
+        }
     }
     //
     interface ICollectionListPresenter{
         void getCollectionList(int page,int count);
+        void getCancleCollection(String infoId);
     }
 }

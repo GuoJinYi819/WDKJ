@@ -14,10 +14,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.gjybean.DeleteGroupBean;
 import com.wd.tech.bean.gjybean.GroupInfoBean;
 import com.wd.tech.mvp.gjymvp.groupinfo.GroupInfoPreenter;
 import com.wd.tech.mvp.gjymvp.groupinfo.IGroupInfoContract;
+import com.wd.tech.net.ApiService;
+import com.wd.tech.net.RetrofitUtil;
 import com.wd.tech.net.SpUtil;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implements IGroupInfoContract.IGroupInfoView {
 
@@ -70,6 +78,53 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                 startActivity(it);
             }
         });
+        mRelativeNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupSettingActivity.this, GroupNoticeActivity.class);
+                startActivity(intent);
+            }
+        });
+        mBtnClone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                int groupId = intent.getIntExtra("groupId", -1);
+                String text = mBtnClone.getText().toString();
+                if (text.equals("解散群聊")) {
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    ApiService service = instance.createService();
+                    Observable<DeleteGroupBean> observable = service.deleteGroup(groupId);
+                    observable.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<DeleteGroupBean>() {
+                                @Override
+                                public void accept(DeleteGroupBean deleteGroupBean) throws Exception {
+                                    String status = deleteGroupBean.getMessage();
+                                    Toast.makeText(GroupSettingActivity.this, ""+status, Toast.LENGTH_SHORT).show();
+                                    setResult(11,null);
+                                    finish();
+                                }
+                            });
+                }else if(text.equals("退出群聊")){
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    ApiService service = instance.createService();
+                    Observable<DeleteGroupBean> observable = service.retreat(groupId);
+                    observable.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<DeleteGroupBean>() {
+                                @Override
+                                public void accept(DeleteGroupBean deleteGroupBean) throws Exception {
+                                    String status = deleteGroupBean.getMessage();
+                                    Toast.makeText(GroupSettingActivity.this, ""+status, Toast.LENGTH_SHORT).show();
+                                    setResult(11,null);
+                                    finish();
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
     @Override
@@ -116,6 +171,17 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                 }
             });
 
+            mTvQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //聊天
+                    String groupName = result.getGroupName();
+                    Intent intent = new Intent(GroupSettingActivity.this, SendGroupActivity.class);
+                    intent.putExtra("groupId",groupId);
+                    intent.putExtra("groupName",groupName);
+                    startActivity(intent);
+                }
+            });
 
             String groupImage = result.getGroupImage();
             Glide.with(GroupSettingActivity.this)
@@ -133,6 +199,7 @@ public class GroupSettingActivity extends BaseActivity<GroupInfoPreenter> implem
                 mTvParty.setVisibility(View.GONE);
                 mRelativeIntroduce.setVisibility(View.GONE);
                mRelativeAdministration.setVisibility(View.GONE);
+               mBtnClone.setText("退出群聊");
 
             }
 

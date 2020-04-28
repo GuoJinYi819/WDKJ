@@ -4,26 +4,63 @@
     android:layout_marginTop="@dimen/dp_1"
     android:background="#ffffff"
     android:paddingLeft="@dimen/dp_12"
+    android:id="@+id/ll_item"
     android:layout_height="@dimen/dp_45">
 
-    <ImageView
-        android:layout_marginTop="@dimen/dp_5"
-        android:id="@+id/ivPic"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30">
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/dp_45">
+       <ImageView
+           android:layout_marginTop="@dimen/dp_5"
+           android:id="@+id/ivPic"
+           android:layout_width="@dimen/dp_30"
+           android:layout_height="@dimen/dp_30">
 
-    </ImageView>
+       </ImageView>
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:gravity="center_vertical"
-        android:textColor="#333"
-        android:textSize="@dimen/sp_16"
-        android:text="哈哈哈"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_40">
+       <TextView
+           android:id="@+id/tvName"
+           android:layout_marginLeft="@dimen/dp_10"
+           android:gravity="center_vertical"
+           android:textColor="#333"
+           android:textSize="@dimen/sp_16"
+           android:text="哈哈哈"
+           android:layout_width="wrap_content"
+           android:layout_height="@dimen/dp_40">
 
-    </TextView>
+       </TextView>
+   </LinearLayout>
+    <!-- 屏幕右侧外边部分，正常时在屏幕中处于不可见 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_hidden"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="match_parent"
+        android:background="#ff0000"
+        android:gravity="center"
+        >
 
+        <TextView
+            android:background="#63B8FF"
+            android:id="@+id/tv_item_guan"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:text="撤销管理员"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/tv_item_delete"
+            android:background="#6495ED"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="删除"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
 </LinearLayout>

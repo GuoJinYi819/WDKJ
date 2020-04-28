@@ -1,6 +1,7 @@
 package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.activity.ConsultaActivity;
+import com.wd.tech.bean.wybean.Event;
 import com.wd.tech.bean.wybean.beancollectionlist.ResultBean;
 import com.wd.tech.net.TimeToUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +56,39 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         holder.tvCollectionListTimeWy.setText(time);
         holder.ckCollectionListWy.setVisibility(View.GONE);
         boolean delete = result.get(position).isDelete();
+        //拼接
+        StringBuffer stringBuffer = new StringBuffer();
         if(delete){
             holder.ckCollectionListWy.setVisibility(View.VISIBLE);
         }
+        //
+        holder.ckCollectionListWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //取出 选中的ID
+                boolean checked = holder.ckCollectionListWy.isChecked();
+                if(checked){
+                    int infoId = result.get(position).getInfoId();
+                    stringBuffer.append(infoId+",");
+                }
+                //转
+                String string = stringBuffer.toString().trim();
+                Event event = new Event();
+                event.setCancleId(string);
+                EventBus.getDefault().postSticky(event);
+            }
+        });
+        //点击  跳转 资讯详情页面
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ConsultaActivity.class);
+                int infoId = result.get(position).getInfoId();
+                intent.putExtra("id",infoId);
+                intent.putExtra("ismoney",2);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

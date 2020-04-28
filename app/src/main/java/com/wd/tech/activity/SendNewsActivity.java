@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,9 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -57,6 +62,14 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
     private android.widget.TextView mTvSend;
     private androidx.recyclerview.widget.RecyclerView mRecyclerNews;
     private DialogRecordAdapter dialogRecordAdapter;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            showData();
+            handler.sendMessageDelayed(Message.obtain(),3000);
+        }
+    };
 
     @Override
     public int initLayout() {
@@ -197,6 +210,12 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
 
     @Override
     public void initData() {
+        showData();
+        handler.sendMessage(Message.obtain());
+    }
+
+    private void showData(){
+        Log.i("aaa", "showData: 郭金沂郭金沂");
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         mTvName.setText(name);
@@ -244,5 +263,11 @@ public class SendNewsActivity extends BaseActivity<SendNewsPresenter> implements
                 presenter.getDialogRecordData(hashMap);
 
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
     }
 }

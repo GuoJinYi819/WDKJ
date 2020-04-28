@@ -16,6 +16,7 @@ public class Event implements Serializable {
     private String personName;
     private int count;
     private String content;
+    private String cancleId;
 
     public int getId() {
         return id;
@@ -55,5 +56,13 @@ public class Event implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCancleId() {
+        return cancleId;
+    }
+
+    public void setCancleId(String cancleId) {
+        this.cancleId = cancleId;
     }
 }

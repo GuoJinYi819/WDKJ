@@ -4,6 +4,7 @@ import com.wd.tech.bean.gjybean.AddFriendBean;
 import com.wd.tech.bean.gjybean.AddFriendGroupBean;
 import com.wd.tech.bean.gjybean.CreateGroupBean;
 import com.wd.tech.bean.gjybean.DeleteChatBean;
+import com.wd.tech.bean.gjybean.DeleteGroupBean;
 import com.wd.tech.bean.gjybean.DialogueRecordBean;
 import com.wd.tech.bean.gjybean.FriendChildListBean;
 import com.wd.tech.bean.gjybean.FriendDataBean;
@@ -23,6 +24,8 @@ import com.wd.tech.bean.gjybean.SendMessageBean;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.gjybean.TransferFriendBean;
+import com.wd.tech.bean.qzjbean.addcomment.AddBean;
+import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
@@ -33,6 +36,7 @@ import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
+import com.wd.tech.bean.wybean.beancancelcollection.CancelCollectionBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
@@ -42,6 +46,7 @@ import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.bean.wybean.beanmodifyemail.ModifyEmailBean;
 import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
 import com.wd.tech.bean.wybean.beanmodifynickname.ModifyNickNameBean;
 import com.wd.tech.bean.wybean.beanmodifysignature.ModifySignatureBean;
@@ -246,13 +251,6 @@ public interface ApiService {
     @POST(ApiUrl.IMPROVEINFORMATION_URL)
     @FormUrlEncoded
     Observable<ImproveInformationBean> getImproveInformationData(@Field("nickName")String nickName,@Field("sex")int sex,@Field("signature")String signature,@Field("birthday")String birthday,@Field("email")String email);
-    //vip 商品列表
-    @GET(ApiUrl.SELECTVIPLIST_URL)
-    Observable<SelectVipListBean> getSelectVipListData();
-    //购买  下单
-    @POST(ApiUrl.BUYVIP_URL)
-    @FormUrlEncoded
-    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
     //购买
     /*@POST(ApiUrl.BUY_URL)
     @FormUrlEncoded
@@ -273,6 +271,22 @@ public interface ApiService {
     @PUT(ApiUrl.MODIFYGROUPDESCRIPTION)
     Observable<ModifyGroupDescriptionBean> modifyGroupDescription(@Query("groupId")int groupId, @Query("description")String description);
 
+    //vip 商品列表
+    @GET(ApiUrl.SELECTVIPLIST_URL)
+    Observable<SelectVipListBean> getSelectVipListData();
+    //购买  下单
+    @POST(ApiUrl.BUYVIP_URL)
+    @FormUrlEncoded
+    Observable<BuyVipBean> getBuyVipData(@Field("commodityId")int commodityId, @Field("sign")String sign);
+    //解散群组
+    @DELETE(ApiUrl.DISBANDGROUP)
+    Observable<DeleteGroupBean> deleteGroup(@Query("groupId") int groupId);
+    //退群
+    @DELETE(ApiUrl.RETREAT)
+    Observable<DeleteGroupBean> retreat(@Query("groupId") int groupId);
+    //删除群成员
+    @DELETE(ApiUrl.REMOVEGROUPMEMBER)
+    Observable<DeleteGroupBean> removeGroupMember(@Query("groupId") int groupId,@Query("groupUserId")int groupUserId);
     @GET(ApiUrl.COMMUNITYCOMMENTLIST_URL)
     Observable<CommunityCommentListBean> getCommunityCommentListData(@Query("communityId")int communityId,@Query("page")int page,@Query("count")int count);
     //购买  下单
@@ -289,4 +303,10 @@ public interface ApiService {
     //修改用户 签名
     @PUT(ApiUrl.MODIFYSIGNATURE_URL)
     Observable<ModifySignatureBean> getModifySignatureData(@Query("signature")String signature);
+    //修改用户 签名
+    @PUT(ApiUrl.MODIFYEMAIL_URL)
+    Observable<ModifyEmailBean> getModifyEmailData(@Query("email")String email);
+    //取消收藏（支持批量操作）
+    @DELETE(ApiUrl.CANCELCOLLECTION_URL)
+    Observable<CancelCollectionBean> getCancelCollectionData(@Query("infoId")String infoId);
 }

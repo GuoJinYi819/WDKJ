@@ -1,7 +1,9 @@
 package com.wd.tech.mvp.wymvp.mvpimproveinformation;
 
 import com.wd.tech.base.IBaseView;
+import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 
 /**
  * @author 王阳
@@ -17,6 +19,8 @@ public interface IImproveInformationContract {
         void onSuccess(ImproveInformationBean improveInformationBean);
         //
         void onError(String error);
+        //成功
+        void onTaskSuccess(DoTaskBean doTaskBean);
     }
     //
     interface IImproveInformationModel{
@@ -27,9 +31,18 @@ public interface IImproveInformationContract {
             //
             void onError(String error);
         }
+
+        void getDoTask(int taskId, ISignContract.ISignModel.DataCallBack2 dataCallBack2);
+        interface DataCallBack2{
+            //成功
+            void onSuccess(DoTaskBean doTaskBean);
+            //失败
+            void onError(String error);
+        }
     }
     //
     interface IImproveInformationPresenter{
         void getImproveInformation(String nickName,int sex,String signature,String birthday,String email);
+        void getDoTask(int taskId);
     }
 }

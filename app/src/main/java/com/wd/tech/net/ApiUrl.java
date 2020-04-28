@@ -116,6 +116,12 @@ public interface ApiUrl {
     String BUYVIP_URL="tool/verify/v1/buyVip";
     //支付
     String BUY_URL="tool/verify/v1/pay";
+    //解散群聊
+    String DISBANDGROUP = "group/verify/v1/disbandGroup";
+    //退群
+    String RETREAT = "group/verify/v1/retreat";
+    //删除
+    String REMOVEGROUPMEMBER = "group/verify/v1/removeGroupMember";
     //咨讯点赞
     String CONSULTATION_ADDCOLLECTION_URL = "user/verify/v1/addCollection";
     //咨讯取消点赞
@@ -135,4 +141,8 @@ public interface ApiUrl {
     String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
     //积分兑换
     String POINTEXCHANGE_URL="information/verify/v1/infoPayByIntegral";
+    //修改邮箱
+    String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
+    //取消收藏（支持批量操作）
+    String CANCELCOLLECTION_URL="user/verify/v1/cancelCollection";
 }

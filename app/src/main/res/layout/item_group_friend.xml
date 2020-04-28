@@ -18,12 +18,12 @@
         android:layout_height="@dimen/dp_30">
 
     </TextView>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.wd.tech.custom.SwipeRecyclerView
         android:id="@+id/recyclerChild"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/tvGroup"
         android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </com.wd.tech.custom.SwipeRecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

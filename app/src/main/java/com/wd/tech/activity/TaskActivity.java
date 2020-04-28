@@ -3,6 +3,7 @@ package com.wd.tech.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +57,9 @@ public class TaskActivity extends BaseActivity {
                 //跳
                 Intent intent = new Intent(TaskActivity.this, SigninActivity.class);
                 startActivity(intent);
+                //改状态
+                btnToSignWy.setTextColor(Color.WHITE);
+                btnToSignWy.setBackgroundColor(Color.BLUE);
             }
         });
         //点击  去评价列表页
@@ -65,6 +69,9 @@ public class TaskActivity extends BaseActivity {
                 //跳转   写评论页面
                 Intent intent = new Intent(TaskActivity.this, CommentListActivity.class);
                 startActivity(intent);
+                //改状态
+                btnToCommentListWy.setTextColor(Color.WHITE);
+                btnToCommentListWy.setBackgroundColor(Color.BLUE);
             }
         });
         //点击  取发帖子
@@ -74,6 +81,9 @@ public class TaskActivity extends BaseActivity {
                 //跳转   写评论页面
                 Intent intent = new Intent(TaskActivity.this, CommentActivity.class);
                 startActivity(intent);
+                //改状态
+                btnToCommentWy.setTextColor(Color.WHITE);
+                btnToCommentWy.setBackgroundColor(Color.BLUE);
             }
         });
         //去 分享
@@ -96,7 +106,11 @@ public class TaskActivity extends BaseActivity {
             public void onClick(View v) {
                 //跳转   写评论页面
                 Intent intent = new Intent(TaskActivity.this, ImproveInformationActivity.class);
-                startActivity(intent);            }
+                startActivity(intent);
+                //改状态
+                btnToPerfectWy.setTextColor(Color.WHITE);
+                btnToPerfectWy.setBackgroundColor(Color.BLUE);
+            }
         });
         //绑定微信
         btnToBindingWy.setOnClickListener(new View.OnClickListener() {
