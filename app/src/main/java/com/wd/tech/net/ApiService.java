@@ -32,6 +32,7 @@ import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
 import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
+import com.wd.tech.bean.wybean.beancancelcollection.CancelCollectionBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
@@ -288,4 +289,7 @@ public interface ApiService {
     //修改用户 签名
     @PUT(ApiUrl.MODIFYEMAIL_URL)
     Observable<ModifyEmailBean> getModifyEmailData(@Query("email")String email);
+    //取消收藏（支持批量操作）
+    @DELETE(ApiUrl.CANCELCOLLECTION_URL)
+    Observable<CancelCollectionBean> getCancelCollectionData(@Query("infoId")String infoId);
 }

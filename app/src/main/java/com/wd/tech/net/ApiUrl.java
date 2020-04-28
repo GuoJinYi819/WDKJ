@@ -135,4 +135,6 @@ public interface ApiUrl {
     String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
     //修改邮箱
     String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
+    //取消收藏（支持批量操作）
+    String CANCELCOLLECTION_URL="user/verify/v1/cancelCollection";
 }
