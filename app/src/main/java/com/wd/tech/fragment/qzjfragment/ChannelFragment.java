@@ -1,8 +1,16 @@
 package com.wd.tech.fragment.qzjfragment;
 
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.wd.tech.R;
+import com.wd.tech.adapter.qzjadapter.MostAdapter;
 import com.wd.tech.base.BaseFragment;
-import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.qzjbean.most.MostBean;
+import com.wd.tech.mvp.qzjmvp.most.MostConter;
+import com.wd.tech.mvp.qzjmvp.most.MostPresenterImpl;
+
+import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -11,15 +19,18 @@ import com.wd.tech.base.BasePresenter;
  * @version 创建时间：2020/4/22 10:56
  * @Description: 用途：完成特定功能
  */
-public class ChannelFragment extends BaseFragment {
+public class ChannelFragment extends BaseFragment<MostPresenterImpl> implements MostConter.IMostView {
+    private RecyclerView rlv;
+    private MostAdapter adapter;
     @Override
     public int initLayout() {
-        return R.layout.fragment_con_lb;
+        return R.layout.activity_channel_selection;
     }
 
     @Override
     public void initView() {
 
+        rlv = view.findViewById(R.id.rlv);
     }
 
     @Override
@@ -29,11 +40,20 @@ public class ChannelFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        presenter.onDate();
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public MostPresenterImpl initPresenter() {
+        return new MostPresenterImpl();
+    }
+
+    @Override
+    public void onSuccess(MostBean mostBean) {
+        List<MostBean.ResultBean> result = mostBean.getResult();
+        adapter = new MostAdapter(result,getActivity());
+        StaggeredGridLayoutManager s = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        rlv.setLayoutManager(s);
+        rlv.setAdapter(adapter);
     }
 }

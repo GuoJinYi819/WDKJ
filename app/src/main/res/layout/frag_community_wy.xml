@@ -106,22 +106,45 @@
             android:layout_margin="10dp">
         </TextView>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclrCommentListWy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
-    <TextView
-        android:id="@+id/tvWu"
+    <LinearLayout
+        android:id="@+id/linearCommentWy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="暂时无评论数据"
-        android:background="#808181"
-        android:textColor="#000"
+        android:orientation="vertical"
         android:visibility="gone"
         >
-    </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCommentListWy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:id="@+id/etShuRu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="发表评论"
+                android:background="#808181"
+                android:textColor="#000"
+
+                android:singleLine="true"
+                android:imeOptions="actionSend"
+                >
+            </EditText>
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"
+                >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"

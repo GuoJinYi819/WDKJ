@@ -13,7 +13,7 @@ import java.util.Date;
 public class TimeToUtil {
     //时间戳工具类
     public static String getTime(long time){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh-MM-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
         String format = simpleDateFormat.format(new Date(time));
         return format;
     }

@@ -122,4 +122,23 @@ public interface ApiUrl {
     String RETREAT = "group/verify/v1/retreat";
     //删除
     String REMOVEGROUPMEMBER = "group/verify/v1/removeGroupMember";
+    //咨讯点赞
+    String CONSULTATION_ADDCOLLECTION_URL = "user/verify/v1/addCollection";
+    //咨讯取消点赞
+    String CONSULTATION_CANCELCOLLECTION_URL = "user/verify/v1/cancelCollection";
+    //咨讯所有版块查询
+    String CONSULTATION_MOST_URL = "information/v1/findAllInfoPlate";
+
+    //社区评论列表（标签方式返参）
+    String COMMUNITYCOMMENTLIST_URL="community/v1/findCommunityCommentList";
+    //社区 评论
+    String SENDCOMMENT_URL="community/verify/v1/addCommunityComment";
+    //用户上传/更换头像
+    String MODIFYHEADPIC_URL="user/verify/v1/modifyHeadPic";
+    //修改昵称
+    String MODIFYNICKNAME_URL="user/verify/v1/modifyNickName";
+    //修改签名
+    String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
+    //修改邮箱
+    String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
 }

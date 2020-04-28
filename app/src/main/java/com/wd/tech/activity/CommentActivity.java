@@ -224,6 +224,7 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
                 String string = etPublishWy.getText().toString().trim();
                 if(!TextUtils.isEmpty(string)){
                     if(formData!=null){
+                        Log.d("===", "onClick: "+formData);
                         presenter.getComment(string,formData);
                     }
                 }

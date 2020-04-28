@@ -30,6 +30,7 @@ import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
+import com.wd.tech.bean.qzjbean.most.MostBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
@@ -37,11 +38,16 @@ import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
 import com.wd.tech.bean.wybean.beancomment.CommentBean;
 import com.wd.tech.bean.wybean.beancommentlist.CommentListBean;
+import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beandeletepost.DeletePostBean;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beanfollow.FollowBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
 import com.wd.tech.bean.wybean.beanimproveinformation.ImproveInformationBean;
+import com.wd.tech.bean.wybean.beanmodifyemail.ModifyEmailBean;
+import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
+import com.wd.tech.bean.wybean.beanmodifynickname.ModifyNickNameBean;
+import com.wd.tech.bean.wybean.beanmodifysignature.ModifySignatureBean;
 import com.wd.tech.bean.wybean.beanmypost.MyPostBean;
 import com.wd.tech.bean.wybean.beannotice.NoticeBean;
 import com.wd.tech.bean.wybean.beanperson.PersonBean;
@@ -49,6 +55,7 @@ import com.wd.tech.bean.wybean.beanscore.ScoreBean;
 import com.wd.tech.bean.wybean.beanscoredetailed.ScoreDetailedBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
 
 import java.util.Map;
@@ -186,9 +193,11 @@ public interface ApiService {
     @POST(ApiUrl.CONSULTATION_ADDCOMMENT_URL)
     @FormUrlEncoded
     Observable<AddBean> getAddData(@Field("infoId") int infoId, @Field("content") String content);
+    //咨讯点赞
     @POST(ApiUrl.CONSULTATION_GREATRECORD_URL)
     @FormUrlEncoded
     Observable<GreatBean> getDDate(@Field("infoId") int infoId);
+    //咨讯取消点赞
     @DELETE(ApiUrl.CONSULTATION_CANCELGREAT_URL)
     Observable<GreatBean> getNDate(@Query("infoId") int infoId);
     //添加好友
@@ -210,6 +219,16 @@ public interface ApiService {
     //转移好友值 其他分组
     @PUT(ApiUrl.TRANSFERGROUP)
     Observable<TransferFriendBean> transferGroup(@Query("newGroupId")int newGroupId, @Query("friendUid")int friendUid);
+    //咨讯收藏
+    @POST(ApiUrl.CONSULTATION_ADDCOLLECTION_URL)
+    @FormUrlEncoded
+    Observable<GreatBean> getAdd(@Field("infoId") int infoId);
+    //咨讯取消收藏
+    @DELETE(ApiUrl.CONSULTATION_CANCELCOLLECTION_URL)
+    Observable<GreatBean> getDelete(@Query("infoId") int infoId);
+    //咨讯所有模块查询
+    @GET(ApiUrl.CONSULTATION_MOST_URL)
+    Observable<MostBean> getMostData();
     //删除帖子  我的
     @DELETE(ApiUrl.DELETEPOST_URL)
     Observable<DeletePostBean> getDeletePostData(@Query("communityId")String communityId);
@@ -262,4 +281,23 @@ public interface ApiService {
     //删除群成员
     @DELETE(ApiUrl.REMOVEGROUPMEMBER)
     Observable<DeleteGroupBean> removeGroupMember(@Query("groupId") int groupId,@Query("groupUserId")int groupUserId);
+    @GET(ApiUrl.COMMUNITYCOMMENTLIST_URL)
+    Observable<CommunityCommentListBean> getCommunityCommentListData(@Query("communityId")int communityId,@Query("page")int page,@Query("count")int count);
+    //购买  下单
+    @POST(ApiUrl.SENDCOMMENT_URL)
+    @FormUrlEncoded
+    Observable<SendCommentBean> getSendCommentData(@Field("communityId")int communityId, @Field("content")String content);
+    //用户 上传头像/更换
+    @POST(ApiUrl.MODIFYHEADPIC_URL)
+    @Multipart
+    Observable<ModifyHeadPicBean> getModifyHeadPicData(@Part MultipartBody.Part image);
+    //修改用户 昵称
+    @PUT(ApiUrl.MODIFYNICKNAME_URL)
+    Observable<ModifyNickNameBean> getModifyNickNameData(@Query("nickName")String nickName);
+    //修改用户 签名
+    @PUT(ApiUrl.MODIFYSIGNATURE_URL)
+    Observable<ModifySignatureBean> getModifySignatureData(@Query("signature")String signature);
+    //修改用户 签名
+    @PUT(ApiUrl.MODIFYEMAIL_URL)
+    Observable<ModifyEmailBean> getModifyEmailData(@Query("email")String email);
 }

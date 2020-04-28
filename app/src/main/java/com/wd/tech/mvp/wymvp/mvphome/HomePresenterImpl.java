@@ -1,7 +1,9 @@
 package com.wd.tech.mvp.wymvp.mvphome;
 
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beancommunitycommentList.CommunityCommentListBean;
 import com.wd.tech.bean.wybean.beanhome.HomeBean;
+import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 
 /**
  * @author 王阳
@@ -28,6 +30,36 @@ public class HomePresenterImpl extends BasePresenter<IHomeContract.IHomeView> im
             @Override
             public void onError(String error) {
                 iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getCommunityCommentList(int communityId, int page, int count) {
+        homeModel.getCommunityCommentList(communityId, page, count, new IHomeContract.IHomeModel.DataCallBack2() {
+            @Override
+            public void onCommunityCommentListSuccess(CommunityCommentListBean communityCommentListBean) {
+                iBaseView.onCommunityCommentListSuccess(communityCommentListBean);
+            }
+
+            @Override
+            public void onCommunityCommentListError(String error) {
+                iBaseView.onCommunityCommentListError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getSendComment(int communityId, String content) {
+        homeModel.getSendComment(communityId,content,new IHomeContract.IHomeModel.DataCallBack3(){
+            @Override
+            public void onSendCommentSuccess(SendCommentBean sendCommentBean) {
+                iBaseView.onSendCommentSuccess(sendCommentBean);
+            }
+
+            @Override
+            public void onSendCommentError(String error) {
+                iBaseView.onSendCommentError(error);
             }
         });
     }

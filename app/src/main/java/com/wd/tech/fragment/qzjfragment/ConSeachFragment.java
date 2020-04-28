@@ -1,13 +1,19 @@
 package com.wd.tech.fragment.qzjfragment;
 
+import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.wd.tech.R;
+import com.wd.tech.activity.ConsultaActivity;
 import com.wd.tech.adapter.qzjadapter.SeachAdapter;
 import com.wd.tech.base.BaseFragment;
 import com.wd.tech.base.BasePresenter;
@@ -62,6 +68,20 @@ public class ConSeachFragment extends BaseFragment<SeachPresenterImpl> implement
                 String trim = sedit.getText().toString().trim();
                 flow.add(trim);
                 presenter.getData(trim,1,5);
+            }
+        });
+        sedit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    flow.setVisibility(View.GONE);
+                    String trim = sedit.getText().toString().trim();
+                    flow.add(trim);
+                    presenter.getData(trim,1,5);
+                    InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    im.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+                return true;
             }
         });
     }
