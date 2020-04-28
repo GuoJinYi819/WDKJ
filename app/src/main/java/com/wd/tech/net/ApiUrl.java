@@ -126,4 +126,6 @@ public interface ApiUrl {
     String MODIFYNICKNAME_URL="user/verify/v1/modifyNickName";
     //修改签名
     String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
+    //修改邮箱
+    String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
 }
