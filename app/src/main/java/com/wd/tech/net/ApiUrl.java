@@ -116,6 +116,13 @@ public interface ApiUrl {
     String BUYVIP_URL="tool/verify/v1/buyVip";
     //支付
     String BUY_URL="tool/verify/v1/pay";
+    //咨讯点赞
+    String CONSULTATION_ADDCOLLECTION_URL = "user/verify/v1/addCollection";
+    //咨讯取消点赞
+    String CONSULTATION_CANCELCOLLECTION_URL = "user/verify/v1/cancelCollection";
+    //咨讯所有版块查询
+    String CONSULTATION_MOST_URL = "information/v1/findAllInfoPlate";
+
     //社区评论列表（标签方式返参）
     String COMMUNITYCOMMENTLIST_URL="community/v1/findCommunityCommentList";
     //社区 评论

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -150,7 +150,8 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
             Bitmap bitmap1 = BitmapFactory.decodeResource(resources, R.mipmap.dzdzdz);
             dzt.setImageBitmap(bitmap1);
             int praise = list.getPraise();
-            dzs.setText(praise+"");
+            int i = praise + 1;
+            dzs.setText(i+"");
         }else {
             Bitmap bitmap1 = BitmapFactory.decodeResource(resources, R.mipmap.bdz);
             dzt.setImageBitmap(bitmap1);

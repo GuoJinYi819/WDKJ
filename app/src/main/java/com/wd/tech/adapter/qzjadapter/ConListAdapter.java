@@ -19,9 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
 import com.wd.tech.bean.qzjbean.consultationlist.ConResultBean;
+import com.wd.tech.bean.qzjbean.great.GreatBean;
+import com.wd.tech.net.RetrofitUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * ClassName: WdDetroy
@@ -93,6 +101,33 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
                     Integer integer = Integer.valueOf(trim);
                     integer--;
                     holder.xhs.setText(integer+"");
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    int id = list.get(position).getId();
+                    Observable<GreatBean> delete = instance.createService().getDelete(id);
+                    delete.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<GreatBean>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(GreatBean value) {
+                                    String message = value.getMessage();
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
 
                 }else if (whetherCollection1==2){
                     Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
@@ -102,6 +137,33 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
                     Integer integer = Integer.valueOf(trim);
                     integer++;
                     holder.xhs.setText(integer+"");
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    int id = list.get(position).getId();
+                    Observable<GreatBean> delete = instance.createService().getAdd(id);
+                    delete.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<GreatBean>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(GreatBean value) {
+                                    String message = value.getMessage();
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
                 }
             }
         });
