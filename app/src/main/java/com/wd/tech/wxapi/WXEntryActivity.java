@@ -2,12 +2,15 @@ package com.wd.tech.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.util.WXUtil;
 
 /**
@@ -32,6 +35,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
-
+        String code = ((SendAuth.Resp) baseResp).code;
+        Log.i("gjy", "onResp: ="+code);
+        WXUtil.onWxLoginListener.onCode(code);
     }
 }

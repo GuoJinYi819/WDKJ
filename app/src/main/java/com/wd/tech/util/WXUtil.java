@@ -1,10 +1,14 @@
 package com.wd.tech.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import java.util.List;
 
 /**
  * ClassName: WdDetroy
@@ -21,6 +25,8 @@ public class WXUtil {
 // IWXAPI 是第三方app和微信通信的openApi接口
 
     public static IWXAPI api;
+
+    public static OnWxLoginListener onWxLoginListener;
 
     public static void regToWx(Context c) {
 
@@ -42,4 +48,9 @@ public class WXUtil {
         api.sendReq(req);
 
     }
+
+    public interface OnWxLoginListener{
+        void onCode(String code);
+    }
+
 }

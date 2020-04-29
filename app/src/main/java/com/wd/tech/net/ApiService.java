@@ -21,6 +21,7 @@ import com.wd.tech.bean.gjybean.QueryGroupBean;
 import com.wd.tech.bean.gjybean.ReviewFriendApplyBean;
 import com.wd.tech.bean.gjybean.SendGroupBean;
 import com.wd.tech.bean.gjybean.SendMessageBean;
+import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.addcomment.AddBean;
 import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.gjybean.TransferFriendBean;
@@ -313,4 +314,8 @@ public interface ApiService {
     //看广告
     @GET(ApiUrl.ADVERTISEMENT_URL)
     Observable<AdvertisementBean> getAdvertisementData();
+    //微信登入
+    @POST(ApiUrl.WXLOGIN)
+    @FormUrlEncoded
+    Observable<WxBean> wxLogin(@Field("code")String code);
 }

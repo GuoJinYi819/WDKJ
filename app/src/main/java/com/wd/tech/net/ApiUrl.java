@@ -147,4 +147,6 @@ public interface ApiUrl {
     String CANCELCOLLECTION_URL="user/verify/v1/cancelCollection";
     //资讯广告
     String ADVERTISEMENT_URL="information/v1/findInfoAdvertising";
+    //微信登入
+    String WXLOGIN = "https://mobile.bwstudent.com/techApi/user/v1/weChatLogin";
 }
