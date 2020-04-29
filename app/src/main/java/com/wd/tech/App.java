@@ -8,6 +8,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.wd.tech.util.WXUtil;
 
 /**
  * @author 王阳
@@ -25,6 +26,8 @@ public class App extends Application {
         //fresco初始化 自定义View
         initFresco();
         ViewTarget.setTagId(R.id.glide_tag);
+
+        WXUtil.regToWx(this);
     }
 
     private void initFresco() {

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.wd.tech.mvp.qzjmvp.logmvp.LogPresenterImpl;
 import com.wd.tech.net.JudgeUtil;
 import com.wd.tech.net.SpUtil;
 import com.wd.tech.util.RsaCoder;
+import com.wd.tech.util.WXUtil;
 
 
 /**
@@ -35,6 +37,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private String phone;
     private String pwd;
     private String s;
+    private ImageView ivwxLogin;
 
     @Override
     public int initLayout() {
@@ -48,6 +51,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         epwd = (EditText) findViewById(R.id.epwd);
         kszc = (TextView) findViewById(R.id.kszc);
         dl = (Button) findViewById(R.id.dl);
+        ivwxLogin = findViewById(R.id.ivWxLogin);
     }
 
     @Override
@@ -89,6 +93,13 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
                 startActivity(intent);
             }
         });
+
+        ivwxLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WXUtil.callWX();
+            }
+        });
     }
 
     @Override
@@ -97,16 +108,12 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         String phon = instance.getSpString("phone");
         String pw = instance.getSpString("pwd");
 
-        Log.d("XXX","1111");
         if (!TextUtils.isEmpty(phon)&&!TextUtils.isEmpty(pw)){
-            Log.d("XXX",phon);
-            Log.d("XXX",pw);
-            Log.d("XXX","222");
+
             ephone.setText(phon);
             epwd.setText(pw);
             try {
                 s = RsaCoder.encryptByPublicKey(pw);
-                Log.d("XX", "onCreate: "+ s);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,9 +156,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             startActivity(intent);
             finish();
 
-        }else {
-            Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
 
     }
 
