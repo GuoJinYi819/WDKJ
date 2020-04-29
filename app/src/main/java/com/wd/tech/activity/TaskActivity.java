@@ -97,7 +97,9 @@ public class TaskActivity extends BaseActivity {
         btnToAdvertisementWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(TaskActivity.this,"看广告",Toast.LENGTH_SHORT).show();
+                //跳转   看广告页面
+                Intent intent = new Intent(TaskActivity.this, AdvertisementActivity.class);
+                startActivity(intent);
             }
         });
         //完善个人信息

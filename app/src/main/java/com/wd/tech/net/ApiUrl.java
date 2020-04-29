@@ -145,4 +145,6 @@ public interface ApiUrl {
     String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
     //取消收藏（支持批量操作）
     String CANCELCOLLECTION_URL="user/verify/v1/cancelCollection";
+    //资讯广告
+    String ADVERTISEMENT_URL="information/v1/findInfoAdvertising";
 }
