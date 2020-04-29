@@ -17,7 +17,16 @@ public class ConResultBean {
     private int whetherCollection;
     private int share;
     private int collection;
+    private int whetherPay;
     private int id;
+
+    public int getWhetherPay() {
+        return whetherPay;
+    }
+
+    public void setWhetherPay(int whetherPay) {
+        this.whetherPay = whetherPay;
+    }
 
     public int getWhetherCollection() {
         return whetherCollection;

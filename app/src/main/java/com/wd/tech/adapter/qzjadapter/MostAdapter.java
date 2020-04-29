@@ -26,6 +26,11 @@ import java.util.List;
 public class MostAdapter extends RecyclerView.Adapter<MostAdapter.ViewHodle> {
     private List<MostBean.ResultBean> list = new ArrayList<>();
     private Context context;
+    public MostIdLenter mostIdLenter;
+
+    public void setMostIdLenter(MostIdLenter mostIdLenter) {
+        this.mostIdLenter = mostIdLenter;
+    }
 
     public MostAdapter(List<MostBean.ResultBean> list, Context context) {
         this.list = list;
@@ -44,6 +49,15 @@ public class MostAdapter extends RecyclerView.Adapter<MostAdapter.ViewHodle> {
     public void onBindViewHolder(@NonNull ViewHodle holder, int position) {
         holder.img.setImageURI(list.get(position).getPic());
         holder.name.setText(list.get(position).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = list.get(position).getId();
+                if (mostIdLenter!=null){
+                    mostIdLenter.onMost(id);
+                }
+            }
+        });
     }
 
     @Override
@@ -61,5 +75,8 @@ public class MostAdapter extends RecyclerView.Adapter<MostAdapter.ViewHodle> {
             img = itemView.findViewById(R.id.img);
             name = itemView.findViewById(R.id.name);
         }
+    }
+    public interface MostIdLenter{
+        void onMost(int id);
     }
 }

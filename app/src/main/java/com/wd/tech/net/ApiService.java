@@ -29,6 +29,7 @@ import com.wd.tech.bean.qzjbean.comment.ConCommentBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConListBean;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
+import com.wd.tech.bean.qzjbean.inter.InterBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.most.MostBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
@@ -240,6 +241,10 @@ public interface ApiService {
     //用户积分
     @GET(ApiUrl.SCORE_URL)
     Observable<ScoreBean> getScoreData();
+    //积分兑换
+    @POST(ApiUrl.POINTEXCHANGE_URL)
+    @FormUrlEncoded
+    Observable<InterBean> getInterData(@Field("infoId")int infoId,@Field("integralCost")int integralCost);
     //用户积分明细
     @GET(ApiUrl.SCOREDETAILED_URL)
     Observable<ScoreDetailedBean> getScoreDetailedData(@Query("page")int page, @Query("count")int count);

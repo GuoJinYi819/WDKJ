@@ -139,6 +139,8 @@ public interface ApiUrl {
     String MODIFYNICKNAME_URL="user/verify/v1/modifyNickName";
     //修改签名
     String MODIFYSIGNATURE_URL="user/verify/v1/modifySignature";
+    //积分兑换
+    String POINTEXCHANGE_URL="information/verify/v1/infoPayByIntegral";
     //修改邮箱
     String MODIFYEMAIL_URL="user/verify/v1/modifyEmail";
     //取消收藏（支持批量操作）
