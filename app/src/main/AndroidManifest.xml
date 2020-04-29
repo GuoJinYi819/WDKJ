@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ModifyEmailActivity"></activity>
+        <activity android:name=".activity.AdvertisementActivity"></activity>
+        <activity android:name=".activity.ModifyEmailActivity" />
         <activity android:name=".activity.ModifySignatureActivity" />
         <activity android:name=".activity.ModifyNickName2Activity" />
         <activity android:name=".activity.BuyVipActivity" />
@@ -60,11 +61,11 @@
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.HomeActivity" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

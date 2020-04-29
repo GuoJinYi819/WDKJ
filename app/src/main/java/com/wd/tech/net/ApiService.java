@@ -34,6 +34,7 @@ import com.wd.tech.bean.qzjbean.most.MostBean;
 import com.wd.tech.bean.qzjbean.regist.RegBean;
 import com.wd.tech.bean.qzjbean.seach.SeachBean;
 import com.wd.tech.bean.qzjbean.xbanner.XbBean;
+import com.wd.tech.bean.wybean.beanadvertisement.AdvertisementBean;
 import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beancancelcollection.CancelCollectionBean;
 import com.wd.tech.bean.wybean.beancollectionlist.CollectionListBean;
@@ -304,4 +305,7 @@ public interface ApiService {
     //取消收藏（支持批量操作）
     @DELETE(ApiUrl.CANCELCOLLECTION_URL)
     Observable<CancelCollectionBean> getCancelCollectionData(@Query("infoId")String infoId);
+    //看广告
+    @GET(ApiUrl.ADVERTISEMENT_URL)
+    Observable<AdvertisementBean> getAdvertisementData();
 }
