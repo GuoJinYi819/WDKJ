@@ -2,6 +2,7 @@ package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAdapter.CollectionViewHolder> {
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
-
+    private int isChecked=-1;
     public CollectionListAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
@@ -78,10 +79,18 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
                 EventBus.getDefault().postSticky(event);
             }
         });
+        //变色
+        if(isChecked==position){
+            holder.itemView.setBackgroundColor(Color.GREEN);
+        }else{
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
         //点击  跳转 资讯详情页面
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isChecked=position;
+                notifyDataSetChanged();
                 Intent intent = new Intent(context, ConsultaActivity.class);
                 int infoId = result.get(position).getInfoId();
                 intent.putExtra("id",infoId);
