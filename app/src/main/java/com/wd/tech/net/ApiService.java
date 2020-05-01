@@ -62,6 +62,7 @@ import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beanusertasklist.UserTaskListBean;
 
 import java.util.Map;
 
@@ -323,4 +324,7 @@ public interface ApiService {
     @POST(ApiUrl.PAY)
     @FormUrlEncoded
     Observable<BuyBean> pay(@Field("orderId")String orderId, @Field("payType")int payType);
+    //任务列表
+    @GET(ApiUrl.USERTASKLIST_URL)
+    Observable<UserTaskListBean> getUserTaskListData();
 }

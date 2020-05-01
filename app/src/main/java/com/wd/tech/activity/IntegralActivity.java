@@ -35,8 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  *
  * @author 作者 : Quzijun
  * @version 创建时间：2020/4/28 16:04
- * @Description: 用途：完成特定功能
- */
+ * @Description: 用途：积分兑换 */
 public class IntegralActivity extends BaseActivity<InterPresenterImpl> implements InterConter.IScoreView {
     private androidx.recyclerview.widget.RecyclerView re;
     private android.widget.TextView jf;
@@ -44,6 +43,7 @@ public class IntegralActivity extends BaseActivity<InterPresenterImpl> implement
     private IntegralAdapter adapter;
     private android.widget.Button bu;
     private int id;
+    private android.widget.ImageView fanhui;
 
     @Override
     public int initLayout() {
@@ -57,6 +57,7 @@ public class IntegralActivity extends BaseActivity<InterPresenterImpl> implement
         jf = findViewById(R.id.jf);
         wdjf = findViewById(R.id.wdjf);
         bu = findViewById(R.id.bu);
+        fanhui = findViewById(R.id.fanhui);
     }
 
     @Override
@@ -70,12 +71,24 @@ public class IntegralActivity extends BaseActivity<InterPresenterImpl> implement
         id = intent.getIntExtra("id", 3);
         int integral = intent.getIntExtra("integral", 3);
         jf.setText(integral+"");
+        //请求详情
         presenter.getDetailedScore(id);
+        //积分查询
         presenter.getScore();
+        //点击兑换
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.getInterDate(id,integral);
+            }
+        });
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(IntegralActivity.this,ConsultaActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("ismoney",1);
+                startActivity(intent1);
             }
         });
     }
@@ -104,7 +117,9 @@ public class IntegralActivity extends BaseActivity<InterPresenterImpl> implement
     @Override
     public void onInterDate(InterBean interBean) {
         String message = interBean.getMessage();
+        //判断成功与否
         if (message.equals("积分不够,无法兑换")){
+            //弹框
             AlertDialog.Builder builder = new AlertDialog.Builder(IntegralActivity.this);
             builder.setTitle("兑换失败");
             builder.setMessage("您目前积分不足");

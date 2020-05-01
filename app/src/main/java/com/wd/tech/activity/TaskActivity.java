@@ -13,8 +13,14 @@ import android.widget.Toast;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
+import com.wd.tech.bean.wybean.beanusertasklist.ResultBean;
+import com.wd.tech.bean.wybean.beanusertasklist.UserTaskListBean;
+import com.wd.tech.mvp.wymvp.mvpusertasklist.IUserTaskListContract;
+import com.wd.tech.mvp.wymvp.mvpusertasklist.UserTaskListPresenterImpl;
 
-public class TaskActivity extends BaseActivity {
+import java.util.List;
+
+public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implements IUserTaskListContract.IUserTaskListView {
     //日常任务页面
     private android.widget.ImageView imgTaskBackWy;
     private android.widget.Button btnToSignWy;
@@ -24,6 +30,7 @@ public class TaskActivity extends BaseActivity {
     private Button btnToAdvertisementWy;
     private Button btnToPerfectWy;
     private Button btnToBindingWy;
+    private List<ResultBean> result;
 
     @Override
     public int initLayout() {
@@ -54,12 +61,13 @@ public class TaskActivity extends BaseActivity {
         btnToSignWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳
-                Intent intent = new Intent(TaskActivity.this, SigninActivity.class);
-                startActivity(intent);
-                //改状态
-                btnToSignWy.setTextColor(Color.WHITE);
-                btnToSignWy.setBackgroundColor(Color.BLUE);
+                ResultBean resultBean = result.get(0);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, SigninActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //点击  去评价列表页
@@ -67,23 +75,27 @@ public class TaskActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //跳转   写评论页面
-                Intent intent = new Intent(TaskActivity.this, CommentListActivity.class);
-                startActivity(intent);
-                //改状态
-                btnToCommentListWy.setTextColor(Color.WHITE);
-                btnToCommentListWy.setBackgroundColor(Color.BLUE);
+                ResultBean resultBean = result.get(1);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, CommentListActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //点击  取发帖子
         btnToCommentWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转   写评论页面
-                Intent intent = new Intent(TaskActivity.this, CommentActivity.class);
-                startActivity(intent);
-                //改状态
-                btnToCommentWy.setTextColor(Color.WHITE);
-                btnToCommentWy.setBackgroundColor(Color.BLUE);
+                //跳转   发帖子
+                ResultBean resultBean = result.get(2);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, CommentActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //去 分享
@@ -98,20 +110,27 @@ public class TaskActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //跳转   看广告页面
-                Intent intent = new Intent(TaskActivity.this, AdvertisementActivity.class);
-                startActivity(intent);
+                ResultBean resultBean = result.get(4);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, AdvertisementActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //完善个人信息
         btnToPerfectWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转   写评论页面
-                Intent intent = new Intent(TaskActivity.this, ImproveInformationActivity.class);
-                startActivity(intent);
-                //改状态
-                btnToPerfectWy.setTextColor(Color.WHITE);
-                btnToPerfectWy.setBackgroundColor(Color.BLUE);
+                //跳转   完善
+                ResultBean resultBean = result.get(5);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, ImproveInformationActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //绑定微信
@@ -124,9 +143,80 @@ public class TaskActivity extends BaseActivity {
     }
     @Override
     public void initData() {
+        presenter.getUserTaskList();
     }
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public UserTaskListPresenterImpl initPresenter() {
+        return new UserTaskListPresenterImpl();
+    }
+    @Override
+    public void onSuccess(UserTaskListBean userTaskListBean) {
+        result = userTaskListBean.getResult();
+        //
+        ResultBean resultBean = result.get(0);
+        int status = resultBean.getStatus();
+        if(status==1) {
+            //签到改状态
+            btnToSignWy.setTextColor(Color.WHITE);
+            btnToSignWy.setBackgroundColor(Color.BLUE);
+            btnToSignWy.setText("已完成");
+        }
+
+        resultBean = result.get(1);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //评价改状态
+            btnToCommentListWy.setTextColor(Color.WHITE);
+            btnToCommentListWy.setBackgroundColor(Color.BLUE);
+            btnToCommentListWy.setText("已完成");
+        }
+
+        resultBean = result.get(2);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //发帖改状态
+            btnToCommentWy.setTextColor(Color.WHITE);
+            btnToCommentWy.setBackgroundColor(Color.BLUE);
+            btnToCommentWy.setText("已完成");
+        }
+
+        resultBean = result.get(3);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //分享改状态
+            btnToSharedWy.setTextColor(Color.WHITE);
+            btnToSharedWy.setBackgroundColor(Color.BLUE);
+            btnToSharedWy.setText("已完成");
+        }
+
+        resultBean = result.get(4);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //看广告改状态
+            btnToAdvertisementWy.setTextColor(Color.WHITE);
+            btnToAdvertisementWy.setBackgroundColor(Color.BLUE);
+            btnToAdvertisementWy.setText("已完成");
+        }
+
+        resultBean = result.get(5);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //完善信息改状态
+            btnToPerfectWy.setTextColor(Color.WHITE);
+            btnToPerfectWy.setBackgroundColor(Color.BLUE);
+            btnToPerfectWy.setText("已完成");
+        }
+
+        resultBean = result.get(6);
+        status = resultBean.getStatus();
+        if(status==1) {
+            //绑定微信改状态
+            btnToBindingWy.setTextColor(Color.WHITE);
+            btnToBindingWy.setBackgroundColor(Color.BLUE);
+            btnToBindingWy.setText("已完成");
+        }
+    }
+    @Override
+    public void onError(String error) {
     }
 }

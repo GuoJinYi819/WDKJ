@@ -265,6 +265,9 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
         vip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //跳转Vip购买
+                Intent intent = new Intent(ConsultaActivity.this,MyVIPActivity.class);
+                startActivity(intent);
                 popupWindow.dismiss();
             }
         });
