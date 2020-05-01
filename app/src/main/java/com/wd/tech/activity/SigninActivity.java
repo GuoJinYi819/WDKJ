@@ -22,7 +22,7 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
     private android.widget.ImageView imgSigninBackWy;
     private com.wd.tech.view.SignTimeView signTimeViewWy;
     private android.widget.Button btnSignWy;
-
+    private boolean isChecked=false;
     //签到页面
     @Override
     public int initLayout() {
@@ -54,6 +54,12 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
         btnSignWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //变个色
+                isChecked=true;
+                if(isChecked){
+                    btnSignWy.setBackgroundColor(Color.GREEN);
+                    isChecked=false;
+                }
                 presenter.getSign();
                 //加分
                 presenter.getDoTask(1001);
