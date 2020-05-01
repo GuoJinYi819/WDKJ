@@ -1,9 +1,13 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +22,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.AlipayResultActivity;
+import com.alipay.sdk.app.PayResultActivity;
+import com.alipay.sdk.app.PayTask;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.wd.tech.R;
@@ -37,17 +44,31 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class BuyVipActivity extends BaseActivity<BuyPresenterImpl> implements IBuyContract.IBuyView {
+    private static final int SDK_PAY_FLAG = 100;
     private android.widget.ImageView imgVIPBackWy;
     private SimpleDraweeView imgVIPNameWy;
     private android.widget.TextView tvBuyVIPNameWy;
     private android.widget.TextView tvVIPPriceWy;
     private android.widget.Button btnBuyVipWy;
+    @SuppressLint("HandlerLeak")
+    private Handler mHanlder = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what==SDK_PAY_FLAG) {
+                PayTask payTask = new PayTask(BuyVipActivity.this);
+                String pay = payTask.pay((String) msg.obj, true);
+                Log.i("gjy", "handleMessage: "+pay);
+            }
+        }
+    };
 
     //购买  下单  页面
     @Override
@@ -187,6 +208,20 @@ public class BuyVipActivity extends BaseActivity<BuyPresenterImpl> implements IB
                                 @Override
                                 public void accept(BuyBean buyBean) throws Exception {
 
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            String s = buyBean.getResult();
+                                            PayTask alipay = new PayTask(BuyVipActivity.this);
+                                            Map<String, String> result = alipay.payV2(orderId, true);
+                                            Message msg = new Message();
+                                            msg.what = SDK_PAY_FLAG;
+                                            msg.obj = s;
+                                            mHanlder.sendMessage(msg);
+
+                                        }
+                                    };
+                                    new Thread(runnable).start();
                                 }
 
                             });
