@@ -2,6 +2,7 @@ package com.wd.tech.net;
 
 import com.wd.tech.bean.gjybean.AddFriendBean;
 import com.wd.tech.bean.gjybean.AddFriendGroupBean;
+import com.wd.tech.bean.gjybean.BuyBean;
 import com.wd.tech.bean.gjybean.CreateGroupBean;
 import com.wd.tech.bean.gjybean.DeleteChatBean;
 import com.wd.tech.bean.gjybean.DeleteGroupBean;
@@ -318,4 +319,8 @@ public interface ApiService {
     @POST(ApiUrl.WXLOGIN)
     @FormUrlEncoded
     Observable<WxBean> wxLogin(@Field("code")String code);
+    //支付
+    @POST(ApiUrl.PAY)
+    @FormUrlEncoded
+    Observable<BuyBean> pay(@Field("orderId")String orderId, @Field("payType")int payType);
 }

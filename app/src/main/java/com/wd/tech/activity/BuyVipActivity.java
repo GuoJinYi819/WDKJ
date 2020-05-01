@@ -2,28 +2,45 @@ package com.wd.tech.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
+import com.wd.tech.bean.gjybean.BuyBean;
 import com.wd.tech.bean.wybean.beanbuyvip.BuyVipBean;
 import com.wd.tech.bean.wybean.beanselectviplist.ResultBean;
 import com.wd.tech.mvp.wymvp.mvpbuy.BuyPresenterImpl;
 import com.wd.tech.mvp.wymvp.mvpbuy.IBuyContract;
+import com.wd.tech.net.ApiService;
 import com.wd.tech.net.EncryptionUtil;
+import com.wd.tech.net.RetrofitUtil;
 import com.wd.tech.net.SpUtil;
+import com.wd.tech.util.WXUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class BuyVipActivity extends BaseActivity<BuyPresenterImpl> implements IBuyContract.IBuyView {
     private android.widget.ImageView imgVIPBackWy;
@@ -104,7 +121,88 @@ public class BuyVipActivity extends BaseActivity<BuyPresenterImpl> implements IB
     public void onSuccess(BuyVipBean buyVipBean) {
         //成功
         String message = buyVipBean.getMessage();
-        Toast.makeText(BuyVipActivity.this,message,Toast.LENGTH_SHORT).show();
+        if (message.equals("下单成功")) {
+            String orderId = buyVipBean.getOrderId();
+
+            //弹框
+            View view = View.inflate(BuyVipActivity.this, R.layout.popup_buy,null);
+            PopupWindow popupWindow =new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            popupWindow.setBackgroundDrawable(new BitmapDrawable());
+            popupWindow.setFocusable(true);
+            popupWindow.setOutsideTouchable(true);
+            //动画
+            TranslateAnimation animation =new TranslateAnimation(Animation.RELATIVE_TO_PARENT,0, Animation.RELATIVE_TO_PARENT,0,
+                    Animation.RELATIVE_TO_PARENT,1, Animation.RELATIVE_TO_PARENT,0);
+            animation.setInterpolator(new AccelerateInterpolator());
+            animation.setDuration(200);
+            popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,0,0);
+            view.startAnimation(animation);
+
+            view.findViewById(R.id.btnWX).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    ApiService apiService = instance.createService();
+                    Observable<BuyBean> pay = apiService.pay(orderId, 1);
+                    pay.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<BuyBean>() {
+                                @Override
+                                public void accept(BuyBean buyBean) throws Exception {
+                                    //启动线程
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            PayReq request = new PayReq();
+                                            request.appId= buyBean.getAppId();
+                                            request.partnerId = buyBean.getPartnerId();
+                                            request.prepayId = buyBean.getPrepayId();
+                                            request.packageValue = buyBean.getPackageValue();
+                                            request.nonceStr = buyBean.getNonceStr();
+                                            request.timeStamp = buyBean.getTimeStamp();
+                                            request.sign = buyBean.getSign();
+                                            //发送调起微信的请求
+                                            WXUtil.api.sendReq(request);
+
+                                        }
+                                    };
+                                    //启动线程
+                                    new Thread(runnable).start();
+
+                                }
+
+                            });
+                    popupWindow.dismiss();
+                }
+            });
+            view.findViewById(R.id.btnZFB).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    ApiService apiService = instance.createService();
+                    Observable<BuyBean> pay = apiService.pay(orderId, 2);
+                    pay.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<BuyBean>() {
+                                @Override
+                                public void accept(BuyBean buyBean) throws Exception {
+
+                                }
+
+                            });
+                    popupWindow.dismiss();
+                }
+            });
+            view.findViewById(R.id.btnClone).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                }
+            });
+
+        }
+
+
     }
     @Override
     public void onError(String error) {

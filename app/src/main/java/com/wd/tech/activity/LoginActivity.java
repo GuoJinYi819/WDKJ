@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.gjybean.WxBean;
@@ -105,52 +106,59 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         ivwxLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WXUtil.callWX();
-
-                WXUtil.onWxLoginListener = new WXUtil.OnWxLoginListener() {
-                    @Override
-                    public void onCode(String code) {
-                        RetrofitUtil instance = RetrofitUtil.getInstance();
-                        ApiService apiService = instance.createService();
-                        Observable<WxBean> observable = apiService.wxLogin(code);
-                        observable.subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Consumer<WxBean>() {
-                                    @Override
-                                    public void accept(WxBean wxBean) throws Exception {
-                                        String message = wxBean.getMessage();
-                                        if (message.equals("登陆成功")) {
-                                            WxBean.ResultBean result = wxBean.getResult();
-                                            int userId = result.getUserId();
-                                            String sessionId = result.getSessionId();
-                                            //缓存数据  头像 名称 签名
-                                            String headPic = result.getHeadPic();
-                                            String nickName = result.getNickName();
-                                       //     String signature = result.getSignature();
-                                            //是否为vip   是否为绑定faceId
-                                            int whetherVip = result.getWhetherVip();
-                                            int whetherFaceId = result.getWhetherFaceId();
-                                            //设置
-                                            SpUtil instance = SpUtil.getInstance();
-                                            instance.saveInt("userId",userId);
-                                            instance.saveString("sessionId",sessionId);
-                                            instance.saveString("phone",phone);
-                                            instance.saveString("pwd",pwd);
-                                            //个人 数据
-                                            instance.saveString("headPic",headPic);
-                                            instance.saveString("nickName",nickName);
-                                            instance.saveString("signature","没有签名信息");
-                                            instance.saveInt("whetherVip",whetherVip);
-                                            instance.saveInt("whetherFaceId",whetherFaceId);
-                                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                                            startActivity(intent);
-                                            finish();
+                boolean weixinAvilible = WXUtil.isWeixinAvilible(App.context);
+                if (weixinAvilible){
+                    WXUtil.callWX();
+                    WXUtil.onWxLoginListener = new WXUtil.OnWxLoginListener() {
+                        @Override
+                        public void onCode(String code) {
+                            RetrofitUtil instance = RetrofitUtil.getInstance();
+                            ApiService apiService = instance.createService();
+                            Observable<WxBean> observable = apiService.wxLogin(code);
+                            observable.subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Consumer<WxBean>() {
+                                        @Override
+                                        public void accept(WxBean wxBean) throws Exception {
+                                            String message = wxBean.getMessage();
+                                            if (message.equals("登陆成功")) {
+                                                WxBean.ResultBean result = wxBean.getResult();
+                                                int userId = result.getUserId();
+                                                String sessionId = result.getSessionId();
+                                                //缓存数据  头像 名称 签名
+                                                String headPic = result.getHeadPic();
+                                                String nickName = result.getNickName();
+                                                //     String signature = result.getSignature();
+                                                //是否为vip   是否为绑定faceId
+                                                int whetherVip = result.getWhetherVip();
+                                                int whetherFaceId = result.getWhetherFaceId();
+                                                //设置
+                                                SpUtil instance = SpUtil.getInstance();
+                                                instance.saveInt("userId",userId);
+                                                instance.saveString("sessionId",sessionId);
+                                                instance.saveString("phone",phone);
+                                                instance.saveString("pwd",pwd);
+                                                //个人 数据
+                                                instance.saveString("headPic",headPic);
+                                                instance.saveString("nickName",nickName);
+                                                instance.saveString("signature","没有签名信息");
+                                                instance.saveInt("whetherVip",whetherVip);
+                                                instance.saveInt("whetherFaceId",whetherFaceId);
+                                                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
-                    }
-                };
+                        }
+                    };
+                }else {
+                    Toast.makeText(LoginActivity.this, "请先安装微信", Toast.LENGTH_SHORT).show();
+                }
+
+
+
             }
         });
     }

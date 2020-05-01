@@ -3,9 +3,11 @@ package com.wd.tech.wxapi;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -29,7 +31,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
     @Override
-    public void onReq(BaseReq baseReq) {
+    public void onReq(BaseReq resp) {
 
     }
 
@@ -38,5 +40,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         String code = ((SendAuth.Resp) baseResp).code;
         Log.i("gjy", "onResp: ="+code);
         WXUtil.onWxLoginListener.onCode(code);
+
+        if(baseResp.getType()== ConstantsAPI.COMMAND_PAY_BY_WX){
+            if(baseResp.errCode==0){
+                Toast.makeText(this, "支付成功", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
+            }
+            finish();
+        }
     }
 }

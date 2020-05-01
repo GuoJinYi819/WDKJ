@@ -149,4 +149,6 @@ public interface ApiUrl {
     String ADVERTISEMENT_URL="information/v1/findInfoAdvertising";
     //微信登入
     String WXLOGIN = "https://mobile.bwstudent.com/techApi/user/v1/weChatLogin";
+    //支付
+    String PAY = "tool/verify/v1/pay";
 }
