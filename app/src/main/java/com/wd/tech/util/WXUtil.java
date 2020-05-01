@@ -3,10 +3,16 @@ package com.wd.tech.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wd.tech.R;
 
 import java.util.List;
 
@@ -65,5 +71,19 @@ public class WXUtil {
             }
         }
         return false;
+    }
+    public static void wechatShare(int flag,String path){
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = "这里填写链接url";
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = "标题";
+        msg.description = "内容";
+        //这里替换一张自己工程里的图片资源
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag==0?SendMessageToWX.Req.WXSceneSession:SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
     }
 }
