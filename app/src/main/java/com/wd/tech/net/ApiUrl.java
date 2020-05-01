@@ -147,4 +147,6 @@ public interface ApiUrl {
     String CANCELCOLLECTION_URL="user/verify/v1/cancelCollection";
     //资讯广告
     String ADVERTISEMENT_URL="information/v1/findInfoAdvertising";
+    //用户任务列表
+    String USERTASKLIST_URL="user/verify/v1/findUserTaskList";
 }

@@ -60,6 +60,7 @@ import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beanusertasklist.UserTaskListBean;
 
 import java.util.Map;
 
@@ -313,4 +314,7 @@ public interface ApiService {
     //看广告
     @GET(ApiUrl.ADVERTISEMENT_URL)
     Observable<AdvertisementBean> getAdvertisementData();
+    //任务列表
+    @GET(ApiUrl.USERTASKLIST_URL)
+    Observable<UserTaskListBean> getUserTaskListData();
 }
