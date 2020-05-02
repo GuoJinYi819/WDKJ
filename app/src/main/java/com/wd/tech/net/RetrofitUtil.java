@@ -50,6 +50,7 @@ public class RetrofitUtil {
                         if (!TextUtils.isEmpty(sessionId)){
                             builder.addHeader("sessionId",sessionId);
                         }
+                        builder.addHeader("ak","aa");
                         Request build = builder.build();
                         return chain.proceed(build);
                     }

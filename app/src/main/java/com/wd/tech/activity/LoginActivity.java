@@ -6,18 +6,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
+import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.log.LogResultBean;
 import com.wd.tech.mvp.qzjmvp.logmvp.LogConter;
 import com.wd.tech.mvp.qzjmvp.logmvp.LogPresenterImpl;
+import com.wd.tech.net.ApiService;
 import com.wd.tech.net.JudgeUtil;
+import com.wd.tech.net.RetrofitUtil;
 import com.wd.tech.net.SpUtil;
 import com.wd.tech.util.RsaCoder;
+import com.wd.tech.util.WXUtil;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -35,6 +46,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private String phone;
     private String pwd;
     private String s;
+    private ImageView ivwxLogin;
 
     @Override
     public int initLayout() {
@@ -48,6 +60,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         epwd = (EditText) findViewById(R.id.epwd);
         kszc = (TextView) findViewById(R.id.kszc);
         dl = (Button) findViewById(R.id.dl);
+        ivwxLogin = findViewById(R.id.ivWxLogin);
     }
 
     @Override
@@ -89,6 +102,65 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
                 startActivity(intent);
             }
         });
+
+        ivwxLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean weixinAvilible = WXUtil.isWeixinAvilible(App.context);
+                if (weixinAvilible){
+                    WXUtil.callWX();
+                    WXUtil.onWxLoginListener = new WXUtil.OnWxLoginListener() {
+                        @Override
+                        public void onCode(String code) {
+                            RetrofitUtil instance = RetrofitUtil.getInstance();
+                            ApiService apiService = instance.createService();
+                            Observable<WxBean> observable = apiService.wxLogin(code);
+                            observable.subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Consumer<WxBean>() {
+                                        @Override
+                                        public void accept(WxBean wxBean) throws Exception {
+                                            String message = wxBean.getMessage();
+                                            if (message.equals("登陆成功")) {
+                                                WxBean.ResultBean result = wxBean.getResult();
+                                                int userId = result.getUserId();
+                                                String sessionId = result.getSessionId();
+                                                //缓存数据  头像 名称 签名
+                                                String headPic = result.getHeadPic();
+                                                String nickName = result.getNickName();
+                                                //     String signature = result.getSignature();
+                                                //是否为vip   是否为绑定faceId
+                                                int whetherVip = result.getWhetherVip();
+                                                int whetherFaceId = result.getWhetherFaceId();
+                                                //设置
+                                                SpUtil instance = SpUtil.getInstance();
+                                                instance.saveInt("userId",userId);
+                                                instance.saveString("sessionId",sessionId);
+                                                instance.saveString("phone",phone);
+                                                instance.saveString("pwd",pwd);
+                                                //个人 数据
+                                                instance.saveString("headPic",headPic);
+                                                instance.saveString("nickName",nickName);
+                                                instance.saveString("signature","没有签名信息");
+                                                instance.saveInt("whetherVip",whetherVip);
+                                                instance.saveInt("whetherFaceId",whetherFaceId);
+                                                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+                                    });
+
+                        }
+                    };
+                }else {
+                    Toast.makeText(LoginActivity.this, "请先安装微信", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
     }
 
     @Override
@@ -97,16 +169,12 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         String phon = instance.getSpString("phone");
         String pw = instance.getSpString("pwd");
 
-        Log.d("XXX","1111");
         if (!TextUtils.isEmpty(phon)&&!TextUtils.isEmpty(pw)){
-            Log.d("XXX",phon);
-            Log.d("XXX",pw);
-            Log.d("XXX","222");
+
             ephone.setText(phon);
             epwd.setText(pw);
             try {
                 s = RsaCoder.encryptByPublicKey(pw);
-                Log.d("XX", "onCreate: "+ s);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,9 +217,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             startActivity(intent);
             finish();
 
-        }else {
-            Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
 
     }
 

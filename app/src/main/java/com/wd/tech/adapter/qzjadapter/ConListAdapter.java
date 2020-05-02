@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.R;
+import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConResultBean;
 import com.wd.tech.bean.qzjbean.great.GreatBean;
 import com.wd.tech.net.RetrofitUtil;
+import com.wd.tech.util.WXUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,11 +199,15 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         holder.fx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String trim = holder.fxs.getText().toString().trim();
-                Integer integer = Integer.valueOf(trim);
-                integer++;
-                holder.fxs.setText(integer+"");
-                Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show();
+//                String trim = holder.fxs.getText().toString().trim();
+//                Integer integer = Integer.valueOf(trim);
+//                integer++;
+//                holder.fxs.setText(integer+"");
+//                Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show();
+                //微信分享
+                ConResultBean conResultBean = list.get(position);
+
+                WXUtil.wechatShare(1,"a");
             }
         });
     }

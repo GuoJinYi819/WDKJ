@@ -105,14 +105,16 @@
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/dp_20">
         <ImageView
+            android:id="@+id/ivWxLogin"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_60"
             android:layout_weight="1"
-            android:src="@mipmap/wx"/>
+            android:src="@mipmap/common_icon_weixin_n_xxhdpi"/>
         <ImageView
             android:layout_width="0dp"
+            android:padding="@dimen/dp_8"
             android:layout_height="@dimen/dp_60"
             android:layout_weight="1"
-            android:src="@mipmap/rlsb"/>
+            android:src="@mipmap/login_icon_artificial_intelligence_n_xxhdpi"/>
     </LinearLayout>
 </LinearLayout>
