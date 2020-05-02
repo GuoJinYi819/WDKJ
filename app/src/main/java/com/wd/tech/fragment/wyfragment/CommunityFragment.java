@@ -41,7 +41,8 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     private SimpleDraweeView imgWriteWt;
     private RecyclerCommunityAdapter recyclerCommunityAdapter;
     private List<String> result2=new ArrayList<>();
-
+    //判断刷新
+    private boolean isRefresh=false;
     @Override
     public int initLayout() {
         return R.layout.fragment_community;
@@ -71,6 +72,14 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
                 recyclerCommunityAdapter.notifyDataSetChanged();
             }
         });
+    }
+    //刷新
+    @Override
+    public void onResume() {
+        super.onResume();
+        //社区页面
+        presenter.getHome(1, 10);
+        presenter.getCommunityCommentList(1,1,10);
     }
 
     @Override
