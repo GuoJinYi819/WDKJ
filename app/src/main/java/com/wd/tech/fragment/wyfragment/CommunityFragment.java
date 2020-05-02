@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wd.tech.R;
 import com.wd.tech.activity.CommentActivity;
 import com.wd.tech.adapter.wyadapter.RecyclerCommunityAdapter;
@@ -26,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,9 +44,12 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     private RecyclerView recyclerWy;
     private SimpleDraweeView imgWriteWt;
     private RecyclerCommunityAdapter recyclerCommunityAdapter;
-    private List<String> result2=new ArrayList<>();
+    private List<String> result2 = new ArrayList<>();
     //判断刷新
-    private boolean isRefresh=false;
+    private int count = 10;
+    private SmartRefreshLayout communitySmartWy;
+    private List<ResultBean> result;
+
     @Override
     public int initLayout() {
         return R.layout.fragment_community;
@@ -58,6 +65,7 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
         imgWriteWt = (SimpleDraweeView) view.findViewById(R.id.imgWriteWt);
         //订阅
         EventBus.getDefault().register(this);
+        communitySmartWy = (SmartRefreshLayout) view.findViewById(R.id.communitySmartWy);
     }
 
     @Override
@@ -72,34 +80,63 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
                 recyclerCommunityAdapter.notifyDataSetChanged();
             }
         });
+        //上拉  下拉
+        communitySmartWy.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                //加载
+                count++;
+                presenter.getHome(1, count);
+                presenter.getCommunityCommentList(1, 1, count);
+                //
+                recyclerCommunityAdapter.onLoadMore(result);
+                //
+                communitySmartWy.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //刷新
+                count=10;
+                presenter.getHome(1, count);
+                presenter.getCommunityCommentList(1, 1, count);
+                //
+                recyclerCommunityAdapter.onRefresh(result);
+                //
+                communitySmartWy.finishRefresh();
+            }
+        });
     }
+
     //刷新
     @Override
     public void onResume() {
         super.onResume();
         //社区页面
         presenter.getHome(1, 10);
-        presenter.getCommunityCommentList(1,1,10);
+        presenter.getCommunityCommentList(1, 1, 10);
     }
 
     @Override
     public void initData() {
         //社区页面
         presenter.getHome(1, 10);
-        presenter.getCommunityCommentList(1,1,10);
+        presenter.getCommunityCommentList(1, 1, 10);
     }
+
     //接收
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onEvent(Event event){
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(Event event) {
         //int id = event.getId();
         //标签   评论
         //presenter.getCommunityCommentList(id,1,10);
         String content = event.getContent();
         //发  评论
-        if(!TextUtils.isEmpty(content)){
-            presenter.getSendComment(1,content);
+        if (!TextUtils.isEmpty(content)) {
+            presenter.getSendComment(1, content);
         }
     }
+
     @Override
     public HomePresenterImpl initPresenter() {
         return new HomePresenterImpl();
@@ -107,42 +144,48 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
 
     @Override
     public void onSuccess(HomeBean homeBean) {
-        List<ResultBean> result = homeBean.getResult();
+        result = homeBean.getResult();
         //适配器
         recyclerCommunityAdapter = new RecyclerCommunityAdapter(result, getContext());
         recyclerWy.setAdapter(recyclerCommunityAdapter);
-        if(result2!=null){
+        if (result2 != null) {
             recyclerCommunityAdapter.setResultList(result2);
         }
     }
+
     @Override
     public void onError(String error) {
     }
+
     @Override
     public void onCommunityCommentListSuccess(CommunityCommentListBean communityCommentListBean) {
         //成功   评论列表
         List<String> result = communityCommentListBean.getResult();
-        Log.d("==", "onCommunityCommentListSuccess: "+result);
-        result2=result;
+        Log.d("==", "onCommunityCommentListSuccess: " + result);
+        result2 = result;
     }
+
     @Override
     public void onCommunityCommentListError(String error) {
     }
+
     @Override
     public void onSendCommentSuccess(SendCommentBean sendCommentBean) {
         //成功  发表评论
         String message = sendCommentBean.getMessage();
-        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onSendCommentError(String error) {
     }
+
     //销毁
     @Override
     public void onDestroy() {
         super.onDestroy();
         boolean registered = EventBus.getDefault().isRegistered(this);
-        if(registered){
+        if (registered) {
             EventBus.getDefault().unregister(this);
         }
     }

@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/communitySmartWy"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imgWriteWt"
         android:layout_width="@dimen/dp_60"

@@ -70,4 +70,6 @@ dependencies {
     implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.6'//
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation(name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
+    //SmartRefresh 上下拉刷新框架
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 }

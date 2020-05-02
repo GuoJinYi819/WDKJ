@@ -59,6 +59,18 @@ public class RecyclerCommunityAdapter extends RecyclerView.Adapter<RecyclerCommu
         this.resultList = resultList;
     }
 
+    //刷新
+    public void onRefresh(List<ResultBean> result){
+        this.result.clear();
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
+    //加载
+    public void onLoadMore(List<ResultBean> result){
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CommunityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
