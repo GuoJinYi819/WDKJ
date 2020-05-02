@@ -141,6 +141,14 @@ public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implem
             }
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //再次请求  刷新数据
+        presenter.getUserTaskList();
+    }
+
     @Override
     public void initData() {
         presenter.getUserTaskList();
