@@ -90,6 +90,9 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
         Toast.makeText(MyPostActivity.this,message,Toast.LENGTH_SHORT).show();
         /*//刷新
         postAdapter.notifyDataSetChanged();*/
+        //删除成功   刷新
+        //再次请求  刷新数据
+        presenter.getMyPost(1,10);
     }
     @Override
     public void onError(String error) {
