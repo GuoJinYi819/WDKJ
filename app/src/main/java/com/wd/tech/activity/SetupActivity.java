@@ -112,6 +112,14 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
             }
         });
     }
+    //刷新
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //再次请求  刷新数据
+        presenter.getSelectUser();
+    }
+
     private void initPopWindow(View v) {
         View view = LayoutInflater.from(SetupActivity.this).inflate(R.layout.item_popwindow, null, false);
         Button btn_start = view.findViewById(R.id.btn_start);
