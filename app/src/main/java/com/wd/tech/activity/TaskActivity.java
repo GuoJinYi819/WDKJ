@@ -17,6 +17,7 @@ import com.wd.tech.bean.wybean.beanusertasklist.ResultBean;
 import com.wd.tech.bean.wybean.beanusertasklist.UserTaskListBean;
 import com.wd.tech.mvp.wymvp.mvpusertasklist.IUserTaskListContract;
 import com.wd.tech.mvp.wymvp.mvpusertasklist.UserTaskListPresenterImpl;
+import com.wd.tech.util.WXUtil;
 
 import java.util.List;
 
@@ -102,6 +103,8 @@ public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implem
         btnToSharedWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //唤起微信   好像没用
+                WXUtil.callWX();
                 Toast.makeText(TaskActivity.this,"分享",Toast.LENGTH_SHORT).show();
             }
         });
