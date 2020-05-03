@@ -110,7 +110,6 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
                 collectionListAdapter.onLoadMore(result);
                 collectionSmartWy.finishLoadMore();
             }
-
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //刷新
