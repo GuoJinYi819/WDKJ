@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wd.tech.R;
 import com.wd.tech.adapter.wyadapter.CollectionListAdapter;
 import com.wd.tech.base.BaseActivity;
@@ -35,7 +39,9 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
     private List<ResultBean> result;
     private CollectionListAdapter collectionListAdapter;
     private String cancleId;
-
+    private com.scwang.smartrefresh.layout.SmartRefreshLayout collectionSmartWy;
+    //刷新次数
+    private int count = 10;
     //我的收藏  页面
     @Override
     public int initLayout() {
@@ -53,6 +59,7 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
         recyclerCollectionListWy.setLayoutManager(linearLayoutManager);
         //订阅
         EventBus.getDefault().register(this);
+        collectionSmartWy = (SmartRefreshLayout) findViewById(R.id.collectionSmartWy);
     }
     @Override
     public void initListener() {
@@ -91,6 +98,26 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
             public void onClick(View v) {
                 //销毁
                 finish();
+            }
+        });
+        //上拉  下拉
+        collectionSmartWy.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                //加载
+                count++;
+                presenter.getCollectionList(1,count);
+                collectionListAdapter.onLoadMore(result);
+                collectionSmartWy.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //刷新
+                count=10;
+                presenter.getCollectionList(1,count);
+                collectionListAdapter.onRefresh(result);
+                collectionSmartWy.finishRefresh();
             }
         });
     }

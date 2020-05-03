@@ -40,6 +40,18 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         this.context = context;
     }
 
+    //刷新
+    public void onRefresh(List<ResultBean> result){
+        this.result.clear();
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
+    //加载
+    public void onLoadMore(List<ResultBean> result){
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -45,7 +45,7 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     private SimpleDraweeView imgWriteWt;
     private RecyclerCommunityAdapter recyclerCommunityAdapter;
     private List<String> result2 = new ArrayList<>();
-    //判断刷新
+    //刷新次数
     private int count = 10;
     private SmartRefreshLayout communitySmartWy;
     private List<ResultBean> result;
