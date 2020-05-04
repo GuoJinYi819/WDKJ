@@ -174,6 +174,17 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
         //成功  发表评论
         String message = sendCommentBean.getMessage();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        String status = sendCommentBean.getStatus();
+        if(status.equals("0000")){
+            //刷新
+            count=10;
+            presenter.getHome(1, count);
+            presenter.getCommunityCommentList(1, 1, count);
+            //
+            recyclerCommunityAdapter.onRefresh(result);
+            //
+            communitySmartWy.finishRefresh();
+        }
     }
 
     @Override
