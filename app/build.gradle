@@ -72,4 +72,5 @@ dependencies {
     implementation(name: 'alipaySdk-15.7.5-20200422171619', ext: 'aar')
     //SmartRefresh 上下拉刷新框架
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
 }
