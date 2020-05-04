@@ -40,7 +40,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.result = result;
         this.context = context;
     }
-
+    //刷新
+    public void onRefresh(List<ResultBean> result){
+        this.result.clear();
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
+    //加载
+    public void onLoadMore(List<ResultBean> result){
+        this.result.addAll(result);
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

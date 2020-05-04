@@ -1,5 +1,6 @@
 package com.wd.tech.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wd.tech.R;
 import com.wd.tech.adapter.wyadapter.PostAdapter;
 import com.wd.tech.base.BaseActivity;
@@ -31,6 +35,10 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
     private android.widget.ImageView imgPostBackWy;
     private androidx.recyclerview.widget.RecyclerView recyclerPostWy;
     private PostAdapter postAdapter;
+    private com.scwang.smartrefresh.layout.SmartRefreshLayout postSmartWy;
+    //刷新次数
+    private int count = 10;
+    private List<ResultBean> result;
 
     @Override
     public int initLayout() {
@@ -46,6 +54,7 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
         recyclerPostWy.setLayoutManager(linearLayoutManager);
         //EventBus   订阅
         EventBus.getDefault().register(this);
+        postSmartWy = (SmartRefreshLayout) findViewById(R.id.postSmartWy);
     }
     @Override
     public void initListener() {
@@ -56,6 +65,26 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
                 finish();
             }
         });
+        //上拉  下拉
+        postSmartWy.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                //加载
+                count++;
+                presenter.getMyPost(1,count);
+                postAdapter.onLoadMore(result);
+                postSmartWy.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //刷新
+                count=10;
+                presenter.getMyPost(1,count);
+                postAdapter.onRefresh(result);
+                postSmartWy.finishRefresh();
+            }
+        });
     }
     @Override
     public void initData() {
@@ -64,6 +93,7 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
     //接收
     @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
     public void onEvent(Event event){
+        //删除帖子
         int id = event.getId();
         if(id!=-1){
             presenter.getDeletePost(""+id);
@@ -76,7 +106,7 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
     //帖子数据  成功
     @Override
     public void onMyPostSuccess(MyPostBean myPostBean) {
-        List<ResultBean> result = myPostBean.getResult();
+        result = myPostBean.getResult();
         //适配器
         postAdapter = new PostAdapter(result, MyPostActivity.this);
         recyclerPostWy.setAdapter(postAdapter);
@@ -92,7 +122,7 @@ public class MyPostActivity extends BaseActivity<MyPostPresenterImpl> implements
         postAdapter.notifyDataSetChanged();*/
         //删除成功   刷新
         //再次请求  刷新数据
-        presenter.getMyPost(1,10);
+        //presenter.getMyPost(1,10);
     }
     @Override
     public void onError(String error) {
