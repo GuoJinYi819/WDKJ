@@ -128,6 +128,41 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
         };
 
     }
+    @Override
+    public void initListener() {
+        //取消
+        tvCancleWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //销毁页面
+                finish();
+            }
+        });
+        //添加图片
+        imgAddWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //popwindow
+                initPopWindow(v);
+            }
+        });
+        //发表
+        tvPublishWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //请求
+                String string = etPublishWy.getText().toString().trim();
+                if(!TextUtils.isEmpty(string)){
+                    if(formData!=null){
+                        Log.d("===", "onClick: "+formData);
+                        presenter.getComment(string,formData);
+                        //加分
+                        presenter.getDoTask(1003);
+                    }
+                }
+            }
+        });
+    }
     private void initPopWindow(View v) {
         View view = LayoutInflater.from(CommentActivity.this).inflate(R.layout.item_popwindow, null, false);
         Button btn_start = view.findViewById(R.id.btn_start);
@@ -198,41 +233,6 @@ public class CommentActivity extends BaseActivity<CommentPresenterImpl> implemen
                 formData = MultipartBody.Part.createFormData( "image", file.getName(), requestBody );
             }
         }
-    }
-    @Override
-    public void initListener() {
-        //取消
-        tvCancleWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //销毁页面
-                finish();
-            }
-        });
-        //添加图片
-        imgAddWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //popwindow
-                initPopWindow(v);
-            }
-        });
-        //发表
-        tvPublishWy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //请求
-                String string = etPublishWy.getText().toString().trim();
-                if(!TextUtils.isEmpty(string)){
-                    if(formData!=null){
-                        Log.d("===", "onClick: "+formData);
-                        presenter.getComment(string,formData);
-                        //加分
-                        presenter.getDoTask(1003);
-                    }
-                }
-            }
-        });
     }
     @Override
     public void initData() {
