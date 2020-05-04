@@ -16,6 +16,8 @@
             android:layout_marginTop="@dimen/dp_10"
             android:src="@mipmap/phon"/>
         <EditText
+            android:imeOptions="actionNext"
+            android:maxLength="11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_35"
@@ -37,6 +39,8 @@
             android:layout_marginTop="@dimen/dp_10"
             android:src="@mipmap/suo"/>
         <EditText
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:password="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

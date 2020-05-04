@@ -1,10 +1,23 @@
 package com.wd.tech.fragment.gjyfragment.news;
 
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.scwang.smartrefresh.header.TaurusHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.adapter.gjyadapter.NewsAdapter;
 import com.wd.tech.base.BaseFragment;
@@ -38,6 +51,7 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
     private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
     private NewsAdapter newsAdapter;
     private int help = 0;
+    private SmartRefreshLayout refreshLayout;
 
     @Override
     public int initLayout() {
@@ -53,10 +67,13 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
         }
 
         recyclerNews = view.findViewById(R.id.recyclerNews);
-
+        refreshLayout = view.findViewById(R.id.refreshLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerNews.setLayoutManager(linearLayoutManager);
+        //设置刷新样式
+        refreshLayout.setRefreshHeader(new TaurusHeader(App.context));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(App.context).setSpinnerStyle(SpinnerStyle.Scale));
 
     }
 
@@ -83,7 +100,32 @@ public class NewFragment extends BaseFragment<NewsNoticePresenter> implements IN
 
     @Override
     public void initListener() {
-
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Toast toast = new Toast(getContext());
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.toast_my, null);
+                TextView viewById = inflate.findViewById(R.id.tv);
+                viewById.setText("刷新完成");
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                refreshLayout.finishRefresh(true);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Toast toast = new Toast(getContext());
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.toast_my, null);
+                TextView viewById = inflate.findViewById(R.id.tv);
+                viewById.setText("加载完成");
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                refreshLayout.finishLoadMore(true);
+            }
+        });
     }
 
     @Override

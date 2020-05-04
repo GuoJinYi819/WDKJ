@@ -1,9 +1,12 @@
 package com.wd.tech.activity;
 
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
 import com.wd.tech.bean.qzjbean.log.LogResultBean;
+import com.wd.tech.custom.MyClickListener;
 import com.wd.tech.mvp.qzjmvp.logmvp.LogConter;
 import com.wd.tech.mvp.qzjmvp.logmvp.LogPresenterImpl;
 import com.wd.tech.net.ApiService;
@@ -61,38 +65,37 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         kszc = (TextView) findViewById(R.id.kszc);
         dl = (Button) findViewById(R.id.dl);
         ivwxLogin = findViewById(R.id.ivWxLogin);
+        ephone.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     @Override
     public void initListener() {
-        dl.setOnClickListener(new View.OnClickListener() {
+        ephone.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-                phone = ephone.getText().toString().trim();
-                pwd = epwd.getText().toString().trim();
-                if (!TextUtils.isEmpty(phone)){
-                    if (!TextUtils.isEmpty(pwd)){
-                        boolean phone1 = JudgeUtil.isPhone(phone);
-                        if (phone1){
-                            boolean pwd1 = JudgeUtil.isPwd(pwd);
-                            if (pwd1){
-                                try {
-                                    String s = RsaCoder.encryptByPublicKey(pwd);
-                                    Log.d("XX", "onCreate: "+s);
-                                    presenter.getData(phone,s);
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }else {
-                        Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(LoginActivity.this, "账号不能为空", Toast.LENGTH_SHORT).show();
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.KEYCODE_ENTER == keyCode&&event.ACTION_DOWN == event.getAction()){
+                    //
+                    return true;
                 }
-
+                return false;
+            }
+        });
+        epwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                    //登入
+                    login();
+                }
+                return false;
+            }
+        });
+        dl.setOnClickListener(new MyClickListener() {
+            @Override
+            public void onMyChilk() {
+                login();
             }
         });
         kszc.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +189,33 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         return new LogPresenterImpl();
     }
 
+    private void login(){
+        phone = ephone.getText().toString().trim();
+        pwd = epwd.getText().toString().trim();
+        if (!TextUtils.isEmpty(phone)){
+            if (!TextUtils.isEmpty(pwd)){
+                boolean phone1 = JudgeUtil.isPhone(phone);
+                if (phone1){
+                    boolean pwd1 = JudgeUtil.isPwd(pwd);
+                    if (pwd1){
+                        try {
+                            String s = RsaCoder.encryptByPublicKey(pwd);
+                            Log.d("XX", "onCreate: "+s);
+                            presenter.getData(phone,s);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }else {
+                Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            Toast.makeText(LoginActivity.this, "账号不能为空", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onSuccess(LogBean logBean) {
         String message = logBean.getMessage();
@@ -212,13 +242,12 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             instance.saveString("signature",signature);
             instance.saveInt("whetherVip",whetherVip);
             instance.saveInt("whetherFaceId",whetherFaceId);
-            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
-
+        }else {
+            Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
 
     }
 

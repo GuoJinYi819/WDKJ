@@ -1,12 +1,25 @@
 package com.wd.tech.fragment.gjyfragment.news;
 
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.scwang.smartrefresh.header.FunGameHitBlockHeader;
+import com.scwang.smartrefresh.header.TaurusHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.activity.GroupActivity;
 import com.wd.tech.activity.MyFriendSeachActivity;
@@ -35,6 +48,7 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
     private boolean isConfig = false;
     private int nummber = 0;
     private int groupid = 0;
+    private SmartRefreshLayout refreshLayout;
 
     @Override
     public int initLayout() {
@@ -49,11 +63,39 @@ public class ContactsFragment extends BaseFragment<FriendPresenter> implements I
         mLineGroup = view.findViewById(R.id.line_group);
         //二级下拉列表
         mExpandableListView = view.findViewById(R.id.expandable_ListView);
-
+        refreshLayout = view.findViewById(R.id.sLayout);
+        refreshLayout.setRefreshHeader(new FunGameHitBlockHeader(App.context));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(App.context).setSpinnerStyle(SpinnerStyle.Scale));
     }
 
     @Override
     public void initListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Toast toast = new Toast(getContext());
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.toast_my, null);
+                TextView viewById = inflate.findViewById(R.id.tv);
+                viewById.setText("刷新完成");
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                refreshLayout.finishRefresh(true);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Toast toast = new Toast(getContext());
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.toast_my, null);
+                TextView viewById = inflate.findViewById(R.id.tv);
+                viewById.setText("加载完成");
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                refreshLayout.finishLoadMore(true);
+            }
+        });
         //跳转至搜索界面
         mRelativeSeach.setOnClickListener(new View.OnClickListener() {
             @Override
