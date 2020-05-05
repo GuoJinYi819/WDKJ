@@ -171,7 +171,7 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
 
 
         ivSun.setImageResource(R.drawable.i8live_sun);
-        tvGetSunValue.setText("恭喜获得10个阳光值");
+        tvGetSunValue.setText("恭喜获得今日签到积分");
 
 
         Animation operatingAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anim_online_gift);
