@@ -35,6 +35,10 @@ public class AdapterDate extends BaseAdapter {
     private SignTimeView.OnSignedSuccess onSignedSuccess;
     //签到成功的回调方法，相应的可自行添加签到失败时的回调方法
 
+    public List<Boolean> status(){
+        return status;
+    }
+
     public AdapterDate(Context context) {
         this.context = context;
         int maxDay = DateUtil.getCurrentMonthLastDay();//获取当月天数
@@ -92,7 +96,8 @@ public class AdapterDate extends BaseAdapter {
             viewHolder.tv.setTextColor(Color.parseColor("#666666"));
             viewHolder.ivStatus.setVisibility(View.GONE);
         }
-        view.setOnClickListener(new View.OnClickListener() {
+
+        /*view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(status.get(i)){
@@ -106,7 +111,7 @@ public class AdapterDate extends BaseAdapter {
                     }
                 }
             }
-        });
+        });*/
         return view;
     }
 
@@ -118,5 +123,10 @@ public class AdapterDate extends BaseAdapter {
 
     public void setOnSignedSuccess(SignTimeView.OnSignedSuccess onSignedSuccess){
         this.onSignedSuccess = onSignedSuccess;
+    }
+
+    public interface OnSignListener {
+        void OnSignedSucceed();
+        void OnSignedFail();
     }
 }

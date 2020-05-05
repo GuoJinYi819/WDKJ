@@ -62,6 +62,7 @@ import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.bean.wybean.beanselectviplist.SelectVipListBean;
 import com.wd.tech.bean.wybean.beansendcomment.SendCommentBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.bean.wybean.beanusertasklist.UserTaskListBean;
 
 import java.util.Map;
@@ -327,4 +328,7 @@ public interface ApiService {
     //任务列表
     @GET(ApiUrl.USERTASKLIST_URL)
     Observable<UserTaskListBean> getUserTaskListData();
+    //当月所有签到的日期
+    @GET(ApiUrl.SIGNRECORDING_URL)
+    Observable<SignRecordingBean> getSignRecordingData();
 }
