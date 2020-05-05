@@ -129,8 +129,16 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
             public void onClick(View v) {
                 if (!isSign) {
                     signCalendarData();
+                    //变个色
+                    /*isChecked=true;
+                    if(isChecked){
+                        btn_sign.setBackgroundColor(Color.GREEN);
+                        isChecked=false;
+                    }*/
+                    presenter.getSign();
+                    //加分
+                    presenter.getDoTask(1001);
                 }
-
             }
         });
 
@@ -141,25 +149,16 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
             }
         });
 
-   /*     signBack.setOnClickListener(new View.OnClickListener() {
+        signBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
     }
 
     @Override
     public void initData() {
-        //变个色
-        /*isChecked=true;
-        if(isChecked){
-            btn_sign.setBackgroundColor(Color.GREEN);
-            isChecked=false;
-        }*/
-        presenter.getSign();
-        //加分
-        presenter.getDoTask(1001);
     }
     private void signCalendarData() {
         //模拟请求后台数据签到已成功

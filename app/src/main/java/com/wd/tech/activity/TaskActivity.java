@@ -66,7 +66,7 @@ public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implem
                 int status = resultBean.getStatus();
                 if(status==2){
                     //跳
-                    Intent intent = new Intent(TaskActivity.this, SigninActivity.class);
+                    Intent intent = new Intent(TaskActivity.this, I8ShowSignCalendarActivity.class);
                     startActivity(intent);
                 }
             }
