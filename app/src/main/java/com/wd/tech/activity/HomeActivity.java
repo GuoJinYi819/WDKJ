@@ -48,7 +48,7 @@ public class HomeActivity extends BaseActivity{
     private LinearLayout linearLeft;
     private LinearLayout linearLeftChild;
 
-    private SignCalendarReq signCalendarReq;
+    //private SignCalendarReq signCalendarReq;
     @Override
     public int initLayout() {
         return R.layout.activity_home;
