@@ -1,14 +1,17 @@
 package com.wd.tech.activity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.tabs.TabLayout;
@@ -42,6 +45,10 @@ public class HomeActivity extends BaseActivity{
     private android.widget.ImageView imgVIPWy;
 
     //private SignCalendarReq signCalendarReq;
+    private LinearLayout linearLeft;
+    private LinearLayout linearLeftChild;
+
+    private SignCalendarReq signCalendarReq;
     @Override
     public int initLayout() {
         return R.layout.activity_home;
@@ -79,6 +86,11 @@ public class HomeActivity extends BaseActivity{
         String headPic = instance.getSpString("headPic");
         String nickName = instance.getSpString("nickName");
         String signature = instance.getSpString("signature");
+
+        linearLeft = findViewById(R.id.linearLeft);
+        linearLeftChild = findViewById(R.id.linearLeftChild);
+
+
         //判断是否为空
         if(!TextUtils.isEmpty(headPic)){
             imgMyTopWy.setImageURI(headPic);
@@ -270,9 +282,25 @@ public class HomeActivity extends BaseActivity{
                 startActivity(intent);
             }
         });
+        linearLeftChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        int help = intent.getIntExtra("help", -1);
+        if(help==1){
+            //显示
+            linearLeftChild.setVisibility(View.VISIBLE);
+            SpUtil instance = SpUtil.getInstance();
+            instance.cloneUser();
+        }
     }
     @Override
     public BasePresenter initPresenter() {

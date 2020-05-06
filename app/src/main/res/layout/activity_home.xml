@@ -38,12 +38,32 @@
     </LinearLayout>
     <!--左面抽屉-->
     <LinearLayout
+        android:id="@+id/linearLeft"
         android:layout_width="@dimen/dp_300"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="left"
         android:background="#D0D5D5"
         >
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/linearLeftChild"
+            android:background="@mipmap/bg"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="注册/登入"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_180"
@@ -333,12 +353,6 @@
                 >
             </ImageView>
         </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="八维学生制作">
-        </TextView>
+
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

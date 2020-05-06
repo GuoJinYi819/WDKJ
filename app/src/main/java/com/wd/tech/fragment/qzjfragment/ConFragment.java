@@ -5,13 +5,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.scwang.smartrefresh.header.DropBoxHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.activity.ConsultaActivity;
 import com.wd.tech.adapter.qzjadapter.ConListAdapter;
@@ -47,7 +57,9 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     private List<String> title;
     private ConListAdapter adapter;
     private RecyclerView re;
-
+    private SmartRefreshLayout smartRefresh;
+    private int help = 1;
+    private int c = 6;
     @Override
     public int initLayout() {
         return R.layout.fragment_consultaion;
@@ -57,14 +69,55 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     public void initView() {
         xb = view.findViewById(R.id.xb);
         re = view.findViewById(R.id.rere);
+        smartRefresh = view.findViewById(R.id.SmartRefresh);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        re.setLayoutManager(linearLayoutManager);
+
+        smartRefresh.setRefreshHeader(new DropBoxHeader(App.context));
+        smartRefresh.setRefreshFooter(new BallPulseFooter(App.context).setSpinnerStyle( SpinnerStyle.Scale));
 
     }
 
     @Override
     public void initListener() {
+
+        smartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                adapter = null;
+                getData(1,6);
+                help=1;
+                c=6;
+                smartRefresh.finishRefresh(true);
+            }
+        });
+
+        smartRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                help++;
+                c++;
+                getData(help,c);
+                refreshLayout.finishLoadMore(true);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void initData() {
+        //调用P层
+        presenter.getData();
+        getData(1,6);
+    }
+
+    private void getData(int page,int count){
         RetrofitUtil instance = RetrofitUtil.getInstance();
         ApiService service = instance.createService();
-        Observable<ConListBean> listData = service.getListData(1, 1, 7);
+        Observable<ConListBean> listData = service.getListData(1, page, count);
         listData.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ConListBean>() {
@@ -74,11 +127,22 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
                     @Override
                     public void onNext(ConListBean value) {
                         List<ConResultBean> result = value.getResult();
-                        adapter = new ConListAdapter(result,getActivity());
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-                        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-                        re.setLayoutManager(linearLayoutManager);
-                        re.setAdapter(adapter);
+                        if (adapter == null) {
+                            adapter = new ConListAdapter(result,getActivity());
+                            re.setAdapter(adapter);
+                        }else {
+                            if(result!=null){
+                                List<ConResultBean> list = adapter.getList();
+                                list.addAll(result);
+                                adapter.notifyDataSetChanged();
+                            }else {
+                                Toast.makeText(getContext(), "暂无更多数据", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+
+
                         adapter.setAdapterCallBack(new ConListAdapter.AdapterCallBack() {
 
                             @Override
@@ -101,13 +165,6 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
 
                     }
                 });
-
-    }
-
-    @Override
-    public void initData() {
-        //调用P层
-        presenter.getData();
     }
 
     @Override
