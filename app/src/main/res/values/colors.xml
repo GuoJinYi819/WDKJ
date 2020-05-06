@@ -8,4 +8,7 @@
     <color name="colorBb">#393838</color>
     <color name="colorBbb">#DCDADA</color>
     <color name="colorCc">#ED4A4A</color>
+    <color name="text_Grey">#c1c1c2</color>
+
+    <color name="colorWhite">#ffffff</color>
 </resources>
