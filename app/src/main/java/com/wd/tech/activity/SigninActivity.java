@@ -15,6 +15,7 @@ import com.wd.tech.adapter.wyadapter.AdapterDate;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
 import com.wd.tech.view.SignTimeView;
@@ -88,5 +89,10 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
     public void onTaskSuccess(DoTaskBean doTaskBean) {
         String message = doTaskBean.getMessage();
         Log.d("==", "onTaskSuccess: "+message);
+    }
+
+    @Override
+    public void onSignRecordingSuccess(SignRecordingBean signRecordingBean) {
+        //当月 签到 成功
     }
 }

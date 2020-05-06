@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class SignBean implements Serializable {
     private String message;
     private String status;
-
+    private int isSign;
     public String getMessage() {
         return message;
     }
@@ -27,5 +27,13 @@ public class SignBean implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getIsSign() {
+        return isSign;
+    }
+
+    public void setIsSign(int isSign) {
+        this.isSign = isSign;
     }
 }

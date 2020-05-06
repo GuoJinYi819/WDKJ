@@ -3,6 +3,7 @@ package com.wd.tech.mvp.wymvp.mvpsign;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.mvp.wymvp.mvpdotask.DoTaskModelImpl;
 import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 
@@ -41,6 +42,21 @@ public class SignPresenterImpl extends BasePresenter<ISignContract.ISignView> im
             @Override
             public void onSuccess(DoTaskBean doTaskBean) {
                 iBaseView.onTaskSuccess(doTaskBean);
+            }
+
+            @Override
+            public void onError(String error) {
+                iBaseView.onError(error);
+            }
+        });
+    }
+
+    @Override
+    public void getSignRecording() {
+        signModel.getSignRecording(new ISignContract.ISignModel.DataCallBack3() {
+            @Override
+            public void onSignRecordingSuccess(SignRecordingBean signRecordingBean) {
+                iBaseView.onSignRecordingSuccess(signRecordingBean);
             }
 
             @Override

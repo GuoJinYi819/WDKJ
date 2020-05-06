@@ -2,6 +2,7 @@ package com.wd.tech.mvp.wymvp.mvpsign;
 
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 import com.wd.tech.net.ApiService;
 import com.wd.tech.net.RetrofitUtil;
@@ -63,6 +64,31 @@ public class SignModelImpl implements ISignContract.ISignModel {
                     @Override
                     public void onError(Throwable e) {
                         dataCallBack2.onError(e.getMessage());
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    @Override
+    public void getSignRecording(DataCallBack3 dataCallBack3) {
+        RetrofitUtil instance = RetrofitUtil.getInstance();
+        ApiService service = instance.createService();
+        Observable<SignRecordingBean> signRecordingData = service.getSignRecordingData();
+        signRecordingData.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SignRecordingBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(SignRecordingBean value) {
+                        dataCallBack3.onSignRecordingSuccess(value);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        dataCallBack3.onError(e.getMessage());
                     }
                     @Override
                     public void onComplete() {

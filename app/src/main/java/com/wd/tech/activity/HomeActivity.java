@@ -19,12 +19,7 @@ import com.wd.tech.R;
 import com.wd.tech.adapter.wyadapter.HomeFragmentAdapter;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
-import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
-import com.wd.tech.bean.wybean.beansign.SignBean;
-import com.wd.tech.fragment.wyfragment.signcalendar.SignCalendarReq;
-import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
-import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
-import com.wd.tech.net.EncryptionUtil;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.net.SpUtil;
 
 import java.io.Serializable;
@@ -48,10 +43,12 @@ public class HomeActivity extends BaseActivity{
     private LinearLayout linearNoticeWy;
     private LinearLayout linearSetupWy;
     private android.widget.ImageView imgVIPWy;
+
+    //private SignCalendarReq signCalendarReq;
     private LinearLayout linearLeft;
     private LinearLayout linearLeftChild;
 
-    private SignCalendarReq signCalendarReq;
+    //private SignCalendarReq signCalendarReq;
     @Override
     public int initLayout() {
         return R.layout.activity_home;
@@ -124,7 +121,7 @@ public class HomeActivity extends BaseActivity{
         viewPager.setCurrentItem(0);
 
         //模拟请求后台返回初始化数据
-        signCalendarReq = new SignCalendarReq();
+        /*signCalendarReq = new SignCalendarReq();
 
         SignCalendarReq.StateBean state = new SignCalendarReq.StateBean();
         state.setCode(1);
@@ -136,7 +133,7 @@ public class HomeActivity extends BaseActivity{
         data.setIsSign(0);
         data.setSignDay("1,2");
         data.setUid("3347922");
-        signCalendarReq.setData(data);
+        signCalendarReq.setData(data);*/
     }
     @Override
     public void initListener() {
@@ -206,10 +203,10 @@ public class HomeActivity extends BaseActivity{
             public void onClick(View v) {
                 //跳
                 Intent intent = new Intent(HomeActivity.this, I8ShowSignCalendarActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("userInfos", (Serializable) signCalendarReq);
-                intent.putExtras(bundle);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //Bundle bundle = new Bundle();
+                //bundle.putSerializable("userInfos", (Serializable) signRecordingBean);
+                //intent.putExtras(bundle);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });

@@ -3,6 +3,7 @@ package com.wd.tech.mvp.wymvp.mvpsign;
 import com.wd.tech.base.IBaseView;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 
 /**
@@ -15,13 +16,16 @@ import com.wd.tech.mvp.wymvp.mvpdotask.IDoTaskContract;
 public interface ISignContract {
     //
     interface ISignView extends IBaseView{
-        //成功
+        //成功   签到
         void onSuccess(SignBean sign);
         //失败
         void onError(String error);
 
-        //成功
+        //成功   任务
         void onTaskSuccess(DoTaskBean doTaskBean);
+
+        //成功   一个月内 签到成功的日期
+        void onSignRecordingSuccess(SignRecordingBean signRecordingBean);
     }
     //
     interface ISignModel{
@@ -39,10 +43,18 @@ public interface ISignContract {
             //失败
             void onError(String error);
         }
+        void getSignRecording(DataCallBack3 dataCallBack3);
+        interface DataCallBack3{
+            //成功
+            void onSignRecordingSuccess(SignRecordingBean signRecordingBean);
+            //失败
+            void onError(String error);
+        }
     }
     //
     interface ISignPresenter{
         void getSign();
         void getDoTask(int taskId);
+        void getSignRecording();
     }
 }
