@@ -307,3 +307,4 @@ public class ConsultaActivity extends BaseActivity<IDetailPresenterImpl> impleme
 //        }
 //    }
 }
+//
