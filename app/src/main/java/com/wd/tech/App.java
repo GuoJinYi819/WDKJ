@@ -36,6 +36,7 @@ public class App extends Application {
     }
 
     private void initFresco() {
+        
         DiskCacheConfig bwImage = DiskCacheConfig.newBuilder(context)
                 .setMaxCacheSize(1024 * 1024 * 10)
                 .setBaseDirectoryPath(Environment.getExternalStorageDirectory())
