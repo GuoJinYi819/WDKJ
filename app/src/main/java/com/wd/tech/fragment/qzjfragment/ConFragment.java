@@ -6,12 +6,21 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.scwang.smartrefresh.header.DropBoxHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.activity.ConsultaActivity;
 import com.wd.tech.adapter.qzjadapter.ConListAdapter;
@@ -47,6 +56,7 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     private List<String> title;
     private ConListAdapter adapter;
     private RecyclerView re;
+    private SmartRefreshLayout smartRefresh;
 
     @Override
     public int initLayout() {
@@ -57,14 +67,33 @@ public class ConFragment extends BaseFragment<BannerPresenterImpl> implements Xb
     public void initView() {
         xb = view.findViewById(R.id.xb);
         re = view.findViewById(R.id.rere);
+        smartRefresh = view.findViewById(R.id.SmartRefresh);
+
+        smartRefresh.setRefreshHeader(new DropBoxHeader(App.context));
+        smartRefresh.setRefreshFooter(new BallPulseFooter(App.context).setSpinnerStyle( SpinnerStyle.Scale));
 
     }
 
     @Override
     public void initListener() {
+
+        smartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                smartRefresh.finishRefresh(true);
+            }
+        });
+
+        smartRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(true);
+            }
+        });
+
         RetrofitUtil instance = RetrofitUtil.getInstance();
         ApiService service = instance.createService();
-        Observable<ConListBean> listData = service.getListData(1, 1, 7);
+        Observable<ConListBean> listData = service.getListData(1, 1, 10);
         listData.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ConListBean>() {
