@@ -214,6 +214,14 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         });
     }
 
+    public List<ConResultBean> getList() {
+        return list;
+    }
+
+    public void setList(List<ConResultBean> list) {
+        this.list = list;
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
