@@ -1,2 +1,2 @@
 rootProject.name='WdDetroy'
-include ':app'
+include ':app', ':arclibrary'

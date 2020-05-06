@@ -26,6 +26,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。   // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi-v7a' //'armeabi-v7a',  'arm64-v8a'
+            moduleName "app"
+        }
+        sourceSets {
+            main {
+                jniLibs.srcDirs = ['libs']
+            }
+        }
+        multiDexEnabled true
     }
     compileOptions {
 //兼容java8
@@ -73,4 +84,8 @@ dependencies {
     //SmartRefresh 上下拉刷新框架
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+    implementation project(path: ':arclibrary')
+    implementation 'com.github.tyhjh:PermissionUtil:v1.0.5'
+    implementation 'com.github.tyhjh:picturePickUtil:v1.0.6'
+    implementation 'com.android.support:multidex:1.0.3'
 }

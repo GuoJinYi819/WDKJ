@@ -301,8 +301,7 @@ public class HomeActivity extends BaseActivity{
         if(help==1){
             //显示
             linearLeftChild.setVisibility(View.VISIBLE);
-            SpUtil instance = SpUtil.getInstance();
-            instance.cloneUser();
+
         }
     }
     @Override

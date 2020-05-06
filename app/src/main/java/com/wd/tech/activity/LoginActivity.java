@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.wd.tech.App;
 import com.wd.tech.R;
+import com.wd.tech.arc.LivenessActivity;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.log.LogBean;
@@ -66,6 +67,22 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         dl = (Button) findViewById(R.id.dl);
         ivwxLogin = findViewById(R.id.ivWxLogin);
         ephone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        findViewById(R.id.ivLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //登入
+                SpUtil instance = SpUtil.getInstance();
+                String face = instance.getSpString("face");
+                if (face.equals("绑定成功")) {
+                    LivenessActivity.flag = 2;
+                    startActivity(new Intent(LoginActivity.this, LivenessActivity.class));
+                    finish();
+                }else {
+                    Toast.makeText(LoginActivity.this, "暂未绑定", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -168,6 +185,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
 
     @Override
     public void initData() {
+
         SpUtil instance = SpUtil.getInstance();
         String phon = instance.getSpString("phone");
         String pw = instance.getSpString("pwd");

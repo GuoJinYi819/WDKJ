@@ -115,6 +115,7 @@
             android:layout_weight="1"
             android:src="@mipmap/common_icon_weixin_n_xxhdpi"/>
         <ImageView
+            android:id="@+id/ivLogin"
             android:layout_width="0dp"
             android:padding="@dimen/dp_8"
             android:layout_height="@dimen/dp_60"

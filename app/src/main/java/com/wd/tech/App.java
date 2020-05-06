@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import androidx.multidex.MultiDex;
+
 import com.bumptech.glide.request.target.ViewTarget;
+import com.example.arclibrary.builder.AcrFaceManagerBuilder;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -28,6 +31,8 @@ public class App extends Application {
         ViewTarget.setTagId(R.id.glide_tag);
 
         WXUtil.regToWx(this);
+        initArcFace();
+        MultiDex.install(this);
     }
 
     private void initFresco() {
@@ -41,4 +46,15 @@ public class App extends Application {
                 .build();
         Fresco.initialize(context,build);
     }
+    private void initArcFace() {
+        new AcrFaceManagerBuilder().setContext(this)
+                .setFreeSdkAppId(Constants.FREESDKAPPID)
+                .setFdSdkKey(Constants.FDSDKKEY)
+                .setFtSdkKey(Constants.FTSDKKEY)
+                .setFrSdkKey(Constants.FRSDKKEY)
+                .setLivenessAppId(Constants.LIVENESSAPPID)
+                .setLivenessSdkKey(Constants.LIVENESSSDKKEY)
+                .create();
+    }
+
 }
