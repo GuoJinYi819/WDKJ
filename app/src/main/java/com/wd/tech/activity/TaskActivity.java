@@ -66,7 +66,7 @@ public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implem
                 int status = resultBean.getStatus();
                 if(status==2){
                     //跳
-                    Intent intent = new Intent(TaskActivity.this, SigninActivity.class);
+                    Intent intent = new Intent(TaskActivity.this, I8ShowSignCalendarActivity.class);
                     startActivity(intent);
                 }
             }
@@ -103,9 +103,14 @@ public class TaskActivity extends BaseActivity<UserTaskListPresenterImpl> implem
         btnToSharedWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //唤起微信   好像没用
-                WXUtil.callWX();
-                Toast.makeText(TaskActivity.this,"分享",Toast.LENGTH_SHORT).show();
+                //跳转  资讯首页   分享
+                ResultBean resultBean = result.get(4);
+                int status = resultBean.getStatus();
+                if(status==2){
+                    //跳
+                    Intent intent = new Intent(TaskActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //去看 广告
