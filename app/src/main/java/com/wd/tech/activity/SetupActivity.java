@@ -67,6 +67,15 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
         tvSetUpintegralWy = (TextView) findViewById(R.id.tvSetUpintegralWy);
         tvSetUpWhetherVipWy = (TextView) findViewById(R.id.tvSetUpWhetherVipWy);
         tvSetUpWhetherFaceIdWy = (TextView) findViewById(R.id.tvSetUpWhetherFaceIdWy);
+        findViewById(R.id.tvOutLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SetupActivity.this, HomeActivity.class);
+                intent.putExtra("help",1);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     public void initListener() {

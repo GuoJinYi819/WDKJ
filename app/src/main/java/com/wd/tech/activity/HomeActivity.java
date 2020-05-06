@@ -45,6 +45,8 @@ public class HomeActivity extends BaseActivity{
     private LinearLayout linearNoticeWy;
     private LinearLayout linearSetupWy;
     private android.widget.ImageView imgVIPWy;
+    private LinearLayout linearLeft;
+    private LinearLayout linearLeftChild;
 
     @Override
     public int initLayout() {
@@ -83,6 +85,11 @@ public class HomeActivity extends BaseActivity{
         String headPic = instance.getSpString("headPic");
         String nickName = instance.getSpString("nickName");
         String signature = instance.getSpString("signature");
+
+        linearLeft = findViewById(R.id.linearLeft);
+        linearLeftChild = findViewById(R.id.linearLeftChild);
+
+
         //判断是否为空
         if(!TextUtils.isEmpty(headPic)){
             imgMyTopWy.setImageURI(headPic);
@@ -255,9 +262,25 @@ public class HomeActivity extends BaseActivity{
                 startActivity(intent);
             }
         });
+        linearLeftChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     public void initData() {
+        Intent intent = getIntent();
+        int help = intent.getIntExtra("help", -1);
+        if(help==1){
+            //显示
+            linearLeftChild.setVisibility(View.VISIBLE);
+            SpUtil instance = SpUtil.getInstance();
+            instance.cloneUser();
+        }
     }
     @Override
     public BasePresenter initPresenter() {

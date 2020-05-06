@@ -67,4 +67,9 @@ public class SpUtil {
         edit.remove(key);
         edit.commit();
     }
+    public void cloneUser(){
+        edit.remove("userId");
+        edit.remove("sessionId");
+        edit.commit();
+    }
 }
