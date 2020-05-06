@@ -1,8 +1,5 @@
 package com.wd.tech.activity;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,8 +14,8 @@ import com.wd.tech.R;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.fragment.wyfragment.signcalendar.SignCalendar;
-import com.wd.tech.fragment.wyfragment.signcalendar.SignCalendarReq;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
 
@@ -34,8 +31,8 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
     private String date;
     private TextView btn_sign;
     private TextView tv_sign_year_month;
-    private SignCalendarReq signCalendarReq;
-    private SignCalendarReq.DataBean dataBean;
+    //private SignCalendarReq signCalendarReq;
+    //private SignCalendarReq.DataBean dataBean;
     List<String> list = new ArrayList<>();//list中存储的格式为2019-06-02
     private int month;
     private int year;
@@ -48,6 +45,10 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
     private ImageView signBack;
     private boolean isSign;
     private boolean isChecked=false;
+    private List<String> result;
+    private String[] splitDay;
+    private String string;
+
     @Override
     public int initLayout() {
         return R.layout.activity_sign_calendar;
@@ -66,60 +67,10 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
         rlQuedingBtn = findViewById(R.id.rl_queding_btn);
         rlBtnSign = findViewById(R.id.rl_btn_sign);
 
+
         //接收传递过来的数据
-        final SignCalendarReq signCalendarReq = (SignCalendarReq) getIntent().getSerializableExtra("userInfos");
+        //SignRecordingBean signRecordingBean = (SignRecordingBean) getIntent().getSerializableExtra("userInfos");
 
-        //获取当前的月份
-        month = Calendar.getInstance().get(Calendar.MONTH);
-        //获取当前的年份
-        year = Calendar.getInstance().get(Calendar.YEAR);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // 获取当前时间
-        Date curDate = new Date(System.currentTimeMillis());
-        date = formatter.format(curDate);
-
-        //设置当前日期
-        tv_sign_year_month.setText(year + "年" + (month + 1) + "月");
-
-        if (signCalendarReq != null) {
-            if (signCalendarReq.getState().getCode() == 1) {//1成功，0失败
-                dataBean = signCalendarReq.getData();
-                //获取当月已签到的日期
-                String signDay = dataBean.getSignDay();
-                String[] splitDay = signDay.split(",");
-
-                //list中存储的格式为2019-06-02
-                for (int i = 0; i < splitDay.length; i++) {
-                    if (Integer.parseInt(splitDay[i]) < 10) {
-                        if (month < 10) {
-                            list.add(year + "-0" + (month + 1) + "-0" + splitDay[i]);
-                        } else {
-                            list.add(year + "-" + (month + 1) + "-0" + splitDay[i]);
-                        }
-
-                    } else {
-                        if (month < 10) {
-                            list.add(year + "-0" + (month + 1) + "-" + splitDay[i]);
-                        } else {
-                            list.add(year + "-" + (month + 1) + "-" + splitDay[i]);
-                        }
-                    }
-                }
-
-
-                calendar.addMarks(list, 0);
-
-                if (dataBean.getIsSign() == 1) {//1是已签到，0是未签到
-                    rlBtnSign.setBackgroundResource(R.drawable.btn_sign_calendar_no);
-                    btn_sign.setText("已签到");
-                    rlBtnSign.setClickable(false);
-                } else {
-                    rlBtnSign.setBackgroundResource(R.drawable.btn_sign_calendar);
-                    btn_sign.setText("签 到");
-                }
-            }
-        }
     }
 
     @Override
@@ -159,6 +110,7 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
 
     @Override
     public void initData() {
+        presenter.getSignRecording();
     }
     private void signCalendarData() {
         //模拟请求后台数据签到已成功
@@ -190,7 +142,7 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
     @Override
     public void onSuccess(SignBean sign) {
         String message = sign.getMessage();
-        Toast.makeText(I8ShowSignCalendarActivity.this,message,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(I8ShowSignCalendarActivity.this,message,Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onError(String error) {
@@ -199,5 +151,97 @@ public class I8ShowSignCalendarActivity extends BaseActivity<SignPresenterImpl> 
     public void onTaskSuccess(DoTaskBean doTaskBean) {
         String message = doTaskBean.getMessage();
         Log.d("==", "onTaskSuccess: "+message);
+    }
+
+    @Override
+    public void onSignRecordingSuccess(SignRecordingBean signRecordingBean) {
+        //当月  已签到  成功
+        result = signRecordingBean.getResult();
+        signRecordingBean.setCode(1);
+        signRecordingBean.setConSign(1);
+        signRecordingBean.setIsSign(0);
+
+        //获取当前的月份
+        month = Calendar.getInstance().get(Calendar.MONTH);
+        //获取当前的年份
+        year = Calendar.getInstance().get(Calendar.YEAR);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        // 获取当前时间
+        Date curDate = new Date(System.currentTimeMillis());
+        date = formatter.format(curDate);
+
+        //设置当前日期
+        tv_sign_year_month.setText(year + "年" + (month + 1) + "月");
+
+        if (signRecordingBean != null) {
+            if (signRecordingBean.getCode() == 1) {//1成功，0失败
+                //dataBean = signCalendarReq.getData();
+                //获取当月已签到的日期
+                //String signDay = dataBean.getSignDay();
+                //String[] splitDay = signDay.split(",");
+                Log.d("===", "onSignRecordingSuccess: "+result);
+                String str = result.toString();
+                String substring = str.substring(1, str.length() - 1);
+                String trim = substring.trim();
+                Log.d("===", "onSignRecordingSuccess: "+substring);
+                String[] split = trim.split(",");
+                Log.d("===", "onSignRecordingSuccess: "+split[0]);
+                //循环  截出  日
+                StringBuffer stringBuffer = new StringBuffer();
+                for(int i=0;i<split.length;i++){
+                    String[] split1 = split[i].split("-");
+                    String s = split1[2];
+                    stringBuffer.append(s+",");
+                }
+                String s1 = stringBuffer.toString();
+                splitDay= s1.split(",");
+                Log.d("===", "onSignRecordingSuccess: "+splitDay[0]);
+                int i1 = Integer.parseInt(splitDay[0]);
+                Log.d("===", "onSignRecordingSuccess: "+i1);
+               /* for(int i=0;i<result.size();i++){
+                    splitDay[i] =result.get(i);
+                }*/
+                /*signRecordingBean.setConSign(1);
+                signRecordingBean.setSignDay(splitDay);
+                if (signRecordingBean.getSignDay()!=null){
+                    signRecordingBean.setConSign(1);
+                }
+                else {
+                    signRecordingBean.setConSign(2);
+                }*/
+                //list中存储的格式为2019-06-02
+                for (int i = 0; i < splitDay.length; i++) {
+                    signRecordingBean.setSignDay(splitDay);
+                    if (Integer.parseInt(splitDay[i]) < 10) {
+                        if (month < 10) {
+                            list.add(year + "-0" + (month + 1) + "-0" + splitDay[i]);
+                        } else {
+                            list.add(year + "-" + (month + 1) + "-0" + splitDay[i]);
+                        }
+
+                    } else {
+                        if (month < 10) {
+                            list.add(year + "-0" + (month + 1) + "-" + splitDay[i]);
+                        } else {
+                            list.add(year + "-" + (month + 1) + "-" + splitDay[i]);
+                        }
+                    }
+                }
+
+
+                calendar.addMarks(list, 0);
+
+                if (signRecordingBean.getIsSign() == 1) {//1是已签到，0是未签到
+                    rlBtnSign.setBackgroundResource(R.drawable.btn_sign_calendar_no);
+                    btn_sign.setText("已签到");
+                    rlBtnSign.setClickable(false);
+                } else {
+                    rlBtnSign.setBackgroundResource(R.drawable.btn_sign_calendar);
+                    btn_sign.setText("签 到");
+                    signRecordingBean.setIsSign(1);
+                }
+            }
+        }
     }
 }
