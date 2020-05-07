@@ -250,10 +250,11 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
             int whetherFaceId = result.getWhetherFaceId();
             //设置
             SpUtil instance = SpUtil.getInstance();
-            instance.saveInt("userId",userId);
-            instance.saveString("sessionId",sessionId);
+            instance.saveInt("wxUserId",userId);
+            instance.saveString("wxSessionId",sessionId);
             instance.saveString("phone",phone);
             instance.saveString("pwd",pwd);
+            Log.d("===", "onSuccess: "+pwd);
             //个人 数据
             instance.saveString("headPic",headPic);
             instance.saveString("nickName",nickName);
