@@ -153,4 +153,6 @@ public interface ApiUrl {
     String WXLOGIN = "https://mobile.bwstudent.com/techApi/user/v1/weChatLogin";
     //支付
     String PAY = "tool/verify/v1/pay";
+    //当月所有签到的日期
+    String SIGNRECORDING_URL="user/verify/v1/findUserSignRecording";
 }

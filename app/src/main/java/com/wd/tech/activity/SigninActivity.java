@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wd.tech.R;
+import com.wd.tech.adapter.wyadapter.AdapterDate;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.bean.wybean.beandotask.DoTaskBean;
 import com.wd.tech.bean.wybean.beansign.SignBean;
+import com.wd.tech.bean.wybean.beansignrecording.SignRecordingBean;
 import com.wd.tech.mvp.wymvp.mvpsign.ISignContract;
 import com.wd.tech.mvp.wymvp.mvpsign.SignPresenterImpl;
 import com.wd.tech.view.SignTimeView;
@@ -43,7 +45,7 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
                 finish();
             }
         });
-        //签到
+        //签到    先不让他点
         signTimeViewWy.setOnSignedSuccess(new SignTimeView.OnSignedSuccess() {
             @Override
             public void OnSignedSuccess() {
@@ -54,6 +56,8 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
         btnSignWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AdapterDate adapterDate = new AdapterDate(SigninActivity.this);
+                adapterDate.status();
                 //变个色
                 isChecked=true;
                 if(isChecked){
@@ -85,5 +89,10 @@ public class SigninActivity extends BaseActivity<SignPresenterImpl> implements I
     public void onTaskSuccess(DoTaskBean doTaskBean) {
         String message = doTaskBean.getMessage();
         Log.d("==", "onTaskSuccess: "+message);
+    }
+
+    @Override
+    public void onSignRecordingSuccess(SignRecordingBean signRecordingBean) {
+        //当月 签到 成功
     }
 }

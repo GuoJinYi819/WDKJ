@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wd.tech.App;
 import com.wd.tech.R;
+import com.wd.tech.arc.LivenessActivity;
 import com.wd.tech.base.BaseActivity;
 import com.wd.tech.base.BasePresenter;
 import com.wd.tech.bean.wybean.beanmodifyheadPic.ModifyHeadPicBean;
@@ -32,6 +33,7 @@ import com.wd.tech.bean.wybean.beanselectuser.ResultBean;
 import com.wd.tech.bean.wybean.beanselectuser.SelectUserBean;
 import com.wd.tech.mvp.wymvp.mvpselectuser.ISelectUserContract;
 import com.wd.tech.mvp.wymvp.mvpselectuser.SelectUserPresenterImpl;
+import com.wd.tech.net.SpUtil;
 import com.wd.tech.net.TimeToUtil;
 
 import java.io.File;
@@ -67,6 +69,15 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
         tvSetUpintegralWy = (TextView) findViewById(R.id.tvSetUpintegralWy);
         tvSetUpWhetherVipWy = (TextView) findViewById(R.id.tvSetUpWhetherVipWy);
         tvSetUpWhetherFaceIdWy = (TextView) findViewById(R.id.tvSetUpWhetherFaceIdWy);
+        findViewById(R.id.tvOutLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SetupActivity.this, HomeActivity.class);
+                intent.putExtra("help",1);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     public void initListener() {
@@ -109,6 +120,14 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
                 //跳
                 Intent intent = new Intent(SetupActivity.this, ModifyEmailActivity.class);
                 startActivity(intent);
+            }
+        });
+        tvSetUpWhetherFaceIdWy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //注册
+                LivenessActivity.flag = 1;
+                startActivityForResult(new Intent(SetupActivity.this, LivenessActivity.class),11);
             }
         });
     }
@@ -171,6 +190,14 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 从相册返回的数据
+        if(requestCode==11&&resultCode==11){
+            SpUtil instance = SpUtil.getInstance();
+            String face = instance.getSpString("face");
+            if (face.equals("绑定成功")) {
+                tvSetUpWhetherFaceIdWy.setText("绑定成功");
+                tvSetUpWhetherFaceIdWy.setOnClickListener(null);
+            }
+        }
         if(requestCode ==0) {
             if(data !=null) {
                 Uri uri = data.getData();
@@ -238,12 +265,7 @@ public class SetupActivity extends BaseActivity<SelectUserPresenterImpl> impleme
         }else if(whetherVip==2){
             tvSetUpWhetherVipWy.setText("否");
         }
-        //绑定
-        if(whetherFaceId==1){
-            tvSetUpWhetherFaceIdWy.setText("解除绑定");
-        }else if(whetherFaceId==2){
-            tvSetUpWhetherFaceIdWy.setText("立即绑定");
-        }
+
     }
 
     @Override

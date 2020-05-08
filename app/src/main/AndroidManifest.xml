@@ -5,11 +5,12 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/icon"
+        android:label="维度科技"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.I8ShowSignCalendarActivity"></activity>
         <activity android:name=".activity.AdvertisementActivity"></activity>
         <activity android:name=".activity.ModifyEmailActivity" />
         <activity android:name=".activity.ModifySignatureActivity" />
@@ -62,6 +63,7 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegActivity" />
         <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".arc.LivenessActivity"/>
 
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -73,11 +75,11 @@
 
         </activity>
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>

@@ -19,6 +19,7 @@ import com.wd.tech.net.TimeToUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,8 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
     private int isChecked=-1;
+    //控制一段时间只触发一次事件
+    private long lastOnClickTime=0;
     public CollectionListAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
@@ -103,11 +106,17 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
             public void onClick(View v) {
                 isChecked=position;
                 notifyDataSetChanged();
-                Intent intent = new Intent(context, ConsultaActivity.class);
-                int infoId = result.get(position).getInfoId();
-                intent.putExtra("id",infoId);
-                intent.putExtra("ismoney",2);
-                context.startActivity(intent);
+                //第一次点击的时间（上一次）
+                long timeInMillis = Calendar.getInstance().getTimeInMillis();
+                if(timeInMillis-lastOnClickTime>2000) {
+                    //再次赋值
+                    lastOnClickTime = timeInMillis;
+                    Intent intent = new Intent(context, ConsultaActivity.class);
+                    int infoId = result.get(position).getInfoId();
+                    intent.putExtra("id",infoId);
+                    intent.putExtra("ismoney",2);
+                    context.startActivity(intent);
+                }
             }
         });
     }

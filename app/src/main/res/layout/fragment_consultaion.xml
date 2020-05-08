@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/SmartRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.stx.xhb.xbanner.XBanner
+    <com.wd.tech.custom.PullableScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"
-        app:isShowTips="true"
-        android:id="@+id/xb"
-        app:tipTextSize="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_10"
-        app:clipChildrenLeftRightMargin="@dimen/dp_30"
-        app:pointsPosition="RIGHT"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.stx.xhb.xbanner.XBanner
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_150"
+                app:isShowTips="true"
+                android:id="@+id/xb"
+                app:tipTextSize="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                app:clipChildrenLeftRightMargin="@dimen/dp_30"
+                app:pointsPosition="RIGHT"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rere"/>
-</LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rere"/>
+        </LinearLayout>
+    </com.wd.tech.custom.PullableScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

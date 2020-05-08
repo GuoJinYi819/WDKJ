@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,7 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int id = list.get(position).getId();
                 int whetherPay = list.get(position).getWhetherPay();
                 if (adapterCallBack!=null){
@@ -210,6 +212,14 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
                 WXUtil.wechatShare(1,"a");
             }
         });
+    }
+
+    public List<ConResultBean> getList() {
+        return list;
+    }
+
+    public void setList(List<ConResultBean> list) {
+        this.list = list;
     }
 
     @Override

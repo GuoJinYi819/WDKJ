@@ -2,6 +2,7 @@ package com.wd.tech.adapter.wyadapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.wd.tech.net.SpUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -38,7 +40,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.VipListViewHolder> {
     private List<ResultBean> result = new ArrayList<>();
     private Context context;
-
+    private int isClick=-1;
+    //控制一段时间只触发一次事件
+    private long lastOnClickTime=0;
     public VipListAdapter(List<ResultBean> result, Context context) {
         this.result.addAll(result);
         this.context = context;
@@ -61,15 +65,29 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.VipListV
         int commodityId = result.get(position).getCommodityId();
         SpUtil instance = SpUtil.getInstance();
         instance.saveInt("commodityId",commodityId);
+        //
+        if(isClick==position){
+            holder.linearVIPWy.setBackgroundColor(Color.RED);
+        }else{
+            holder.linearVIPWy.setBackgroundColor(Color.WHITE);
+        }
         holder.linearVIPWy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转
-                ResultBean resultBean = result.get(position);
-                EventBus.getDefault().postSticky(resultBean);
-                //跳
-                Intent intent = new Intent(context, BuyVipActivity.class);
-                context.startActivity(intent);
+                isClick=position;
+                notifyDataSetChanged();
+                //第一次点击的时间（上一次）
+                long timeInMillis = Calendar.getInstance().getTimeInMillis();
+                if(timeInMillis-lastOnClickTime>2000){
+                    //再次赋值
+                    lastOnClickTime=timeInMillis;
+                    //跳转
+                    ResultBean resultBean = result.get(position);
+                    EventBus.getDefault().postSticky(resultBean);
+                    //跳
+                    Intent intent = new Intent(context, BuyVipActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         /*
