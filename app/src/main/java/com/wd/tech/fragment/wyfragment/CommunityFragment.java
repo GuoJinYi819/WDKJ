@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.scwang.smartrefresh.header.DropBoxHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.wd.tech.App;
 import com.wd.tech.R;
 import com.wd.tech.activity.CommentActivity;
 import com.wd.tech.adapter.wyadapter.RecyclerCommunityAdapter;
@@ -47,6 +53,7 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
     private List<String> result2 = new ArrayList<>();
     //刷新次数
     private int count = 10;
+    private int page = 1;
     private SmartRefreshLayout communitySmartWy;
     private List<ResultBean> result;
 
@@ -66,6 +73,8 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
         //订阅
         EventBus.getDefault().register(this);
         communitySmartWy = (SmartRefreshLayout) view.findViewById(R.id.communitySmartWy);
+        communitySmartWy.setRefreshHeader(new DropBoxHeader(App.context));
+        communitySmartWy.setRefreshFooter(new BallPulseFooter(App.context).setSpinnerStyle( SpinnerStyle.Scale));
     }
 
     @Override
@@ -81,10 +90,39 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
             }
         });
         //上拉  下拉
-        communitySmartWy.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        communitySmartWy.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //刷新
+                count=10;
+                presenter.getHome(1, count);
+                presenter.getCommunityCommentList(1, 1, count);
+                //
+                recyclerCommunityAdapter.onRefresh(result);
+                //
+                communitySmartWy.finishRefresh();
+            }
+        });
+
+        communitySmartWy.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 //加载
+                page++;
+                count++;
+                presenter.getHome(page, count);
+                presenter.getCommunityCommentList(1, 1, count);
+                //
+                recyclerCommunityAdapter.onLoadMore(result);
+                //
+                communitySmartWy.finishLoadMore();
+            }
+        });
+        /*communitySmartWy.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                //加载
+                page++;
                 count++;
                 presenter.getHome(1, count);
                 presenter.getCommunityCommentList(1, 1, count);
@@ -105,7 +143,7 @@ public class CommunityFragment extends BaseFragment<HomePresenterImpl> implement
                 //
                 communitySmartWy.finishRefresh();
             }
-        });
+        });*/
     }
 
     //刷新
