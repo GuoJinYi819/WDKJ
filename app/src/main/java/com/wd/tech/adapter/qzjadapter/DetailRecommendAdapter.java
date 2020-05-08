@@ -64,3 +64,4 @@ public class DetailRecommendAdapter extends RecyclerView.Adapter<DetailRecommend
         }
     }
 }
+//
