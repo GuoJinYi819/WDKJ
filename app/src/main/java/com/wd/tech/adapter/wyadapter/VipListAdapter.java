@@ -24,6 +24,7 @@ import com.wd.tech.net.SpUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -75,12 +76,18 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.VipListV
             public void onClick(View v) {
                 isClick=position;
                 notifyDataSetChanged();
-                //跳转
-                ResultBean resultBean = result.get(position);
-                EventBus.getDefault().postSticky(resultBean);
-                //跳
-                Intent intent = new Intent(context, BuyVipActivity.class);
-                context.startActivity(intent);
+                //第一次点击的时间（上一次）
+                long timeInMillis = Calendar.getInstance().getTimeInMillis();
+                if(timeInMillis-lastOnClickTime>2000){
+                    //再次赋值
+                    lastOnClickTime=timeInMillis;
+                    //跳转
+                    ResultBean resultBean = result.get(position);
+                    EventBus.getDefault().postSticky(resultBean);
+                    //跳
+                    Intent intent = new Intent(context, BuyVipActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         /*
