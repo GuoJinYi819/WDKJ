@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private String pwd;
     private String s;
     private ImageView ivwxLogin;
-
+    private long lastClickTime = 0;
     @Override
     public int initLayout() {
         return R.layout.loginactivity;
@@ -112,7 +112,12 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         dl.setOnClickListener(new MyClickListener() {
             @Override
             public void onMyChilk() {
-                login();
+                long now = System.currentTimeMillis();
+                if(now - lastClickTime >2000){
+                    lastClickTime = now;
+                    Log.e("1111","perform click!!!");
+                    login();
+                }
             }
         });
         kszc.setOnClickListener(new View.OnClickListener() {
