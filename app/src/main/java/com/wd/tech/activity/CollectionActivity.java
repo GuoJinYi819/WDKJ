@@ -136,9 +136,11 @@ public class CollectionActivity extends BaseActivity<CollectionListPresenterImpl
     @Override
     public void onSuccess(CollectionListBean collectionList) {
         result = collectionList.getResult();
-        //适配器
-        collectionListAdapter = new CollectionListAdapter(result, CollectionActivity.this);
-        recyclerCollectionListWy.setAdapter(collectionListAdapter);
+        if(result!=null){
+            //适配器
+            collectionListAdapter = new CollectionListAdapter(result, CollectionActivity.this);
+            recyclerCollectionListWy.setAdapter(collectionListAdapter);
+        }
     }
     @Override
     public void onCancleCollectionSuccess(CancelCollectionBean cancelCollectionBean) {
