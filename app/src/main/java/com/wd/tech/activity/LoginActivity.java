@@ -46,6 +46,8 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
     private android.widget.EditText ephone;
     private android.widget.EditText epwd;
     private android.widget.TextView kszc;
+
+    private long lastClickTime = 0;
     private android.widget.Button dl;
     private String phone;
     private String pwd;
@@ -95,7 +97,13 @@ public class LoginActivity extends BaseActivity<LogPresenterImpl> implements Log
         dl.setOnClickListener(new MyClickListener() {
             @Override
             public void onMyChilk() {
-                login();
+                long now = System.currentTimeMillis();
+                if(now - lastClickTime >1000){
+                    lastClickTime = now;
+                    Log.e("1111","perform click!!!");
+                    login();
+                }
+
             }
         });
         kszc.setOnClickListener(new View.OnClickListener() {

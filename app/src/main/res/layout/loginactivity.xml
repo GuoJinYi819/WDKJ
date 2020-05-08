@@ -23,6 +23,7 @@
             android:layout_marginRight="@dimen/dp_35"
             android:id="@+id/ephone"
             android:textColor="#fff"
+            android:numeric="integer"
             android:hint="手机号"
             android:theme="@style/MyEditText"
             />

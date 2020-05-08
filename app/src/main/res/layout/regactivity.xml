@@ -54,6 +54,7 @@
             android:id="@+id/ephone"
             android:textColor="#fff"
             android:hint="手机号"
+            android:maxLength="11"
             android:theme="@style/MyEditText"
             />
     </LinearLayout>
