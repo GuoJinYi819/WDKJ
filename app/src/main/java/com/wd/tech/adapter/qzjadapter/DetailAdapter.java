@@ -167,3 +167,4 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHoder>
         void onId(int id,int integral);
     }
 }
+//

@@ -85,3 +85,4 @@ public class DetailCommentAdapter extends RecyclerView.Adapter<DetailCommentAdap
         return res;
     }
 }
+//

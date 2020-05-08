@@ -80,3 +80,4 @@ public class SeachAdapter extends RecyclerView.Adapter<SeachAdapter.ViewHoder> {
         return res;
     }
 }
+//
