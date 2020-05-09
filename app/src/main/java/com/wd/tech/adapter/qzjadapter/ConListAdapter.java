@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.wd.tech.R;
 import com.wd.tech.bean.gjybean.WxBean;
 import com.wd.tech.bean.qzjbean.consultationlist.ConResultBean;
@@ -87,20 +89,23 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         });
         int whetherCollection = list.get(position).getWhetherCollection();
         Resources resources = context.getResources();
+
         if (whetherCollection==1){
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
-            holder.xh.setImageBitmap(bitmap);
+
+            holder.likebutton.setLiked(true);
         }else {
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
-            holder.xh.setImageBitmap(bitmap);
+
+            holder.likebutton.setLiked(false);
         }
-        holder.xh.setOnClickListener(new View.OnClickListener() {
+        holder.likebutton.setOnLikeListener(new OnLikeListener() {
             @Override
-            public void onClick(View v) {
+            public void liked(LikeButton likeButton) {
                 int whetherCollection1 = list.get(position).getWhetherCollection();
                 if (whetherCollection1==1){
                     Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
-                    holder.xh.setImageBitmap(bitmap);
+
                     list.get(position).setWhetherCollection(2);
                     String trim = holder.xhs.getText().toString().trim();
                     Integer integer = Integer.valueOf(trim);
@@ -136,7 +141,84 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
 
                 }else if (whetherCollection1==2){
                     Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
-                    holder.xh.setImageBitmap(bitmap);
+
+                    list.get(position).setWhetherCollection(1);
+                    String trim = holder.xhs.getText().toString().trim();
+                    Integer integer = Integer.valueOf(trim);
+                    integer++;
+                    holder.xhs.setText(integer+"");
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    int id = list.get(position).getId();
+                    Observable<GreatBean> delete = instance.createService().getAdd(id);
+                    delete.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<GreatBean>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(GreatBean value) {
+                                    String message = value.getMessage();
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                int whetherCollection1 = list.get(position).getWhetherCollection();
+                if (whetherCollection1==1){
+                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+
+                    list.get(position).setWhetherCollection(2);
+                    String trim = holder.xhs.getText().toString().trim();
+                    Integer integer = Integer.valueOf(trim);
+                    integer--;
+                    holder.xhs.setText(integer+"");
+                    RetrofitUtil instance = RetrofitUtil.getInstance();
+                    int id = list.get(position).getId();
+                    Observable<GreatBean> delete = instance.createService().getDelete(id);
+                    delete.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<GreatBean>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(GreatBean value) {
+                                    String message = value.getMessage();
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                }else if (whetherCollection1==2){
+                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+
                     list.get(position).setWhetherCollection(1);
                     String trim = holder.xhs.getText().toString().trim();
                     Integer integer = Integer.valueOf(trim);
@@ -172,6 +254,84 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
                 }
             }
         });
+//        holder.xh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int whetherCollection1 = list.get(position).getWhetherCollection();
+//                if (whetherCollection1==1){
+//                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
+//                    holder.xh.setImageBitmap(bitmap);
+//                    list.get(position).setWhetherCollection(2);
+//                    String trim = holder.xhs.getText().toString().trim();
+//                    Integer integer = Integer.valueOf(trim);
+//                    integer--;
+//                    holder.xhs.setText(integer+"");
+//                    RetrofitUtil instance = RetrofitUtil.getInstance();
+//                    int id = list.get(position).getId();
+//                    Observable<GreatBean> delete = instance.createService().getDelete(id);
+//                    delete.subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(new Observer<GreatBean>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onNext(GreatBean value) {
+//                                    String message = value.getMessage();
+//                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//
+//                                }
+//                            });
+//
+//                }else if (whetherCollection1==2){
+//                    Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
+//                    holder.xh.setImageBitmap(bitmap);
+//                    list.get(position).setWhetherCollection(1);
+//                    String trim = holder.xhs.getText().toString().trim();
+//                    Integer integer = Integer.valueOf(trim);
+//                    integer++;
+//                    holder.xhs.setText(integer+"");
+//                    RetrofitUtil instance = RetrofitUtil.getInstance();
+//                    int id = list.get(position).getId();
+//                    Observable<GreatBean> delete = instance.createService().getAdd(id);
+//                    delete.subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(new Observer<GreatBean>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onNext(GreatBean value) {
+//                                    String message = value.getMessage();
+//                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//
+//                                }
+//                            });
+//                }
+//            }
+//        });
 //        if (whetherCollection==1){
 //
 //            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
@@ -236,8 +396,9 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
         private final TextView sjc;
         private final TextView xhs;
         private final TextView fxs;
-        private final ImageView xh;
+
         private final ImageView fx;
+        private final LikeButton likebutton;
 
         public ViewHoder(@NonNull View itemView) {
             super(itemView);
@@ -248,8 +409,9 @@ public class ConListAdapter extends RecyclerView.Adapter<ConListAdapter.ViewHode
             sjc = itemView.findViewById(R.id.sjc);
             xhs = itemView.findViewById(R.id.xhs);
             fxs = itemView.findViewById(R.id.fxs);
-            xh = itemView.findViewById(R.id.xh);
+
             fx = itemView.findViewById(R.id.fx);
+            likebutton = itemView.findViewById(R.id.likebutton);
         }
     }
     public String getStandardDate(String timeStr) {

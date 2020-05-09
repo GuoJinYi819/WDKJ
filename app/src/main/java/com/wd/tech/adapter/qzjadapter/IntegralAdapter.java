@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.like.LikeButton;
 import com.wd.tech.R;
 import com.wd.tech.bean.qzjbean.detail.DetailBean;
 
@@ -55,14 +56,15 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
         holder.sjc.setText(standardDate);
         holder.fxs.setText(list.getShare()+"");
         holder.xhs.setText(list.getPraise()+"");
+        holder.likebutton.setVisibility(View.GONE);
         int whetherCollection = list.getWhetherCollection();
         Resources resources = context.getResources();
         if (whetherCollection==1){
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxhxhxh);
-            holder.xh.setImageBitmap(bitmap);
+            holder.likebutton.setLiked(true);
         }else {
             Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.xhxh);
-            holder.xh.setImageBitmap(bitmap);
+           holder.likebutton.setLiked(false);
         }
         Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.common_icon_collect_n_xxhdpi);
         holder.fx.setImageBitmap(bitmap);
@@ -81,8 +83,10 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
         private final TextView sjc;
         private final TextView xhs;
         private final TextView fxs;
-        private final ImageView xh;
+
         private final ImageView fx;
+        private final LikeButton likebutton;
+
         public ViewHoder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img);
@@ -92,8 +96,9 @@ public class IntegralAdapter extends RecyclerView.Adapter<IntegralAdapter.ViewHo
             sjc = itemView.findViewById(R.id.sjc);
             xhs = itemView.findViewById(R.id.xhs);
             fxs = itemView.findViewById(R.id.fxs);
-            xh = itemView.findViewById(R.id.xh);
+
             fx = itemView.findViewById(R.id.fx);
+            likebutton = itemView.findViewById(R.id.likebutton);
         }
     }
     public String getStandardDate(String timeStr) {

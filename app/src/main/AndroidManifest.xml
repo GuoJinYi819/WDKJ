@@ -6,7 +6,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="维度科技"
+
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
